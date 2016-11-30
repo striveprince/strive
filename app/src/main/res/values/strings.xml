@@ -1,0 +1,133 @@
+<resources>
+    <string name="app_name">点看宁波</string>
+
+    <string name="version">版本号：V&#160;%1s</string>
+    <string name="title_activity_topic">话题</string>
+    <string name="title_activity_topic_content">话题详情</string>
+    <string name="zero_zero">00</string>
+    <string name="know">我知道了</string>
+    <string name="news_description">新闻内容</string>
+
+    <string name="image_title">图片标题内容</string>
+    <string name="name">姓名</string>
+    <string name="add_name">起个响亮的名字</string>
+    <string name="notice">公告</string>
+    <string name="private_explain">个人说明</string>
+    <string name="zhangsan">张三</string>
+    <string name="register_sms_code">短信验证码</string>
+    <string name="register_get_code">发送验证码</string>
+    <string name="main_radio_news">新闻</string>
+    <string name="news_title">新闻标题</string>
+    <string name="main_radio_tv">视听</string>
+    <string name="main_radio_interact">互动</string>
+    <string name="main_radio_mail">商城</string>
+    <string name="main_tadio_home_pager">首页</string>
+    <string name="login">登\t\t\t\t录</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="commit">提&#160;&#160;&#160;交</string>
+    <string name="send">发送</string>
+    <string name="confirm_order">确认支付</string>
+    <string name="modify">修改</string>
+    <string name="finish_info">完善个人资料</string>
+    <string name="private_info">个人资料</string>
+    <string name="my_award">我的奖品</string>
+    <string name="my_card">我的卡券</string>
+    <string name="sms_code">短信验证码</string>
+    <string name="score_shop">积分:%1$d</string>
+    <string name="score">积分</string>
+    <string name="setting">设置</string>
+    <string name="feedback">客服</string>
+    <string name="integer">%1$d</string>
+    <string name="string">%1$s</string>
+    <string name="reply_time">回复于：%1$s</string>
+    <string name="you_have_no_award">你暂时没有任何%1$s奖品</string>
+    <string name="activity_describe">活动说明</string>
+    <string name="mobile_phone">手机号码</string>
+    <string name="choice">选取标签&#8230;</string>
+    <string name="error_data">当前数据获取失败,点击重试!</string>
+    <string name="lotdata">当前数据获取失败,点击重试!当前数据获取失败,
+        点击重试!当前数据获取失败,点击重试!当前数据获取失败,点击重试!当前数据获取失败,
+        点击重试!当前数据获取失败,点击重试!当前数据获取失败,点击重试!当前数据获取失败,</string>
+    <string name="click_refresh">点我刷新</string>
+    <string name="loading">数据加载中&#8230;</string>
+    <string name="ningbo">宁波广播电视集团</string>
+    <string name="no_answer">暂无回答!</string>
+    <string name="reply">回复</string>
+    <string name="only">独家</string>
+    <string name="already_check">已签到</string>
+    <string name="check_introduction">连续%1$d天签到，可获最高奖励</string>
+    <string name="check_add_score">+%1$d</string>
+    <string name="check_success">签到成功</string>
+    <string name="check_continuous">连续签到%1$d天,今日领取</string>
+    <string name="check_continuous_score">+%1$d</string>
+    <!--<string name="check_continuous">连续签到%1$d天,今日领取<font color='#ff4300'><big><big>+%2$d积分</big></big></font></string>-->
+    <!--<font color='#f1c111'><big><big>+dataDto.getScore()+"</big></big></font>-->
+
+    <string name="day">%1$d天</string>
+
+    <string name="back">返回</string>
+    <string name="styled_text">Plain, <b>bold</b>, <i>italic</i>, <b><i>bold-italic</i></b></string>
+    <string name="close">关闭</string>
+    <string name="residue">剩余</string>
+    <string name="navigation">导航</string>
+    <string name="message_center">消息中心</string>
+    <string name="no_topic">暂无话题</string>
+    <string name="express">快递</string>
+    <string name="all_score">合计积分:</string>
+    <string name="popular_activity">&#160;•&#160;热门活动&#160;•&#160;</string>
+    <string name="popular_news">&#160;•&#160;热点新闻&#160;•&#160;</string>
+    <string name="popular">热点</string>
+    <string name="express_way">配送方式</string>
+    <string name="register_account">注册新账号</string>
+    <string name="read_more">阅读更多</string>
+    <string name="confirm_mall">共计1件商品&#160;&#160;合计：</string>
+
+
+    <string name="question">你在哪里遇到的问题：</string>
+    <string name="usually_question">常见的问题</string>
+    <string name="your_question">你遇到的问题</string>
+    <string name="describe_question">请您描述下您遇到的问题</string>
+    <string name="concat_information">联系方式</string>
+    <string name="choose_fill_in">选填</string>
+
+    <string name="feedback_notice">""</string>
+    <string name="feedback_title">Hi,我是点点，请问遇到了什么问题?</string>
+    <string name="load">加载</string>
+    <string name="express_status">物流状态：</string>
+    <string name="express_carriage">承运来源：</string>
+    <string name="express_tracking">运单编号：</string>
+    <string name="phone_official">官方电话：</string>
+    <string name="express_tail_after">物流跟踪</string>
+    <string name="default_address">默认地址</string>
+    <string name="mall_time">截止时间：%1$s</string>
+    <string name="mall_count_down">距离活动结束：</string>
+
+    <!--天-HH:时-mm:分-ss:秒-->
+    <string name="mall_distance_time">-%1$d:天-%2$d:时-%3$d:分-%4$d:秒</string>
+    <string name="mall_price">市场价格：￥%1$d</string>
+    <string name="mall_way">领取方式：%1$s</string>
+    <string name="mall_limit">限购：%1$s份/人</string>
+    <string name="mall_convert">马上兑换</string>
+    <string name="mall_get_time">自取时间：%1$s</string>
+    <string name="mall_get_address">自取地点：%1$s</string>
+    <string name="address">收货地址&#160;&#160;&#160;&#160;%1$s</string>
+    <string name="up_load_time">上传时间：</string>
+    <string name="auditing">审核中</string>
+    <string name="discuss">评论</string>
+    <string name="broke_column_name">&#160;&#160;栏目:&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="broke_column">&#160;&#160;栏目:&#160;&#160;&#160;&#160;&#160;选择所要报料的栏目</string>
+    <string name="broke_title">&#160;&#160;标题:</string>
+    <string name="broke_title_hint">&#160;&#160;不得超过15个字</string>
+    <string name="broke_self">&#160;&#160;我要报料&#8230;</string>
+    <string name="broke_price">*新闻报料一经采纳，将提供奖励</string>
+    <string name="broke_add_view">点击上方图标&#160;&#160;选择要添加的附件</string>
+    <string name="broke_myself">我的报料</string>
+    <string name="broke_column_detail">报料栏目：%1s</string>
+    <string name="address_consignee">收货人</string>
+    <string name="address_consignee_name">请输入收货人姓名</string>
+    <string name="empty">&#160;</string>
+    <string name="null_data">没有数据</string>
+    <string name="skip">跳过%2d</string>
+    <string name="skip_start">跳过</string>
+    <string name="show_share_title">人人都能是明星，秀出你风采就在-点看宁波全民秀</string>
+</resources>

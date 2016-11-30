@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group>
+        <item
+            android:id="@+id/menu_message"
+            android:icon="@mipmap/ic_menu_message"
+            app:actionLayout="@layout/menu_item"
+            android:title="@string/message_center" />
+        <item
+            android:id="@+id/menu_private_info"
+            android:icon="@mipmap/ic_menu_information"
+            android:title="@string/private_info" />
+        <item
+            android:id="@+id/menu_award"
+            android:icon="@mipmap/ic_menu_award"
+            android:title="@string/my_award" />
+        <item
+            android:id="@+id/menu_card"
+            android:icon="@mipmap/ic_menu_card"
+            android:title="@string/my_card" />
+    </group>
+    <item android:title="">
+        <menu>
+            <item
+                android:checkable="true"
+                android:icon="@mipmap/ic_setting"
+                android:title="@string/setting" />
+            <item
+                android:checkable="true"
+                android:icon="@mipmap/ic_feedback"
+                android:title="@string/feedback" />
+        </menu>
+    </item>
+</menu>

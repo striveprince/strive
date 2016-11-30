@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.cutv.ningbo.ui.activity.main.fragment.home.HomePagerHeaderModel" />
+
+        <variable
+            name="slide"
+            type="com.cutv.ningbo.data.entity.HomeSlideEntity" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <include
+                android:id="@+id/header_home"
+                layout="@layout/header_slider_pager"
+                android:layout_height="200dp"
+                android:layout_width="match_parent"
+                app:slide="@{slide}"
+                />
+
+            <LinearLayout
+                android:id="@+id/ll_notice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="66dp"
+                    android:layout_height="14dp"
+                    android:layout_margin="10dp"
+                    android:src="@mipmap/notice_dktt" />
+
+                <TextSwitcher
+                    android:id="@+id/textSwitcher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="7dp"
+                android:background="@color/white"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/head_lin_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:addItem="@{vm.application}" />
+            </HorizontalScrollView>
+
+            <ImageView
+                android:id="@+id/homepager_iv_commet"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="7dp"
+                android:scaleType="centerCrop"
+                android:onClick="@{vm.comment}"
+                android:src="@{vm.commentImage}" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                tools:ignore="contentDescription"
+                android:layout_height="53dp"
+                android:background="@drawable/shape_advertise"
+                android:paddingBottom="5dp"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp"
+                android:paddingTop="5dp"
+                android:visibility="gone" />
+        </LinearLayout>
+        <!-- 首页互动 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="6dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="@string/popular_activity"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10.0dip"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/hudong_img1"
+                        android:layout_width="match_parent"
+                        android:layout_height="100.0dip"
+                        android:background="@mipmap/loading_thumb_2"
+                        android:onClick="@{vm.activity0}"
+                        android:scaleType="fitXY"
+                        android:src="@{vm.activityImage0}" />
+
+                    <com.cutv.ningbo.ui.util.view.AlwaysMarqueeTextView
+                        android:id="@+id/huodong_txt1"
+                        android:layout_width="100.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="5dp"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp"
+                        android:scrollHorizontally="true"
+                        android:text="@{vm.activityText0}"
+                        android:textColor="@color/font_black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/hudong_img2"
+                        android:layout_width="match_parent"
+                        android:onClick="@{vm.activity1}"
+                        android:layout_height="100.0dip"
+                        android:background="@mipmap/loading_thumb_2"
+                        android:scaleType="fitXY"
+                        android:src="@{vm.activityImage1}" />
+
+                    <com.cutv.ningbo.ui.util.view.AlwaysMarqueeTextView
+                        android:id="@+id/huodong_txt2"
+                        android:layout_width="100.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="5dp"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@{vm.activityText1}"
+                        android:textColor="@color/font_black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/hudong_img3"
+                        android:layout_width="match_parent"
+                        android:layout_height="100.0dip"
+                        android:background="@mipmap/loading_thumb_2"
+                        android:scaleType="fitXY"
+                        android:onClick="@{vm.activity2}"
+                        android:src="@{vm.activityImage2}" />
+
+                    <com.cutv.ningbo.ui.util.view.AlwaysMarqueeTextView
+                        android:id="@+id/huodong_txt3"
+                        android:layout_width="100.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="5dp"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:scrollHorizontally="true"
+                        android:text="@{vm.activityText2}"
+                        android:textColor="@color/font_black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="6dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/popular_news"
+            android:textSize="16sp" />
+    </LinearLayout>
+</layout>

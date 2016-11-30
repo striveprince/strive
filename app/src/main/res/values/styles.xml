@@ -1,0 +1,201 @@
+<resources>
+
+    <!-- Toolbar主题设置-->
+    <style name="ToolBarTheme" parent="@style/ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColorSecondary">#ffffff</item>
+        <item name="android:colorBackground">#aa333333</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle
+        </item> <!--新增一个item，用于控制menu-->
+         <item name="android:actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+    </style>
+    <!--修改toolbar弹出菜单的位置-->
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--把该属性改为false即可使menu位置位于toolbar之下-->
+    </style>
+    <!--修改toolbar菜单按钮的style-->
+    <style name="OverflowButtonStyle" parent="@android:style/Widget.ActionButton.Overflow">
+        <item name="android:src">@mipmap/ic_zhankai</item>
+    </style>
+    -->
+    <!--toolbar菜单按钮的颜色-->
+    <!--<style name="ActionButton.Overflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow"></style>-->
+
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Toolbar">
+
+        <item name="android:src">@mipmap/ic_zhankai</item>
+    </style>
+
+    <style name="Toolbar.Transparent">
+
+
+        <!--toolbar文字颜色 -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!--toolbar按钮颜色 -->
+        <item name="colorControlNormal">?android:attr/textColorPrimary</item>
+    </style>
+
+
+    <!-- Base application theme. -->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<menu_item name="android:windowIsTranslucent">true</menu_item>-->
+    <!--</style>-->
+
+    <style name="Translucent_NoTitle" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <!-- 设置自定义布局的背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 设置window背景透明，也就是去边框 -->
+    </style>
+
+    <style name="shake_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowEnterAnimation">@anim/scale_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/scale_dialog_out</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="shake_anim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/scale_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/scale_dialog_out</item>
+    </style>
+
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
+    <style name="bottom_navigation">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@drawable/selector_textcolor</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:background">@null</item>
+        <item name="android:button">@null</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:checked">true</item>
+        <item name="android:paddingTop">5dip</item>
+    </style>
+
+    <color name="red_shake_answer_text">#ed7f21</color>
+    <color name="alpha_frameLayout_black">#00000000</color>
+
+    <color name="yellow_shake_line">#f6de8c</color>
+    <color name="yellow_text">#fdc063</color>
+    <color name="gray_font">#cccccc</color>
+
+
+    <color name="swiperefresh_color1">#ff00ddff</color>
+    <color name="swiperefresh_color2">#ffffbb33</color>
+    <color name="swiperefresh_color3">#ffff4444</color>
+    <color name="swiperefresh_color4">#ffaa66cc</color>
+    <color name="yellow_line">#fff8c6</color>
+    <color name="orange_font">#f5a623</color>
+    <color name="alpha">#00000000</color>
+    <color name="check_success">#653000</color>
+    <color name="answer_green">#71d321</color>
+    <!--<color name="gray_">#BAB399</color>-->
+    <color name="blue_notice">#5AADFC</color>
+    <color name="gray_audio">#d8d8d8</color>
+    <color name="yellow_check">#c2870e</color>
+    <color name="gray_feedback">#eeeeee</color>
+    <color name="pop_background">#a6c5e2</color>
+    <color name="blue_new_tags">#67a6d4</color>
+    <color name="red_new_tags">#ea4c42</color>
+    <color name="gray_line_award">#e6e6e6</color>
+    <color name="red_award_status">#f95308</color>
+    <color name="red_shake_text">#e07474</color>
+    <color name="gray_express">#ff9d9d9d</color>
+    <color name="gray_news">#ff9a9a9a</color>
+    <color name="gray_back">#f6f6f6</color>
+    <color name="background_notice">#fffef4</color>
+    <color name="text_gray_second">#b9b9b9</color>
+    <color name="text_gray_second_half">#7fb9b9b9</color>
+    <color name="text_gray">#9b9b9b</color>
+    <color name="gray_line">#e2e2e2</color>
+    <color name="bg_black_title">#2e2e2e</color>
+    <color name="bg_white_seven">#7fffffff</color>
+    <color name="font_content">#aaaaaa</color>
+
+    <color name="red_shop_name">#fc2b07</color>
+    <color name="red_shop">#f95a12</color>
+    <color name="red_register">#fe7c26</color>
+    <color name="red_shop_half">#7ff95a12</color>
+    <color name="red_black_half">#3f000000</color>
+    <color name="black_half">#7f000000</color>
+    <color name="black_shop">#3f3f3f</color>
+    <color name="gray_address">#6f6f6f</color>
+    <color name="black_address">#353535</color>
+    <color name="forget_password">#8aeadd</color>
+    <color name="gray_text_navigation_down">#8b8b8b</color>
+    <color name="blue_font_up">#06a7e1</color>
+    <color name="blue_font_up_half">#7f06a7e1</color>
+    <color name="blue_titlebar_color">#ff06a8e1</color>
+    <color name="black">#000000</color>
+    <color name="black_trans">#3f000000</color>
+    <color name="titlecolor">#ffffffff</color>
+    <color name="scontentcolor">#ff313131</color>
+    <color name="sgraycolor">#ffbbbbbb</color>
+    <color name="blackcolor2">#ff5d5d5f</color>
+    <color name="graycolor2">#ff969696</color>
+    <color name="sgraycolor2">#ffdbdbdb</color>
+    <color name="graycolor">#fff0f0f0</color>
+    <color name="theme_color">#ff06a8e1</color>
+    <color name="theme_color_80">#4006a8e1</color>
+    <color name="red_color_2">#fffa433c</color>
+    <color name="blue_color_2">#ff3fbefe</color>
+    <color name="blackcolor">#ff000000</color>
+    <color name="orangecolor">#ffeb6100</color>
+    <color name="whitecolor">#ffffffff</color>
+    <color name="text_common_black">#ff4a4a4a</color>
+    <color name="font_black">#ff333333</color>
+    <color name="font_normal">#ff666666</color>
+    <color name="font_grey">#ff999999</color>
+    <color name="font_red">#ffee563a</color>
+    <color name="font_blue">#ff06a8e1</color>
+    <color name="white">@android:color/white</color>
+    <color name="bg_grey_2">#fff0f0f0</color>
+    <color name="green_font">#57ceca</color>
+    <color name="purple_font">#9e70c9</color>
+    <color name="light_green_font">#aecd52</color>
+    <color name="bg_grey_3">#ffc8c7cc</color>
+    <color name="bg_transparent_grey">#aa333333</color>
+    <color name="blue_show">#1da8de</color>
+    <color name="gray_border">#dedede</color>
+    <color name="red_show_status">#fa6517</color>
+    <!-- 颜色值 -->
+    <color name="yellow_status_broke">#cc9836</color>
+    <color name="yellow_status_broke_half">#7fcc9836</color>
+    <color name="green_status_font">#80c847</color>
+    <color name="green_status_font_half">#7f80c847</color>
+    <!-- titlebar和底bar的背景色, 字体高亮颜色 -->
+    <color name="c_e6e6e6">#e6e6e6</color>
+
+    <dimen name="slidingmenu_offset">60dp</dimen>
+</resources>

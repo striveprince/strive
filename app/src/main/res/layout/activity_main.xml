@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.cutv.ningbo.ui.activity.main.MainViewModel" />
+
+    </data>
+
+    <android.support.v4.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/main_bottom_tab"
+                android:background="@color/white"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <include
+                    android:id="@+id/toolbar"
+                    layout="@layout/toolbar_layout" />
+
+                <FrameLayout
+                    android:id="@+id/tab_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/main_bottom_tab"
+                    android:layout_below="@+id/toolbar" />
+
+                <RadioGroup
+                    android:id="@+id/main_bottom_tab"
+                    android:layout_width="fill_parent"
+                    android:layout_height="55dip"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="bottom"
+                    android:background="@color/white"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:paddingBottom="2.0dip"
+                    android:paddingTop="6.0dip">
+
+                    <RadioButton
+                        android:id="@+id/main_radio_homepager"
+                        style="@style/bottom_navigation"
+                        android:drawableTop="@drawable/main_selector_radio_me"
+                        android:text="@string/main_tadio_home_pager" />
+
+                    <RadioButton
+                        android:id="@+id/main_radio_news"
+                        style="@style/bottom_navigation"
+                        android:drawableTop="@drawable/main_selector_radio_news"
+                        android:text="@string/main_radio_news" />
+
+                    <RadioButton
+                        android:id="@+id/main_radio_video"
+                        style="@style/bottom_navigation"
+                        android:drawableTop="@drawable/main_selector_radio_tv"
+                        android:text="@string/main_radio_tv" />
+
+                    <RadioButton
+                        android:id="@+id/main_radio_interact"
+                        style="@style/bottom_navigation"
+                        android:drawableTop="@drawable/main_selector_radio_interact"
+                        android:text="@string/main_radio_interact" />
+
+                    <RadioButton
+                        android:id="@+id/main_radio_coupon"
+                        style="@style/bottom_navigation"
+                        android:drawableTop="@drawable/main_selector_radio_mail"
+                        android:text="@string/main_radio_mail" />
+                </RadioGroup>
+            </RelativeLayout>
+        </android.support.design.widget.CoordinatorLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@mipmap/bg_menu_myself"
+            app:headerLayout="@layout/item_private_info"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            app:menu="@menu/menu_navigation_view" />
+
+    </android.support.v4.widget.DrawerLayout>
+</layout>

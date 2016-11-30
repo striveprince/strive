@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginBottom="60dp"
+        android:paddingLeft="22dp">
+
+        <ImageView
+            android:id="@+id/civ_menu_circle_head"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/ic_head" />
+        <!--app:border_color="@color/white"-->
+        <!--app:border_width="0dp"-->
+
+        <TextView
+            android:id="@+id/tv_menu_myname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="58dp"
+            android:layout_marginStart="58dp"
+            android:maxEms="5"
+            android:singleLine="true"
+            android:text="@string/add_name"
+            android:textColor="@color/black"
+            android:textSize="18.6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_menu_myname"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/tv_menu_myname"
+            android:text="积分："
+            android:textColor="#06a7e1"
+            android:textSize="13.3dp" />
+
+        <TextView
+            android:id="@+id/tv_menu_myscore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="116.6dp"
+            android:layout_marginTop="33.3dp"
+            android:textColor="#06a7e1"
+            android:textSize="27dp" />
+
+        <ImageView
+            android:id="@+id/iv_menu_checkin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="13.3dp"
+            android:button="@null"
+            android:src="@mipmap/head_qiandao" />
+    </RelativeLayout>
+
+
+   <!-- <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="172.6dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_menu_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableEnd="@drawable/selector_msg"
+            android:drawableLeft="@mipmap/ic_menu_message"
+            android:drawableStart="@mipmap/ic_menu_message"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/selector_msg"
+            android:paddingBottom="13.3dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="13.3dp"
+            android:text="@string/message_center"
+            android:textColor="#ffffff"
+            android:textSize="15.3dp" />
+
+        <RadioButton
+            android:id="@+id/rb_menu_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableLeft="@mipmap/ic_menu_information"
+            android:drawablePadding="10dp"
+            android:paddingBottom="13.3dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="13.3dp"
+            android:text="个人资料"
+            android:textColor="#ffffff"
+            android:textSize="15.3dp" />
+
+        <RadioButton
+            android:id="@+id/rb_menu_award"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableLeft="@mipmap/ic_menu_award"
+            android:drawablePadding="10dp"
+            android:paddingBottom="13.3dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="13.3dp"
+            android:text="我的奖品"
+            android:textColor="#ffffff"
+            android:textSize="15.3dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableLeft="@mipmap/ic_menu_card"
+            android:drawablePadding="10dp"
+            android:paddingBottom="13.3dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="13.3dp"
+            android:text="我的卡券"
+            android:textColor="#ffffff"
+            android:textSize="15.3dp"
+            android:visibility="gone" />
+
+        &lt;!&ndash; <RadioButton
+             android:id="@+id/rb_menu_friend"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:screenButton="@null"
+             android:drawableLeft="@mipmap/ic_haoyou"
+             android:drawablePadding="10dp"
+             android:paddingBottom="13.3dp"
+             android:paddingLeft="30dp"
+             android:paddingTop="13.3dp"
+             android:text="我的好友"
+             android:textColor="#ffffff"
+             android:textSize="15.3dp" />
+ &ndash;&gt;
+        <TextView
+            android:id="@+id/rb_menu_invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableLeft="@mipmap/ic_yaoqing"
+            android:drawablePadding="10dp"
+            android:paddingBottom="13.3dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="13.3dp"
+            android:text="邀请好友"
+            android:textColor="#ffffff"
+            android:textSize="15.3dp" />
+
+
+    </LinearLayout>-->
+
+   <!-- <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="43.3dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp">
+
+        <RadioButton
+            android:id="@+id/rb_menu_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:button="@null"
+            android:drawableLeft="@mipmap/ic_shezhi"
+            android:drawablePadding="10dp"
+            android:text="设置"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/rb_menu_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="44dp"
+            android:background="@null"
+            android:button="@null"
+            android:drawableLeft="@mipmap/ic_feedback"
+            android:drawablePadding="10dp"
+            android:text="客服"
+            android:textColor="@color/white" />
+    </RadioGroup>-->
+
+    <LinearLayout
+        android:id="@+id/menu_rel_null_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_menu_myself"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/menu_iv_login"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="110dp"
+            android:src="@mipmap/ic_head" />
+
+        <TextView
+            android:id="@+id/menu_tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="22dp"
+            android:text="立即登录"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="没有账号？"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/menu_tv_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="马上注册"
+                android:textColor="#ffd512"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

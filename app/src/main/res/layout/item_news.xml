@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="vm"
+            type="com.cutv.ningbo.ui.activity.main.fragment.NewsHolderViewModel" />
+
+        <variable
+            name="entity"
+            type="com.cutv.ningbo.data.entity.HomeSlideEntity" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="@{entity.onClick}"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/rel_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/new_rel_single_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white_selector"
+                android:paddingBottom="5dp"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp"
+                android:paddingTop="13dp"
+                android:visibility="@{vm.singleImage?View.VISIBLE:View.GONE}">
+
+                <ImageView
+                    android:id="@+id/news_tv_img"
+                    android:layout_width="87.0dip"
+                    android:layout_height="65.0dip"
+                    android:layout_marginBottom="8dp"
+                    android:background="@mipmap/loading_thumb_2"
+                    android:scaleType="centerCrop"
+                    android:src="@{entity.index_img}" />
+
+                <TextView
+                    android:id="@+id/news_tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_toEndOf="@+id/news_tv_img"
+                    android:layout_toRightOf="@+id/news_tv_img"
+                    android:lines="1"
+                    android:maxLines="2"
+                    android:text="@{entity.title,default = @string/news_title}"
+                    android:textColor="@color/text_common_black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/news_tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/news_tv_title"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toEndOf="@+id/news_tv_img"
+                    android:layout_toRightOf="@+id/news_tv_img"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="4dp"
+                    android:maxLines="2"
+                    android:text="@{entity.description,default = @string/news_description}"
+                    android:textColor="@color/gray_news"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+
+                <!--<ImageView
+                    android:id="@+id/video_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/news_tv_img"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="@dimen/spacing_tiny"
+                    android:contentDescription="@null"
+                    android:src="@mipmap/video_icon" />-->
+                <LinearLayout
+                    android:id="@+id/news_lin_single_tags"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/news_tv_content"
+                    android:layout_marginTop="3dp"
+                    android:visibility="@{entity.media_type==2||entity.media_type==3?View.VISIBLE:View.GONE}"
+                    >
+
+                    <ImageView
+                        android:id="@+id/news_iv_single_tag"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp" />
+
+                    <!--android:src="@{entity.media_type==2?@drawable/icon_news_video:@drawable/icon_news_audio}"-->
+
+                    <TextView
+                        android:id="@+id/news_tv_single_tags"
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:background="@{entity.media_type==2?@drawable/shape_news_tags_blue:@drawable/shape_news_tags_red}"
+                        android:gravity="center"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:text="@{entity.tags2,default = @string/popular}"
+                        android:textColor="@color/blue_new_tags"
+                        android:textSize="9sp"
+                        />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/new_rel_thirth_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white_selector"
+                android:orientation="vertical"
+                android:paddingBottom="14dp"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp"
+                android:paddingTop="14dp"
+                android:visibility="@{vm.singleImage?View.GONE:View.VISIBLE}">
+
+                <TextView
+                    android:id="@+id/news_tv_title_thrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/news_lin_tag"
+                    android:layout_toStartOf="@+id/news_lin_tag"
+                    android:maxLines="1"
+                    android:text="@{entity.title}"
+                    android:textColor="@color/text_common_black"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@+id/news_lin_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/news_iv_tag"
+                        android:layout_width="12dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="12dp"
+                        android:layout_marginRight="5dp"
+                        android:src="@{entity.media_type==2?@drawable/icon_news_video:@drawable/icon_news_audio}"
+                        />
+                    <!--android:src="@{entity.media_type==2?@drawable/icon_news_video:@drawable/icon_news_audio}"-->
+
+
+                    <TextView
+                        android:id="@+id/news_tv_tags"
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:background="@drawable/shape_news_tags_red"
+                        android:gravity="center"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:text="@string/only"
+                        android:textColor="@color/red_new_tags"
+                        android:textSize="9sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/news_tv_title_thrid"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/new_iv_image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:src="@color/red_color_2" />
+
+                    <ImageView
+                        android:id="@+id/new_iv_image2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginStart="7dp"
+                        android:layout_weight="1"
+                        android:src="@color/red_color_2" />
+
+                    <ImageView
+                        android:id="@+id/new_iv_image3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginStart="7dp"
+                        android:layout_weight="1"
+                        android:src="@color/red_color_2" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line_award" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>
