@@ -1,5 +1,6 @@
 package com.cutv.ningbo.ui.base.viewModel;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -20,6 +21,10 @@ import com.cutv.ningbo.ui.base.respond.Respond;
 
 
 public abstract class HolderViewModel<RD extends Respond,Entity extends BaseEntity> extends BaseViewModel<RD> {
+    public HolderViewModel(Context context) {
+        super(context);
+    }
+
     @Override
     public void saveInstanceState(Bundle outState) {
 

@@ -26,12 +26,11 @@ import javax.inject.Inject;
 
 
 public class NewsHolderViewModel extends HolderViewModel<Respond,HomeSlideEntity> {
-    private Context context;
     private HomeSlideEntity entity;
 
     @Inject
     public NewsHolderViewModel(@HolderContext Context context) {
-        this.context = context;
+        super(context);
     }
 
     @Override

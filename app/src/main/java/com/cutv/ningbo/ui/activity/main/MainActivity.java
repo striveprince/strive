@@ -20,7 +20,7 @@ import com.cutv.ningbo.ui.base.respond.Respond;
 import javax.inject.Inject;
 
 @ActivityScope
-public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> implements Respond.HttpRespond{
+public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> implements Respond{
     @Inject UserApi userApi;
     @Inject OnMainChecked checked;
     @Inject @ActivityContext Context context;
@@ -56,15 +56,6 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         return binding;
     }
 
-    @Override
-    public void onRespond(boolean success, boolean initialLoading, Object o) {
-
-    }
-
-    @Override
-    public void onInitRespond(boolean success, Object o) {
-
-    }
 }
 //    public void onMenuClick(View view){
 //        Toast.makeText(context,"view:"+view.getId(),Toast.LENGTH_SHORT).show();

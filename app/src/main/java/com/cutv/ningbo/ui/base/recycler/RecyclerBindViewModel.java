@@ -51,7 +51,6 @@ public abstract class RecyclerBindViewModel<T, Entity extends BaseEntity, Adapte
     public final ObservableBoolean loading = new ObservableBoolean(false);
     @Inject
     Adapter adapter;
-    protected Context context;
 
     public abstract Observable<InfoEntity<T>> httpApi(int offset);
 
@@ -61,7 +60,7 @@ public abstract class RecyclerBindViewModel<T, Entity extends BaseEntity, Adapte
 
 
     public RecyclerBindViewModel(Context context) {
-        this.context = context;
+        super(context);
     }
     private SwipeRefreshLayout.OnRefreshListener onRefreshListener = ()->onHttp(0);
 
@@ -88,14 +87,13 @@ public abstract class RecyclerBindViewModel<T, Entity extends BaseEntity, Adapte
     }
 
 
-    public void onHttp(int offset, Observable<InfoEntity<T>> observable) {
+    private void onHttp(int offset, Observable<InfoEntity<T>> observable) {
         loading.set(true);
         if (observable == null) return;
-        RestfulSubscriber<T> subscriber = new RestfulSubscriber<>(context,
+        RestfulSubscriber<T> subscriber = new RestfulSubscriber<>(getContext(),
                 t -> {
                     if (offset == 0) adapter.clear();
                     adapter.addRangItemList(getRespond().transform(t));
-//                    throw new RuntimeException("onNext error");
                 },
                 e -> Timber.e(e, "load failed"),this::onCompleted);
         compositeSubscription.add(observable.compose(new RestfulTransformer<>()).subscribe(subscriber));

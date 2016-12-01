@@ -14,7 +14,6 @@ import com.cutv.ningbo.inject.component.DaggerActivityComponent;
 import com.cutv.ningbo.inject.module.ActivityModule;
 import com.cutv.ningbo.ui.base.respond.Respond;
 import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
-import com.cutv.ningbo.ui.base.viewModel.InitViewModel;
 
 import javax.inject.Inject;
 

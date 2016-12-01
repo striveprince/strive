@@ -25,8 +25,8 @@ import com.cutv.ningbo.data.entity.HomeSlideEntity;
 
 
 public class HomeViewPageViewModel extends ImageHeaderViewModel<HomeSlideEntity> {
-    public HomeViewPageViewModel(HomeSlideEntity homeSlideEntity) {
-        super(homeSlideEntity);
+    public HomeViewPageViewModel(Context context,HomeSlideEntity homeSlideEntity) {
+        super(context,homeSlideEntity);
     }
 
 

@@ -3,7 +3,7 @@ package com.cutv.ningbo.ui.activity.detail;
 import android.content.Context;
 
 import com.cutv.ningbo.inject.qualifier.context.ActivityContext;
-import com.cutv.ningbo.ui.base.viewModel.InitViewModel;
+import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 
 import javax.inject.Inject;
 
@@ -20,7 +20,7 @@ import javax.inject.Inject;
  */
 
 
-public class DetailViewModel extends InitViewModel{
+public class DetailViewModel extends BaseViewModel {
     @Inject
     public DetailViewModel(@ActivityContext Context context) {
         super(context);

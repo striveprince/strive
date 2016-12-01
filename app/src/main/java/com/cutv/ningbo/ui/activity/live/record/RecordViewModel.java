@@ -1,5 +1,7 @@
 package com.cutv.ningbo.ui.activity.live.record;
 
+import android.content.Context;
+
 import com.cutv.ningbo.ui.base.respond.Respond;
 import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 
@@ -17,4 +19,7 @@ import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 
 
 public class RecordViewModel extends BaseViewModel<Respond> {
+    public RecordViewModel(Context context) {
+        super(context);
+    }
 }

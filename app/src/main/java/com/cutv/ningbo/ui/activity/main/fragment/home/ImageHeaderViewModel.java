@@ -1,5 +1,6 @@
 package com.cutv.ningbo.ui.activity.main.fragment.home;
 
+import android.content.Context;
 import android.view.View;
 
 import com.cutv.ningbo.data.entity.HomeSlideEntity;
@@ -20,7 +21,8 @@ import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 
 public abstract class ImageHeaderViewModel<Type> extends BaseViewModel {
     private Type type;
-    public ImageHeaderViewModel(Type type) {
+    public ImageHeaderViewModel(Context context,Type type) {
+        super(context);
         this.type = type;
     }
 

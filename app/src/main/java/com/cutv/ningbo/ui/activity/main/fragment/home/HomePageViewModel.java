@@ -77,7 +77,7 @@ public class HomePageViewModel extends RecyclerBindViewModel<HomeDataEntity, Hom
 
     @Override
     public RecyclerView.LayoutManager getManager() {
-        return new LinearLayoutManager(context);
+        return new LinearLayoutManager(getContext());
     }
 
     @Override

@@ -57,12 +57,12 @@ public class HomePageFragment
     @Override
     public List<HomeSlideEntity> transform(HomeDataEntity homeDataEntity) {
         HeaderHomePageBinding binding = DataBindingUtil.inflate(inflater, R.layout.header_home_page, null, false);
-        binding.setVm(new HomePagerHeaderModel(homeDataEntity));
+        binding.setVm(new HomePagerHeaderModel(context,homeDataEntity));
         getAdapter().removeAllHeader();
         getAdapter().addHeaderView(binding.getRoot());
         ViewPagerTimeEntity<HomeSlideEntity> timeEntity = new ViewPagerTimeEntity<>(homeDataEntity.getSlide(),  binding.headerHome.vpNewsFigure);
         timeEntity.setInjectImageListener((binding1, t) -> {
-            binding1.setVm(new HomeViewPageViewModel(t));
+            binding1.setVm(new HomeViewPageViewModel(context,t));
             binding1.executePendingBindings();
         }).addCarouselListener((homeSlideEntity, view) -> binding.setSlide(homeSlideEntity));
         timeEntity.init(binding.headerHome.interactTopLinNav);

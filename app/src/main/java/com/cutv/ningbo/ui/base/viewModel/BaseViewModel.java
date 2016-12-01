@@ -3,16 +3,22 @@ package com.cutv.ningbo.ui.base.viewModel;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.cutv.ningbo.ui.base.adapter.RecyclerWrapper;
+import com.cutv.ningbo.data.entity.InfoEntity;
+import com.cutv.ningbo.data.http.RestfulObserver;
+import com.cutv.ningbo.data.http.RestfulSubscriber;
+import com.cutv.ningbo.data.http.RestfulTransformer;
 import com.cutv.ningbo.ui.base.respond.Respond;
+
+import rx.Observable;
+import rx.functions.Action1;
+import rx.subscriptions.CompositeSubscription;
+import timber.log.Timber;
 
 /**
  * project：cutv_ningbo
@@ -30,6 +36,16 @@ import com.cutv.ningbo.ui.base.respond.Respond;
 public abstract class BaseViewModel<RD extends Respond> extends BaseObservable implements ViewModel<RD> {
 
     private RD rd;
+    private final CompositeSubscription compositeSubscription = new CompositeSubscription();
+    private Context context;
+
+    public BaseViewModel(Context context) {
+        this.context = context;
+    }
+
+    public Context getContext() {
+        return context;
+    }
 
     @Override
     @CallSuper
@@ -40,11 +56,27 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
         }
     }
 
-    @Override
-    @CallSuper
-    public void detachView() {
-        rd = null;
+    public <E> void http(Observable<InfoEntity<E>> observable,RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
+        http( observable, t -> {}, Timber::i, onCompletedListener);
     }
+
+    public <E> void http(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer) {
+        http( observable, observer, Timber::i, null);
+    }
+
+    public <E> void http(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer,
+                         RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
+        http( observable, observer, Timber::i, onCompletedListener);
+    }
+
+    public <E> void http(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer,
+                         Action1<Throwable> action, RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
+        if(observable!=null)compositeSubscription.add(observable
+                .compose(new RestfulTransformer<>())
+                .subscribe(new RestfulSubscriber<>(context, observer, action, onCompletedListener)));
+    }
+
+
 
     @BindingAdapter({"android:src"})
     public static void setImageUrl(ImageView imageView, String imageUrl) {
@@ -58,14 +90,7 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
 //                .onLoadStarted(ContextCompat.getDrawable(context, R.mipmap.loading))
     }
 
-    //    private RecyclerWrapper adapter;
-//    public RecyclerWrapper getAdapter(){
-//        return adapter;
-//    }
-//    @BindingAdapter({"setAdapter"})
-//    public static void setAdapter(RecyclerView view, RecyclerWrapper adapter){
-//        view.setAdapter(adapter);
-//    }
+
     public RD getRespond() {
         return rd;
     }
@@ -78,5 +103,12 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
     @Override
     public void restoreInstanceState(@NonNull Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    @CallSuper
+    public void detachView() {
+        rd = null;
+        compositeSubscription.clear();
     }
 }

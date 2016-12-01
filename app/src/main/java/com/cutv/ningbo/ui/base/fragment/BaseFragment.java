@@ -19,9 +19,7 @@ import com.cutv.ningbo.inject.component.DaggerFragmentComponent;
 import com.cutv.ningbo.inject.component.FragmentComponent;
 import com.cutv.ningbo.inject.module.FragmentModule;
 import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
-import com.cutv.ningbo.ui.activity.main.MainActivity;
 import com.cutv.ningbo.ui.base.respond.Respond;
-import com.cutv.ningbo.ui.base.viewModel.InitViewModel;
 import com.cutv.ningbo.ui.base.viewModel.ViewModel;
 
 import javax.inject.Inject;

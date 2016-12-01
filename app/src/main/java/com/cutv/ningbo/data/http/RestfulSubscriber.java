@@ -26,7 +26,7 @@ import rx.functions.Action1;
  * @version 2.0
  */
 
-public class RestfulSubscriber<T> extends Subscriber<T> {
+public class RestfulSubscriber<T> extends Subscriber<T>{
 
     private RestfulObserver<T> observer;
     private OnCompletedListener<T> onCompletedListener;
@@ -55,6 +55,10 @@ public class RestfulSubscriber<T> extends Subscriber<T> {
         this.observer = observer;
         this.action1 = action1;
         this.onCompletedListener = onCompletedListener;
+    }
+
+    public RestfulSubscriber(Context context,  RestfulObserver<T> observer, Action1<Throwable> action1) {
+       this(context,observer,action1,null);
     }
 
     @Override

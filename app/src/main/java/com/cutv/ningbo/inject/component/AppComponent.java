@@ -3,13 +3,11 @@ package com.cutv.ningbo.inject.component;
 import android.content.Context;
 import android.content.res.Resources;
 
-
 import com.cutv.ningbo.data.api.LiveApi;
 import com.cutv.ningbo.data.api.NbtvApi;
 import com.cutv.ningbo.data.api.ShakeApi;
 import com.cutv.ningbo.data.api.TopicApi;
 import com.cutv.ningbo.data.api.UserApi;
-import com.cutv.ningbo.data.save.SharePreferenceUtil;
 import com.cutv.ningbo.inject.module.AppModule;
 import com.cutv.ningbo.inject.module.DataModule;
 import com.cutv.ningbo.inject.module.NetWorkModule;

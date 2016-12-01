@@ -1,9 +1,11 @@
+/*
 package com.cutv.ningbo.ui.base.viewModel;
 
 import android.content.Context;
 
 import com.cutv.ningbo.ui.base.respond.Respond;
 
+*/
 /**
  * project：cutv_ningbo
  * description：
@@ -14,7 +16,8 @@ import com.cutv.ningbo.ui.base.respond.Respond;
  * modify remark：
  *
  * @version 2.0
- */
+ *//*
+
 
 
 public abstract class InitEntityViewModel<T> extends InitViewModel<T, Respond.HttpInitRespond<T>> {
@@ -22,4 +25,6 @@ public abstract class InitEntityViewModel<T> extends InitViewModel<T, Respond.Ht
     public InitEntityViewModel(Context context) {
         super(context);
     }
+
 }
+*/

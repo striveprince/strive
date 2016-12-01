@@ -4,18 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.cutv.ningbo.data.api.UserApi;
-import com.cutv.ningbo.data.entity.InfoEntity;
-import com.cutv.ningbo.data.http.RestfulSubscriber;
-import com.cutv.ningbo.data.http.RestfulTransformer;
 import com.cutv.ningbo.inject.qualifier.context.ActivityContext;
-import com.cutv.ningbo.inject.qualifier.preference.UserSharePreference;
 import com.cutv.ningbo.ui.base.respond.Respond;
-import com.cutv.ningbo.ui.base.viewModel.InitEntityViewModel;
+import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 
 import javax.inject.Inject;
-
-import rx.Observable;
-import timber.log.Timber;
 
 /**
  * project：cutv_ningbo
@@ -28,7 +21,7 @@ import timber.log.Timber;
  *
  * @version 2.0
  */
-public class MainViewModel extends InitEntityViewModel {
+public class MainViewModel extends BaseViewModel<Respond> {
     private UserApi api;
     @Inject
     public MainViewModel(@ActivityContext Context context, UserApi api) {
@@ -36,12 +29,9 @@ public class MainViewModel extends InitEntityViewModel {
         this.api = api;
     }
 
-
     @Override
-    public void attachView(Respond.HttpInitRespond httpInitRespond, Bundle savedInstanceState) {
-        super.attachView(httpInitRespond, savedInstanceState);
-        compositeSubscription.add(api.getScore(0)
-                .compose(new RestfulTransformer<>())
-                .subscribe(new RestfulSubscriber<>(context, t -> {}, Timber::i,(t, e) -> {})));
+    public void attachView(Respond httpInitRespond, Bundle savedInstanceState) {
+        super.attachView(httpInitRespond,savedInstanceState);
+        http(api.getScore(0),integer -> {});
     }
 }

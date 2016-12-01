@@ -1,3 +1,4 @@
+/*
 package com.cutv.ningbo.ui.base.viewModel;
 
 import android.content.Context;
@@ -12,6 +13,7 @@ import rx.Observable;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
+*/
 /**
  * project：cutv_ningbo
  * description：
@@ -22,11 +24,11 @@ import timber.log.Timber;
  * modify remark：
  *
  * @version 2.0
- */
+ *//*
+
 
 
 public class InitViewModel<T, RD extends Respond.HttpInitRespond<T>> extends BaseViewModel<RD> {
-    protected final CompositeSubscription compositeSubscription = new CompositeSubscription();
     protected Context context;
 
     public InitViewModel(Context context) {
@@ -37,20 +39,15 @@ public class InitViewModel<T, RD extends Respond.HttpInitRespond<T>> extends Bas
     public void attachView(RD rd, Bundle savedInstanceState) {
         super.attachView(rd, savedInstanceState);
         if (initApi() == null) return;
-        compositeSubscription.add(initApi()
-                .compose(new RestfulTransformer<>())
-                .subscribe(
-                        new RestfulSubscriber<>(context, t -> getRespond().onInitRespond(true, t), Timber::i,(t, e) -> {})
-                ));
+        http(context,initApi(),t -> getRespond().onInitRespond(true, t));
     }
 
     public Observable<InfoEntity<T>> initApi() {
         return null;
     }
 
-    @Override
-    public void detachView() {
-        super.detachView();
-        compositeSubscription.clear();
-    }
+
+
+
 }
+*/

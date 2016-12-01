@@ -75,7 +75,7 @@ public class NewsViewModel extends RecyclerBindViewModel<List<HomeSlideEntity>,H
 
     @Override
     public RecyclerView.LayoutManager getManager() {
-        return new LinearLayoutManager(context);
+        return new LinearLayoutManager(getContext());
     }
 
     @Override
@@ -87,10 +87,10 @@ public class NewsViewModel extends RecyclerBindViewModel<List<HomeSlideEntity>,H
             pagerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,dm.widthPixels*9/16));
             headerBinding = DataBindingUtil.bind(pagerView);
             getAdapter().addHeaderView(headerBinding.getRoot());
-            RestfulSubscriber<List<HomeSlideEntity>> subscriber = new RestfulSubscriber<>(context,entities -> {
+            RestfulSubscriber<List<HomeSlideEntity>> subscriber = new RestfulSubscriber<>(getContext(),entities -> {
                 ViewPagerTimeEntity<HomeSlideEntity> timeEntity = new ViewPagerTimeEntity<>(entities,  headerBinding.vpNewsFigure);
                 timeEntity.setInjectImageListener((binding1, t) -> {
-                    binding1.setVm(new HomeViewPageViewModel(t));
+                    binding1.setVm(new HomeViewPageViewModel(getContext(),t));
                     binding1.executePendingBindings();
                 }).addCarouselListener((homeSlideEntity, view1) -> headerBinding.setSlide(homeSlideEntity));
                 timeEntity.init(headerBinding.interactTopLinNav);

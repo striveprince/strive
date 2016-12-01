@@ -2,17 +2,11 @@ package com.cutv.ningbo.ui.activity.main.fragment.news;
 
 import android.content.Context;
 
-import com.cutv.ningbo.data.api.NbtvApi;
-import com.cutv.ningbo.data.entity.InfoEntity;
-import com.cutv.ningbo.data.entity.NewsDataEntity;
 import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
-import com.cutv.ningbo.ui.base.viewModel.InitEntityViewModel;
-
-import java.util.List;
+import com.cutv.ningbo.ui.base.respond.Respond;
+import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 
 import javax.inject.Inject;
-
-import rx.Observable;
 
 /**
  * project：cutv_ningbo
@@ -25,20 +19,20 @@ import rx.Observable;
  *
  * @version 2.0
  */
-public class NewsPagerViewModel extends InitEntityViewModel<List<NewsDataEntity>> {
+public class NewsPagerViewModel extends BaseViewModel<Respond> {
 
     @Inject
-    public NewsPagerViewModel(@FragmentContext Context context, NbtvApi api) {
+    public NewsPagerViewModel(@FragmentContext Context context) {
         super(context);
-        this.api = api;
+//        this.api = api;
     }
 
-    private NbtvApi api;
+//    private NbtvApi api;
 
-    @Override
-    public Observable<InfoEntity<List<NewsDataEntity>>> initApi() {
-        return api.getTag();
-    }
+//    @Override
+//    public Observable<InfoEntity<List<NewsDataEntity>>> initApi() {
+//        return api.getTag();
+//    }
 
 
 }
