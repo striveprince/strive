@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 
 
+import com.cutv.ningbo.data.api.LiveApi;
 import com.cutv.ningbo.data.api.NbtvApi;
 import com.cutv.ningbo.data.api.ShakeApi;
 import com.cutv.ningbo.data.api.TopicApi;
@@ -38,4 +39,5 @@ public interface AppComponent {
     TopicApi getTopicApi();
     NbtvApi getNbtvApi();
     ShakeApi getShakeApi();
+    LiveApi getLiveApi();
 }

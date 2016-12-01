@@ -1,6 +1,7 @@
 package com.cutv.ningbo.inject.module;
 
 import com.cutv.ningbo.BuildConfig;
+import com.cutv.ningbo.data.api.LiveApi;
 import com.cutv.ningbo.data.api.NbtvApi;
 import com.cutv.ningbo.data.api.ShakeApi;
 import com.cutv.ningbo.data.api.TopicApi;
@@ -37,6 +38,7 @@ public class NetWorkModule {
     private static final String TOPICURL = "http://apitopic.dknb.nbtv.cn/";
     private static final String USERURL = "http://api.dknb.nbtv.cn/";
     private static final String SHAKEURL = "http://apishake.dknb.nbtv.cn/";
+    private static final String LiveUrl = "http://live.dknb.nbtv.cn/";
 //    private static final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 
     @Provides
@@ -52,6 +54,20 @@ public class NetWorkModule {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .callFactory(client)
                 .build().create(UserApi.class);
+    }
+    @Provides
+    @ApplicationScope
+    LiveApi provideLiveApi(OkHttpClient okHttpClient, UserInterceptor userInterceptor) {
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = okHttpClient.newBuilder()
+//                .addInterceptor(interceptor)
+                .addInterceptor(userInterceptor).build();
+        return new Retrofit.Builder()
+                .baseUrl(LiveUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .callFactory(client)
+                .build().create(LiveApi.class);
     }
 
     @Provides

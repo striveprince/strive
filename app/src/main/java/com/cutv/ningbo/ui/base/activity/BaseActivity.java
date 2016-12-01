@@ -13,6 +13,7 @@ import com.cutv.ningbo.inject.component.ActivityComponent;
 import com.cutv.ningbo.inject.component.DaggerActivityComponent;
 import com.cutv.ningbo.inject.module.ActivityModule;
 import com.cutv.ningbo.ui.base.respond.Respond;
+import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 import com.cutv.ningbo.ui.base.viewModel.InitViewModel;
 
 import javax.inject.Inject;
@@ -28,7 +29,7 @@ import javax.inject.Inject;
  * @version 2.0
  */
 
-public class BaseActivity<VM extends InitViewModel,Binding extends ViewDataBinding> extends AppCompatActivity {
+public class BaseActivity<VM extends BaseViewModel,Binding extends ViewDataBinding> extends AppCompatActivity implements Respond{
     private ActivityComponent mActivityComponent;
     public Binding binding;
     @Inject VM viewModel;
@@ -46,7 +47,7 @@ public class BaseActivity<VM extends InitViewModel,Binding extends ViewDataBindi
     protected final void setBindingView(@LayoutRes int layoutId, @Nullable Bundle savedInstanceState){
         binding = DataBindingUtil.setContentView(this,layoutId);
         binding.setVariable(BR.vm, viewModel);
-        viewModel.attachView((Respond.HttpRespond) this,savedInstanceState);
+        viewModel.attachView((Respond) this,savedInstanceState);
     }
 
     @Override
