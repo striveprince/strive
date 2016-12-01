@@ -1,14 +1,8 @@
 package com.cutv.ningbo.data.api;
 
-import com.cutv.ningbo.data.entity.HomeSlideEntity;
 import com.cutv.ningbo.data.entity.InfoEntity;
 import com.cutv.ningbo.data.entity.PrivateInfoEntity;
 
-import java.util.List;
-import java.util.Map;
-
-import retrofit2.http.GET;
-import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -32,6 +26,6 @@ public interface LiveApi {
 
     @POST(LiveLogin)
     Observable<InfoEntity<PrivateInfoEntity>>
-    getNBTVList(@Query("cellphone") int cellphone, @Query("password") String password);
+    login(@Query("cellphone") int cellphone, @Query("password") String password);
 
 }
