@@ -59,7 +59,7 @@ public class NewsViewModel extends RecyclerBindViewModel<List<HomeSlideEntity>,H
     @Inject
     LayoutInflater inflater;
     @Inject
-    public NewsViewModel(@FragmentContext Context context, NbtvApi api) {
+    NewsViewModel(@FragmentContext Context context, NbtvApi api) {
         super(context);
         this.api = api;
     }
@@ -69,7 +69,7 @@ public class NewsViewModel extends RecyclerBindViewModel<List<HomeSlideEntity>,H
         return listener==null?null:api.getContentNews(listener.getChannelId(),20,0);
     }
 
-    public interface InfoListener {
+    interface InfoListener {
         int getChannelId();
     }
 

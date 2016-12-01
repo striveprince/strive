@@ -22,7 +22,7 @@ import javax.inject.Inject;
 public class NewsPagerViewModel extends BaseViewModel<Respond> {
 
     @Inject
-    public NewsPagerViewModel(@FragmentContext Context context) {
+    NewsPagerViewModel(@FragmentContext Context context) {
         super(context);
 //        this.api = api;
     }

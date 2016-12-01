@@ -24,7 +24,7 @@ import javax.inject.Inject;
 public class MainViewModel extends BaseViewModel<Respond> {
     private UserApi api;
     @Inject
-    public MainViewModel(@ActivityContext Context context, UserApi api) {
+    MainViewModel(@ActivityContext Context context, UserApi api) {
         super(context);
         this.api = api;
     }

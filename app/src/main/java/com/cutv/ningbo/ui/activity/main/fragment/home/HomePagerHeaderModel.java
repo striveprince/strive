@@ -34,7 +34,7 @@ public class HomePagerHeaderModel extends BaseViewModel<Respond> {
     private HomeDataEntity dataEntity;
     private List<HomeSlideEntity> slide;
 
-    public HomePagerHeaderModel( Context context,HomeDataEntity dataEntity) {
+    HomePagerHeaderModel( Context context,HomeDataEntity dataEntity) {
         super(context);
         this.dataEntity = dataEntity;
         slide = dataEntity.getSlide();

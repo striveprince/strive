@@ -21,7 +21,7 @@ import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 
 public abstract class ImageHeaderViewModel<Type> extends BaseViewModel {
     private Type type;
-    public ImageHeaderViewModel(Context context,Type type) {
+    ImageHeaderViewModel(Context context,Type type) {
         super(context);
         this.type = type;
     }
