@@ -15,7 +15,7 @@ import com.cutv.ningbo.data.entity.HomeDataEntity;
 import com.cutv.ningbo.data.entity.HomeSlideEntity;
 import com.cutv.ningbo.data.entity.InfoEntity;
 import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
-import com.cutv.ningbo.ui.base.recycler.RecyclerBindViewModel;
+import com.cutv.ningbo.ui.base.viewModel.RecyclerBindViewModel;
 
 import javax.inject.Inject;
 

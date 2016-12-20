@@ -26,6 +26,6 @@ public interface LiveApi {
 
     @POST(LiveLogin)
     Observable<InfoEntity<PrivateInfoEntity>>
-    login(@Query("cellphone") int cellphone, @Query("password") String password);
+    login(@Query("cczyidt") String cellphone, @Query("pczyidt") String password);
 
 }

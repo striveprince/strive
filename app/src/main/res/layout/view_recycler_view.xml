@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="com.cutv.ningbo.ui.base.recycler.RecyclerBindViewModel"/>
+            type="com.cutv.ningbo.ui.base.viewModel.RecyclerBindViewModel"/>
     </data>
     <FrameLayout
         android:layout_width="match_parent"

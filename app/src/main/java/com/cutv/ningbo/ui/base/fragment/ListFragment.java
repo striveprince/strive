@@ -13,7 +13,7 @@ import com.cutv.ningbo.data.entity.BaseEntity;
 import com.cutv.ningbo.databinding.ViewRecyclerViewBinding;
 import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
 import com.cutv.ningbo.ui.base.adapter.RecyclerWrapper;
-import com.cutv.ningbo.ui.base.recycler.RecyclerBindViewModel;
+import com.cutv.ningbo.ui.base.viewModel.RecyclerBindViewModel;
 import com.cutv.ningbo.ui.base.respond.Respond;
 
 import javax.inject.Inject;

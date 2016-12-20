@@ -1,4 +1,4 @@
-package com.cutv.ningbo.ui.base.recycler;
+package com.cutv.ningbo.ui.base.viewModel;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;

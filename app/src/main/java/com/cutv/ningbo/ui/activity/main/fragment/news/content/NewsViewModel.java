@@ -20,7 +20,7 @@ import com.cutv.ningbo.databinding.HeaderSliderPagerBinding;
 import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
 import com.cutv.ningbo.ui.activity.main.fragment.home.HomeAdapter;
 import com.cutv.ningbo.ui.activity.main.fragment.home.HomeViewPageViewModel;
-import com.cutv.ningbo.ui.base.recycler.RecyclerBindViewModel;
+import com.cutv.ningbo.ui.base.viewModel.RecyclerBindViewModel;
 import com.cutv.ningbo.ui.base.respond.Respond;
 import com.cutv.ningbo.ui.util.rotary.TimeUtil;
 import com.cutv.ningbo.ui.util.rotary.ViewPagerTimeEntity;

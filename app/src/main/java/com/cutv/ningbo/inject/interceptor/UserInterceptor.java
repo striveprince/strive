@@ -11,14 +11,17 @@ import com.cutv.ningbo.data.save.SharePreferenceUtil;
 import com.cutv.ningbo.data.util.Encrypt;
 import com.cutv.ningbo.data.util.Util;
 import com.cutv.ningbo.inject.qualifier.context.AppContext;
+import com.cutv.ningbo.inject.qualifier.preference.NingSharePreference;
 
 import java.io.IOException;
 
 import javax.inject.Inject;
 
 import okhttp3.CacheControl;
+import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -57,6 +60,12 @@ public class UserInterceptor implements Interceptor {
                     .addHeader("pragma-date", time)
                     .addHeader("pragma-tcze", TextUtils.isEmpty(token) ? "" : Encrypt.encrypt(token, device, time))
                     .build();
+//            RequestBody body = request.body();
+////            request.url()
+//            if(body instanceof FormBody){
+//
+//            }
+
         }
 //        Response response = chain.proceed(request);
 //        response.code() == 200;

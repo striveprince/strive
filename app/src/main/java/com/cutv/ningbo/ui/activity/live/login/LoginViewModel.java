@@ -37,14 +37,9 @@ public class LoginViewModel extends BaseViewModel<Respond> {
         this.api = api;
     }
 
-//    public View.OnClickListener getOnLoginClick(){
-////        return view -> onLoginClick(view);
-//        return this::onLoginClick;
-//    }
-
     public void onLoginClick(View view){
         Toast.makeText(view.getContext(),"cellPhone:"+cellPhone+"\npassword:"+password,Toast.LENGTH_SHORT).show();
-        http(api.login(Integer.parseInt(cellPhone),password),entity -> {
+        http(api.login(cellPhone,password),entity -> {
 
         });
     }

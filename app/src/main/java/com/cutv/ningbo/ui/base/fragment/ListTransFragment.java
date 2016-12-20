@@ -2,7 +2,7 @@ package com.cutv.ningbo.ui.base.fragment;
 
 import com.cutv.ningbo.data.entity.BaseEntity;
 import com.cutv.ningbo.ui.base.adapter.RecyclerWrapper;
-import com.cutv.ningbo.ui.base.recycler.RecyclerBindViewModel;
+import com.cutv.ningbo.ui.base.viewModel.RecyclerBindViewModel;
 import com.cutv.ningbo.ui.base.respond.Respond;
 
 import java.util.List;

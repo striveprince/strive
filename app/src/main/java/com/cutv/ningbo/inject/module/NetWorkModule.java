@@ -6,6 +6,7 @@ import com.cutv.ningbo.data.api.NbtvApi;
 import com.cutv.ningbo.data.api.ShakeApi;
 import com.cutv.ningbo.data.api.TopicApi;
 import com.cutv.ningbo.data.api.UserApi;
+import com.cutv.ningbo.inject.converter.JsonConverterFactory;
 import com.cutv.ningbo.inject.interceptor.NbtvInterceptor;
 import com.cutv.ningbo.inject.interceptor.UserInterceptor;
 import com.cutv.ningbo.inject.scope.ApplicationScope;
@@ -50,6 +51,7 @@ public class NetWorkModule {
                 .addInterceptor(userInterceptor).build();
         return new Retrofit.Builder()
                 .baseUrl(USERURL)
+                .addConverterFactory(JsonConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .callFactory(client)
@@ -104,6 +106,7 @@ public class NetWorkModule {
                 .addInterceptor(nbtvInterceptor).build();
         return new Retrofit.Builder()
                 .baseUrl(DKNBURL)
+                .addConverterFactory(JsonConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .callFactory(client)
@@ -124,4 +127,8 @@ public class NetWorkModule {
         }
         return httpClientBuilder.build();
     }
+
+//    Converter.Factory jsonConverter(){
+//
+//    }
 }
