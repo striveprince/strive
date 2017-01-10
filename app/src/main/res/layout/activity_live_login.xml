@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.cutv.ningbo.ui.activity.live.login.LoginViewModel"/>
+
+    </data>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center_horizontal"
+                  android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titly_log_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:layout_marginTop="60dp"
+            android:textSize="40sp"
+            android:text="@{vm.mSp}"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/app_name"/>
+
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_half_user"
+            android:hint="@string/user_name"
+            android:padding="10dp"
+            android:text="@={vm.cellPhone}"
+            android:textSize="20sp"/>
+
+
+        <com.cutv.ningbo.ui.util.view.UserEditText
+            android:text="@={vm.password}"
+            android:password="true"
+            android:id="@+id/user_key"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_half_user"
+            android:drawableRight="@mipmap/user_edit_show"
+            android:drawableEnd="@mipmap/user_edit_show"
+            android:hint="@string/password"
+            android:imeActionLabel="发送"
+            android:imeOptions="actionSend"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:onClick="@{vm.onLoginClick}"
+            android:id="@+id/log_in"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_half_log_in"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"/>
+    </LinearLayout>
+</layout>
+

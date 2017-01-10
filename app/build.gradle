@@ -7,6 +7,9 @@ android {
     buildToolsVersion "25.0.2"
 
 
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
     dataBinding {
         enabled = true
     }

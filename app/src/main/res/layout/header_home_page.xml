@@ -43,6 +43,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:contentDescription="@string/description"
                     android:layout_width="66dp"
                     android:layout_height="14dp"
                     android:layout_margin="10dp"
@@ -73,6 +74,7 @@
 
             <ImageView
                 android:id="@+id/homepager_iv_commet"
+                android:contentDescription="@string/description"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_gravity="center_horizontal"
@@ -198,6 +200,7 @@
                     <ImageView
                         android:id="@+id/hudong_img3"
                         android:layout_width="match_parent"
+                        android:contentDescription="@string/description"
                         android:layout_height="100.0dip"
                         android:background="@mipmap/loading_thumb_2"
                         android:scaleType="fitXY"
