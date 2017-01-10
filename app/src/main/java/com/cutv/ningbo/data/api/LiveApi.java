@@ -2,9 +2,7 @@ package com.cutv.ningbo.data.api;
 
 import com.cutv.ningbo.data.entity.InfoEntity;
 import com.cutv.ningbo.data.entity.PrivateInfoEntity;
-import com.cutv.ningbo.data.params.LoginParams;
 
-import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -27,7 +25,7 @@ public interface LiveApi {
     String LiveLogin = "live/login";
 
     @POST(LiveLogin)
-    Observable<InfoEntity<PrivateInfoEntity>> login(@Body LoginParams params);
-
+    Observable<InfoEntity<PrivateInfoEntity>>
+    login(@Query("cczyidt") String cellphone, @Query("pczyidt") String password);
 
 }

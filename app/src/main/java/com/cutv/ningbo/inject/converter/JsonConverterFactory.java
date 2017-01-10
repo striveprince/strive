@@ -1,6 +1,5 @@
 package com.cutv.ningbo.inject.converter;
 
-import com.cutv.ningbo.data.params.TypeParams;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
@@ -8,7 +7,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -38,7 +36,6 @@ public class JsonConverterFactory extends Converter.Factory {
 
     private Gson gson;
 
-
     private JsonConverterFactory(Gson gson) {
         if (gson == null) throw new NullPointerException("gson == null");
         this.gson = gson;
@@ -52,11 +49,7 @@ public class JsonConverterFactory extends Converter.Factory {
 
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-//        if(type instanceof TypeParams){
-//        }
-       // Timber.i("request:%1s",gson.toJson(type));
-        Timber.i("param:%1s",parameterAnnotations.length);
-        Timber.i("method:%1s",methodAnnotations.length);
+        Timber.i("requestBodyConverter json");
         TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
         return new JsonRequestBodyConverter<>(gson, adapter);
     }

@@ -3,20 +3,12 @@ package com.cutv.ningbo.data.api;
 import com.cutv.ningbo.data.entity.HomeDataEntity;
 import com.cutv.ningbo.data.entity.InfoEntity;
 import com.cutv.ningbo.data.entity.PrivateInfoEntity;
-import com.cutv.ningbo.data.params.LoginParams;
-import com.cutv.ningbo.data.params.TypeParams;
-import com.cutv.ningbo.data.params.UserParams;
 
-import java.util.HashMap;
-
-import retrofit2.http.Body;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -36,9 +28,10 @@ public interface UserApi {
     @POST("user/cutv-auto-login") Observable<InfoEntity<PrivateInfoEntity>>
         getOldUser(@Query("cutv_uid")String cutv_uid, @Query("cutv_token")String cutv_token, @Query("cutv_cellphone")String cutv_cellphone);
     @GET("common/get-home") Observable<InfoEntity<HomeDataEntity>> getHomePager();
-//    @FormUrlEncoded
-    @POST("user/get-integral") Observable<InfoEntity<Integer>> getScore(@Body UserParams params);
+    @FormUrlEncoded
+    @POST("user/get-integral") Observable<InfoEntity<Integer>> getScore(@Query(USERID)int userId);
+//    @POST("user/get-integral") Observable<InfoEntity<Integer>> getScore(@Path("integral") int userId);
 
-    @POST("user/login")Observable<InfoEntity<PrivateInfoEntity>> login(@Body LoginParams params);
+    //    public static final String ScoreUrl = UserUrl + "user/get-integral";
 
 }

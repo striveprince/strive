@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="com.cutv.ningbo.ui.activity.login.LoginViewModel"/>
+            type="com.cutv.ningbo.ui.activity.live.login.LoginViewModel"/>
 
     </data>
 
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:onClick="@{vm::onLoginClick}"
             />
-
+            <!--android:onClick="@{vm::onLoginClick}"-->
     </LinearLayout>
 
 </layout>
