@@ -1,5 +1,4 @@
-/*
-package com.cutv.ningbo.ui.activity.live.login;
+package com.cutv.ningbo.ui.activity.login;
 
 import android.content.Context;
 import android.view.View;
@@ -10,12 +9,12 @@ import com.cutv.ningbo.data.params.LoginParams;
 import com.cutv.ningbo.data.save.SharePreferenceUtil;
 import com.cutv.ningbo.inject.qualifier.context.ActivityContext;
 import com.cutv.ningbo.inject.qualifier.preference.NingSharePreference;
+import com.cutv.ningbo.inject.scope.ActivityScope;
 import com.cutv.ningbo.ui.base.respond.Respond;
 import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 
 import javax.inject.Inject;
 
-*/
 /**
  * project：cutv_ningbo
  * description：
@@ -26,10 +25,9 @@ import javax.inject.Inject;
  * modify remark：
  *
  * @version 2.0
- *//*
+ */
 
-
-
+@ActivityScope
 public class LoginViewModel extends BaseViewModel<Respond> {
     private LiveApi api;
 
@@ -56,4 +54,3 @@ public class LoginViewModel extends BaseViewModel<Respond> {
 
 
 }
-*/

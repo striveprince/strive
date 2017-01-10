@@ -3,6 +3,7 @@ package com.cutv.ningbo.inject.module;
 import android.content.Context;
 
 import com.cutv.ningbo.data.save.SharePreferenceUtil;
+import com.cutv.ningbo.inject.qualifier.context.AppContext;
 import com.cutv.ningbo.inject.qualifier.preference.BrokeSharePreference;
 import com.cutv.ningbo.inject.qualifier.preference.NingSharePreference;
 import com.cutv.ningbo.inject.qualifier.preference.OldSharePreference;
@@ -28,29 +29,29 @@ import dagger.Provides;
 public class DataModule {
     @Provides
     @UserSharePreference
-    SharePreferenceUtil provideUserInfo(Context context) {
+    SharePreferenceUtil provideUserInfo(@AppContext Context context) {
         return SharePreferenceUtil.getUserInstance(context);
     }
 
     @Provides
     @NingSharePreference
-    SharePreferenceUtil provideNingInfo(Context context) {
+    SharePreferenceUtil provideNingInfo(@AppContext Context context) {
         return SharePreferenceUtil.getNingInstance(context);
     }
 
     @Provides
     @OldSharePreference
-    SharePreferenceUtil provideOldInfo(Context context) {
+    SharePreferenceUtil provideOldInfo(@AppContext Context context) {
         return SharePreferenceUtil.getOldInstance(context);
     }
     @Provides
     @BrokeSharePreference
-    SharePreferenceUtil provideBrokeInfo(Context context) {
+    SharePreferenceUtil provideBrokeInfo(@AppContext Context context) {
         return SharePreferenceUtil.getBrokeInstance(context);
     }
     @Provides
     @SystemSharePreference
-    SharePreferenceUtil provideSystemInfo(Context context) {
+    SharePreferenceUtil provideSystemInfo(@AppContext Context context) {
         return SharePreferenceUtil.getSystemInstance(context);
     }
 }

@@ -1,5 +1,10 @@
 package com.cutv.ningbo.ui.activity.login;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+import com.cutv.ningbo.R;
+import com.cutv.ningbo.databinding.ActivityLoginBinding;
 import com.cutv.ningbo.inject.scope.ActivityScope;
 import com.cutv.ningbo.ui.base.activity.BaseActivity;
 
@@ -16,6 +21,14 @@ import com.cutv.ningbo.ui.base.activity.BaseActivity;
  */
 
 @ActivityScope
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity<LoginViewModel,ActivityLoginBinding> {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        activityComponent().inject(this);
+        setBindingView(R.layout.activity_login,savedInstanceState);
+    }
+
 
 }

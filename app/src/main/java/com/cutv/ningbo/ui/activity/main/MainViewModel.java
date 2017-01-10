@@ -2,13 +2,25 @@ package com.cutv.ningbo.ui.activity.main;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.cutv.ningbo.data.api.UserApi;
+import com.cutv.ningbo.data.entity.InfoEntity;
+import com.cutv.ningbo.data.entity.PrivateInfoEntity;
+import com.cutv.ningbo.data.params.LoginParams;
+import com.cutv.ningbo.data.params.UserParams;
+import com.cutv.ningbo.data.save.SharePreferenceUtil;
 import com.cutv.ningbo.inject.qualifier.context.ActivityContext;
+import com.cutv.ningbo.inject.qualifier.preference.NingSharePreference;
 import com.cutv.ningbo.ui.base.respond.Respond;
 import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
+import com.cutv.ningbo.ui.base.viewModel.UserViewModel;
+
+import java.util.HashMap;
 
 import javax.inject.Inject;
+
+import rx.Observable;
 
 /**
  * project：cutv_ningbo
@@ -21,8 +33,11 @@ import javax.inject.Inject;
  *
  * @version 2.0
  */
-public class MainViewModel extends BaseViewModel<Respond> {
+public class MainViewModel extends UserViewModel<Respond> {
     private UserApi api;
+    @Inject
+    @NingSharePreference
+    SharePreferenceUtil util;
     @Inject
     MainViewModel(@ActivityContext Context context, UserApi api) {
         super(context);
@@ -32,6 +47,14 @@ public class MainViewModel extends BaseViewModel<Respond> {
     @Override
     public void attachView(Respond httpInitRespond, Bundle savedInstanceState) {
         super.attachView(httpInitRespond,savedInstanceState);
-        http(api.getScore(0),integer -> {});
+//        HashMap<String,Object> map = new HashMap<>();
+//        map.put("data",new UserParams());
+        http(api.login(new LoginParams()),util::setAllDto);
+        httpLogin(api.getScore(new UserParams()), integer -> {
+            Toast.makeText(getContext(),"success",Toast.LENGTH_SHORT).show();
+        });
+//        http(api.getScore(map), integer -> {});
     }
+
+
 }

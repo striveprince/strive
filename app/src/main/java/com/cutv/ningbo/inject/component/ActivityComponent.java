@@ -4,7 +4,7 @@ package com.cutv.ningbo.inject.component;
 import com.cutv.ningbo.inject.module.ActivityModule;
 import com.cutv.ningbo.inject.scope.ActivityScope;
 import com.cutv.ningbo.ui.activity.detail.DetailActivity;
-import com.cutv.ningbo.ui.activity.live.login.LoginActivity;
+import com.cutv.ningbo.ui.activity.login.LoginActivity;
 import com.cutv.ningbo.ui.activity.main.MainActivity;
 import com.cutv.ningbo.ui.activity.start.StartActivity;
 import com.cutv.ningbo.ui.base.activity.BaseActivity;

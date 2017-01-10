@@ -46,23 +46,24 @@ public class HomePageViewModelUnitTest {
     @Mock Respond.TransformRespond<HomeDataEntity,HomeSlideEntity> respond;
 //    @Mock Respond.RecyclerRespond respond;
 
-    HomePageViewModel viewModel;
+    @Mock HomePageViewModel viewModel;
 
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
-        viewModel = new HomePageViewModel(context,api);
-        viewModel.attachView(respond,null);
+//        viewModel = new HomePageViewModel(context,api);
+//        viewModel.attachView(respond,null);
     }
 
     @Test
     public void onRefresh_success() {
-        HomeDataEntity infoEntity = new HomeDataEntity();
-        doReturn(Observable.just(infoEntity)).when(api).getHomePager().compose(new RestfulTransformer<>());
+//        HomeDataEntity infoEntity = new HomeDataEntity();
+//        doReturn(Observable.just(infoEntity)).when(api).getHomePager().compose(new RestfulTransformer<>());
 //        viewModel.onRefresh(true);
 //        verify(respond,times(1)).transform(dataEntity)
 //        verify(respond,times(1)).onRespond(eq(true),eq(true),Matchers.any());
-
+        HomeDataEntity entity = new HomeDataEntity();
+        doReturn(Observable.just(entity)).when(api).getHomePager().compose(new RestfulTransformer<>());
     }
 
 

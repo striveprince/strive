@@ -8,10 +8,12 @@ import com.cutv.ningbo.data.api.NbtvApi;
 import com.cutv.ningbo.data.api.ShakeApi;
 import com.cutv.ningbo.data.api.TopicApi;
 import com.cutv.ningbo.data.api.UserApi;
+import com.cutv.ningbo.data.save.SharePreferenceUtil;
 import com.cutv.ningbo.inject.module.AppModule;
 import com.cutv.ningbo.inject.module.DataModule;
 import com.cutv.ningbo.inject.module.NetWorkModule;
 import com.cutv.ningbo.inject.qualifier.context.AppContext;
+import com.cutv.ningbo.inject.qualifier.preference.NingSharePreference;
 import com.cutv.ningbo.inject.scope.ApplicationScope;
 
 import dagger.Component;
@@ -38,4 +40,6 @@ public interface AppComponent {
     NbtvApi getNbtvApi();
     ShakeApi getShakeApi();
     LiveApi getLiveApi();
+
+    @NingSharePreference SharePreferenceUtil NingUtil();
 }
