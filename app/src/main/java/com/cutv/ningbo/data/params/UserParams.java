@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.cutv.ningbo.data.save.SharePreferenceUtil;
 import com.cutv.ningbo.inject.qualifier.context.AppContext;
+import com.cutv.ningbo.inject.qualifier.preference.NingSharePreference;
 
 import javax.inject.Inject;
 
@@ -13,12 +14,22 @@ import javax.inject.Inject;
 
 public class UserParams implements DesParams{
     private int tczeidt;
+    private int room_id;
+    private int room;
+    private String content;
+    private int to_uid;
+
+
+//    @Inject
+//    @AppContext
+//    Context context;
+
     @Inject
-    @AppContext
-    Context context;
+    @NingSharePreference
+    SharePreferenceUtil util;
 
     public int getTczeidt() {
-        return tczeidt;
+        return util.getShare().getInt("id", 0);
     }
 
     public void setTczeidt(int tczeidt) {
@@ -27,8 +38,39 @@ public class UserParams implements DesParams{
 
     @Inject
     public UserParams() {
-        if (context != null)
-            tczeidt = SharePreferenceUtil.getNingInstance(context).getShare().getInt("id", 0);
+
+    }
+
+    public int getRoom_id() {
+        return room_id;
+    }
+
+    public void setRoom_id(int room_id) {
+        this.room_id = room_id;
+    }
+
+    public int getRoom() {
+        return room;
+    }
+
+    public void setRoom(int room) {
+        this.room = room;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getTo_uid() {
+        return to_uid;
+    }
+
+    public void setTo_uid(int to_uid) {
+        this.to_uid = to_uid;
     }
 
 }

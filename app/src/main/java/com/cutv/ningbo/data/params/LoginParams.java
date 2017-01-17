@@ -5,8 +5,10 @@ package com.cutv.ningbo.data.params;
  */
 
 public class LoginParams implements DesParams{
-    private String cczyidt = "18758302330";
-    private String pczyidt = "123456";
+    private String cczyidt;
+    private String pczyidt;
+
+//    private String
 
     public String getPczyidt() {
         return pczyidt;
