@@ -34,7 +34,6 @@ public class TimeUtil {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-
             for (TimeEntity timeEntity : hashSet) timeEntity.getTurn();
 //            hashSet.forEach(TimeEntity::getTurn);
             handler.postDelayed(runnable, 1000);

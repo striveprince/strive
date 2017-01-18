@@ -16,7 +16,7 @@ import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
 import com.cutv.ningbo.inject.scope.FragmentScope;
 import com.cutv.ningbo.ui.activity.main.MainActivity;
 import com.cutv.ningbo.ui.activity.main.fragment.news.content.NewsContentFragment;
-import com.cutv.ningbo.ui.base.adapter.ViewPagerAdapter;
+import com.cutv.ningbo.ui.base.adapter.pager.FragmentViewPagerAdapter;
 import com.cutv.ningbo.ui.base.fragment.BaseFragment;
 import com.cutv.ningbo.ui.base.respond.Respond;
 
@@ -41,7 +41,8 @@ import javax.inject.Inject;
 @FragmentScope
 public class NewsFragment extends BaseFragment<NewsPagerViewModel,ViewPagerBinding> implements Respond{
     private List<NewsContentFragment> list = new ArrayList<>();
-    @Inject ViewPagerAdapter<NewsContentFragment> adapter;
+    @Inject
+    FragmentViewPagerAdapter<NewsContentFragment> adapter;
     @Inject @FragmentContext Context context;
     @Inject NbtvApi api;
 

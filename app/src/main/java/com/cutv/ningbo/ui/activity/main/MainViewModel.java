@@ -39,6 +39,9 @@ public class MainViewModel extends UserViewModel<Respond> {
     @NingSharePreference
     SharePreferenceUtil util;
     @Inject
+    UserParams userScore;
+
+    @Inject
     MainViewModel(@ActivityContext Context context, UserApi api) {
         super(context);
         this.api = api;
@@ -47,14 +50,9 @@ public class MainViewModel extends UserViewModel<Respond> {
     @Override
     public void attachView(Respond httpInitRespond, Bundle savedInstanceState) {
         super.attachView(httpInitRespond,savedInstanceState);
-//        HashMap<String,Object> map = new HashMap<>();
-//        map.put("data",new UserParams());
-        http(api.login(new LoginParams()),util::setAllDto);
-        httpLogin(api.getScore(new UserParams()), integer -> {
-            Toast.makeText(getContext(),"success",Toast.LENGTH_SHORT).show();
+        httpLogin(api.getScore(userScore), integer -> {
+            Toast.makeText(getContext(),"obtain score success",Toast.LENGTH_SHORT).show();
         });
-//        http(api.getScore(map), integer -> {});
     }
-
 
 }

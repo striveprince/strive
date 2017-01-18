@@ -88,12 +88,13 @@ public class NewsViewModel extends RecyclerBindViewModel<List<HomeSlideEntity>,H
             headerBinding = DataBindingUtil.bind(pagerView);
             getAdapter().addHeaderView(headerBinding.getRoot());
             RestfulSubscriber<List<HomeSlideEntity>> subscriber = new RestfulSubscriber<>(getContext(),entities -> {
-                ViewPagerTimeEntity<HomeSlideEntity> timeEntity = new ViewPagerTimeEntity<>(entities,  headerBinding.vpNewsFigure);
+                ViewPagerTimeEntity<HomeSlideEntity> timeEntity = new ViewPagerTimeEntity<>(entities,  headerBinding.vpNewsFigure,R.layout.image_view);
                 timeEntity.setInjectImageListener((binding1, t) -> {
                     binding1.setVm(new HomeViewPageViewModel(getContext(),t));
                     binding1.executePendingBindings();
-                }).addCarouselListener((homeSlideEntity, view1) -> headerBinding.setSlide(homeSlideEntity));
-                timeEntity.init(headerBinding.interactTopLinNav);
+                }).addRotateListener((homeSlideEntity, view1) -> headerBinding.setSlide(homeSlideEntity));
+                timeEntity.setPoint(headerBinding.interactTopLinNav,R.layout.view_spot_iv);
+                timeEntity.init();
                 TimeUtil.getInstance().start(timeEntity);
             },Timber::e,(t, e) -> {});
             compositeSubscription.add(api.getContentNews(11684,3,0)

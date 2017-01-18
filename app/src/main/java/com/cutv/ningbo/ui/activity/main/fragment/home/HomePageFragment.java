@@ -4,7 +4,6 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,12 +59,13 @@ public class HomePageFragment
         binding.setVm(new HomePagerHeaderModel(context,homeDataEntity));
         getAdapter().removeAllHeader();
         getAdapter().addHeaderView(binding.getRoot());
-        ViewPagerTimeEntity<HomeSlideEntity> timeEntity = new ViewPagerTimeEntity<>(homeDataEntity.getSlide(),  binding.headerHome.vpNewsFigure);
+        ViewPagerTimeEntity<HomeSlideEntity> timeEntity = new ViewPagerTimeEntity<>(homeDataEntity.getSlide(),  binding.headerHome.vpNewsFigure,R.layout.image_view);
         timeEntity.setInjectImageListener((binding1, t) -> {
             binding1.setVm(new HomeViewPageViewModel(context,t));
             binding1.executePendingBindings();
-        }).addCarouselListener((homeSlideEntity, view) -> binding.setSlide(homeSlideEntity));
-        timeEntity.init(binding.headerHome.interactTopLinNav);
+        }).addRotateListener((homeSlideEntity, view) -> binding.setSlide(homeSlideEntity));
+        timeEntity.setPoint(binding.headerHome.interactTopLinNav,R.layout.view_spot_iv);
+        timeEntity.init();
         TimeUtil.getInstance().start(timeEntity);
         return homeDataEntity.getNews();
     }

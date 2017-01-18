@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TimeEntity<Type> {
-    private boolean isTouch = false;
-
     private int totalTime;
     private int time = 0;
     private int index = 0;
@@ -15,7 +13,7 @@ public class TimeEntity<Type> {
     private int loop = -1;
     protected List<Type> list;
     private View view;
-    private List<CarouselListener<Type>> carouselListeners = new ArrayList<>();
+    private List<RotateListener<Type>> rotateListeners = new ArrayList<>();
 
     public TimeEntity(List<Type> list, View view) {
         this(3, list, view);
@@ -40,8 +38,8 @@ public class TimeEntity<Type> {
         return list.indexOf(type);
     }
 
-    public TimeEntity<Type> addCarouselListener(CarouselListener<Type> listener) {
-        carouselListeners.add(listener);
+    public TimeEntity<Type> addRotateListener(RotateListener<Type> listener) {
+        rotateListeners.add(listener);
         return this;
     }
 
@@ -50,9 +48,9 @@ public class TimeEntity<Type> {
             Type type = getType();
             if (loop == -1 || loop > 0) {
                 if (loop > 0) loop--;
-                for (CarouselListener<Type> carouselListener : carouselListeners)
-                    carouselListener.nextTurn(type, view);
-                //            carouselListeners.forEach(typeCarouselListener -> typeCarouselListener.nextTurn(type,view));
+                for (RotateListener<Type> rotateListener : rotateListeners)
+                    rotateListener.nextRotate(type, view);
+                //            rotateListeners.forEach(typeCarouselListener -> typeCarouselListener.nextRotate(type,view));
             }
         }
     }
@@ -110,8 +108,4 @@ public class TimeEntity<Type> {
         return view != null ? view.hashCode() : 0;
     }
 
-    public TimeEntity setTouch(boolean touch) {
-        isTouch = touch;
-        return this;
-    }
 }

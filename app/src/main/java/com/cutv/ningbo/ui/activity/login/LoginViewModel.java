@@ -27,7 +27,6 @@ import javax.inject.Inject;
  * @version 2.0
  */
 
-@ActivityScope
 public class LoginViewModel extends BaseViewModel<Respond> {
     private LiveApi api;
 

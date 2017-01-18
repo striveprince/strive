@@ -1,6 +1,7 @@
 package com.cutv.ningbo.ui.util.rotary;
 
 import android.databinding.DataBindingUtil;
+import android.support.annotation.LayoutRes;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import com.cutv.ningbo.databinding.ImageViewBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * project：cutv_ningbo
  * description：
@@ -27,14 +30,22 @@ import java.util.List;
  * @version 2.0
  */
 
-public class ViewPagerTimeEntity<Type> extends TimeEntity<Type> implements CarouselListener<Type>, ViewPager.OnPageChangeListener {
+public class ViewPagerTimeEntity<Type> extends TimeEntity<Type> implements RotateListener<Type>, ViewPager.OnPageChangeListener {
     private ViewPager pager;
-    private ImageView[] navs;
+    private View[] navs;
     private InjectImageListener<Type> listener;
+    private @LayoutRes int itemLayoutId,pointLayout;
+    private LinearLayout linearLayout;
+    private  LayoutInflater inflater;
 
-    public ViewPagerTimeEntity(int totalTime, List<Type> list, ViewPager pager) {super(totalTime, list, pager);}
-    public ViewPagerTimeEntity(List<Type> list, ViewPager pager) {
-        this(3,list, pager);
+    public ViewPagerTimeEntity(int totalTime, List<Type> list, ViewPager pager, int itemLayoutId) {
+        super(totalTime, list, pager);
+        this.itemLayoutId = itemLayoutId;
+        inflater =  LayoutInflater.from(pager.getContext());
+    }
+
+    public ViewPagerTimeEntity(List<Type> list, ViewPager pager, int itemViewId) {
+        this(3, list, pager,itemViewId);
     }
 
     public ViewPagerTimeEntity<Type> setInjectImageListener(InjectImageListener<Type> listener) {
@@ -42,45 +53,64 @@ public class ViewPagerTimeEntity<Type> extends TimeEntity<Type> implements Carou
         return this;
     }
 
-    public void init(LinearLayout linearLayout) {
+    public void setPoint(LinearLayout linearLayout, @LayoutRes int pointLayout){
+        this.linearLayout = linearLayout;
+        this.pointLayout = pointLayout;
+    }
+
+    private View layoutInflater(int layoutId){
+        return inflater.inflate(layoutId,null);
+    }
+
+    public void init() {
         if (getView() instanceof ViewPager) {
-            ViewPager view = (ViewPager) getView();
-            DisplayMetrics dm = view.getContext().getResources().getDisplayMetrics();
-            LayoutInflater inflater = LayoutInflater.from(view.getContext());
+            ViewPager pager = (ViewPager) getView();
+            DisplayMetrics dm = pager.getContext().getResources().getDisplayMetrics();
             List<View> imageList = new ArrayList<>();
             navs = new ImageView[list.size()];
-            addCarouselListener(this);
-            pager = view;
+            addRotateListener(this);
+            this.pager = pager;
             int i = 0;
             int side = (int) (10 * dm.density);
             for (Type t : list) {
-                View imageView = inflater.inflate(R.layout.image_view, null);
+                View imageView = layoutInflater(itemLayoutId);
                 ImageViewBinding binding = DataBindingUtil.bind(imageView);
                 if (listener != null) listener.onImageBinding(binding, t);
                 imageList.add(imageView);
-                ImageView rb = (ImageView) inflater.inflate(R.layout.view_spot_iv, null);
+                View rb = layoutInflater(pointLayout);
                 navs[i] = rb;
                 rb.setLayoutParams(new ViewGroup.LayoutParams(side, side));
                 if (linearLayout != null) linearLayout.addView(rb);
                 i++;
             }
-            if (navs.length != 0) navs[0].setImageResource(R.mipmap.ratio_on);
-            pager.setAdapter(new ChildPagerAdapter(imageList));
-            pager.addOnPageChangeListener(this);
+            if (navs.length != 0) navs[0].setBackgroundResource(R.mipmap.ratio_on);
+            this.pager.setAdapter(new ChildPagerAdapter(imageList));
+            this.pager.addOnPageChangeListener(this);
         }
     }
 
-    @Override public void nextTurn(Type type, View view) {pager.setCurrentItem(getIndex());}
-    @Override public void onPageScrollStateChanged(int state) {
-//        boolean b = state == 0?TimeUtil.hashSet.add(this):TimeUtil.hashSet.remove(this);
+    @Override
+    public void nextRotate(Type type, View view) {
+        pager.setCurrentItem(getIndex());
     }
-    @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-    @Override public void onPageSelected(int position) {
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        boolean b = state == 0?TimeUtil.hashSet.add(this):TimeUtil.hashSet.remove(this);
+        if(!b){Timber.e("this ");}
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+
+    @Override
+    public void onPageSelected(int position) {
         if (position < list.size()) {
-            navs[getLastIndex()].setImageResource(R.mipmap.ratio_off);
+            navs[getLastIndex()].setBackgroundResource(R.mipmap.ratio_off);
             setIndex(position);
-            navs[getLastIndex()].setImageResource(R.mipmap.ratio_off);
-            navs[getIndex()].setImageResource(R.mipmap.ratio_on);
+            navs[getLastIndex()].setBackgroundResource(R.mipmap.ratio_off);
+            navs[getIndex()].setBackgroundResource(R.mipmap.ratio_on);
         }
     }
 

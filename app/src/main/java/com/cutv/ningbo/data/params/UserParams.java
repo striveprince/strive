@@ -19,14 +19,11 @@ public class UserParams implements DesParams{
     private String content;
     private int to_uid;
 
-
-//    @Inject
-//    @AppContext
-//    Context context;
-
+    private SharePreferenceUtil util;
     @Inject
-    @NingSharePreference
-    SharePreferenceUtil util;
+    public UserParams(@NingSharePreference SharePreferenceUtil util) {
+        this.util = util;
+    }
 
     public int getTczeidt() {
         return util.getShare().getInt("id", 0);
@@ -36,10 +33,6 @@ public class UserParams implements DesParams{
         this.tczeidt = tczeidt;
     }
 
-    @Inject
-    public UserParams() {
-
-    }
 
     public int getRoom_id() {
         return room_id;

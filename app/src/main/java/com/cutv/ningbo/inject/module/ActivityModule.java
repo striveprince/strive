@@ -4,7 +4,11 @@ package com.cutv.ningbo.inject.module;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 
+import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
+import com.cutv.ningbo.inject.scope.FragmentScope;
 import com.cutv.ningbo.ui.base.fragment.BaseFragment;
 import com.cutv.ningbo.inject.qualifier.context.ActivityContext;
 import com.cutv.ningbo.inject.scope.ActivityScope;
@@ -58,10 +62,17 @@ public class ActivityModule {
         return list;
     }
 
-    //
     @Provides
     @ActivityScope
     FragmentManager provideFragmentManager() {
         return activity.getSupportFragmentManager();
     }
+
+    @Provides
+    @ActivityScope
+    DisplayMetrics provideDisplayMetrics(){return activity.getResources().getDisplayMetrics();}
+
+    @Provides
+    @ActivityScope
+    LayoutInflater provideLayoutInflater(){return LayoutInflater.from(activity);}
 }

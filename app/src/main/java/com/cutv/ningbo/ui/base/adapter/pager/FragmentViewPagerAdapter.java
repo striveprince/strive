@@ -1,10 +1,11 @@
-package com.cutv.ningbo.ui.base.adapter;
+package com.cutv.ningbo.ui.base.adapter.pager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.cutv.ningbo.inject.qualifier.manager.ChildFragmentManager;
+import com.cutv.ningbo.ui.util.rotary.ChangeListener;
 
 import java.util.List;
 
@@ -20,10 +21,10 @@ import javax.inject.Inject;
  * modify remark：
  * @version 2.0
  */
-public class ViewPagerAdapter<F extends Fragment> extends FragmentPagerAdapter {
+public class FragmentViewPagerAdapter<F extends ChangeListener<? extends Fragment>> extends FragmentPagerAdapter {
     private List<F> list;
-    @Inject
-    public ViewPagerAdapter(@ChildFragmentManager FragmentManager fm) {
+
+    public FragmentViewPagerAdapter(@ChildFragmentManager FragmentManager fm) {
         super(fm);
     }
 
@@ -33,7 +34,7 @@ public class ViewPagerAdapter<F extends Fragment> extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return list == null?null:list.get(position);
+        return list == null?null:list.get(position).getT();
     }
 
     @Override

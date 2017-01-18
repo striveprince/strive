@@ -8,8 +8,6 @@ public class LoginParams implements DesParams{
     private String cczyidt;
     private String pczyidt;
 
-//    private String
-
     public String getPczyidt() {
         return pczyidt;
     }
@@ -19,7 +17,6 @@ public class LoginParams implements DesParams{
     }
 
     public String getCczyidt() {
-
         return cczyidt;
     }
 
