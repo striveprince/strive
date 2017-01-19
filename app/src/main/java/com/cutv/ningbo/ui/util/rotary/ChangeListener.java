@@ -25,4 +25,6 @@ public interface ChangeListener<T> {
     int top();
 
     int bottom();
+
+    int getLayout();
 }

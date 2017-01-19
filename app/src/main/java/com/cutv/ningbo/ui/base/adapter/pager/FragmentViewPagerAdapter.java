@@ -21,14 +21,16 @@ import javax.inject.Inject;
  * modify remark：
  * @version 2.0
  */
-public class FragmentViewPagerAdapter<F extends ChangeListener<? extends Fragment>> extends FragmentPagerAdapter {
-    private List<F> list;
+public class FragmentViewPagerAdapter<F extends ChangeListener<? extends Fragment>> extends FragmentPagerAdapter
+        implements PagerListener<F>{
+    private List<? extends F> list;
 
-    public FragmentViewPagerAdapter(@ChildFragmentManager FragmentManager fm) {
+    public FragmentViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public void setList(List<F> list) {
+    @Override
+    public void setList(List<? extends F> list) {
         this.list = list;
     }
 

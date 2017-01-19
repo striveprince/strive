@@ -1,6 +1,11 @@
 package com.cutv.ningbo.data.entity;
 
 
+import android.os.Bundle;
+
+import com.cutv.ningbo.R;
+import com.cutv.ningbo.ui.activity.main.fragment.news.content.NewsContentFragment;
+import com.cutv.ningbo.ui.util.rotary.ChangeListener;
 
 /**
  * project：cutv_ningbo
@@ -10,9 +15,9 @@ package com.cutv.ningbo.data.entity;
  * modify developer：  Arvin
  * modify time：2015/12/17 13:34.
  * modify remark：
- * @version 2.0
+ * @version 2.0`
  */
-public class NewsDataEntity extends BaseEntity {
+public class NewsDataEntity extends BaseEntity implements ChangeListener<NewsContentFragment> {
     private int id;
     private String name,index_img,description,source;
 
@@ -56,8 +61,43 @@ public class NewsDataEntity extends BaseEntity {
         this.source = source;
     }
 
+
     @Override
-    public String toString() {
+    public NewsContentFragment getT() {
+        NewsContentFragment fragment = new NewsContentFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("channelId",id);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Override
+    public String getTextName() {
         return name;
+    }
+
+    @Override
+    public int left() {
+        return 0;
+    }
+
+    @Override
+    public int right() {
+        return 0;
+    }
+
+    @Override
+    public int top() {
+        return 0;
+    }
+
+    @Override
+    public int bottom() {
+        return 0;
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.view_radio_news_tag;
     }
 }

@@ -10,13 +10,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class ViewPagerAdapter<T extends ChangeListener<? extends View>> extends PagerAdapter {
-    private List<T> list;
+public class ViewPagerAdapter<T extends ChangeListener<? extends View>> extends PagerAdapter
+        implements PagerListener<T>{
+    private List<? extends T> list;
     private int count;
-//    @Inject
-    public ViewPagerAdapter() {}
 
-    public void setList(List<T> list) {
+    @Override
+    public void setList(List<? extends T> list) {
         this.list = list;
         this.count = list.size();
     }
