@@ -2,6 +2,10 @@ package com.cutv.ningbo.data.entity;
 
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.cutv.ningbo.R;
 import com.cutv.ningbo.ui.activity.main.fragment.news.content.NewsContentFragment;
@@ -99,5 +103,15 @@ public class NewsDataEntity extends BaseEntity implements ChangeListener<NewsCon
     @Override
     public int getLayout() {
         return R.layout.view_radio_news_tag;
+    }
+
+    @Override
+    public ViewGroup.LayoutParams getLayoutParams(View view) {
+        DisplayMetrics dm = view.getContext().getResources().getDisplayMetrics();
+        ViewGroup.LayoutParams params = view.getLayoutParams() == null ?
+                new ViewGroup.LayoutParams(dm.widthPixels/5, ViewGroup.LayoutParams.MATCH_PARENT)
+                : view.getLayoutParams();
+        params.width = dm.widthPixels/5;
+        return params;
     }
 }

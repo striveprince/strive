@@ -4,12 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.cutv.ningbo.inject.qualifier.manager.ChildFragmentManager;
 import com.cutv.ningbo.ui.util.rotary.ChangeListener;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * project：cutv_ningbo

@@ -42,9 +42,9 @@ public class PagerTimeEntity<CL extends ChangeListener> extends TimeEntity<CL>
         util.setAnimView(view);
     }
 
-    public void setHorizontalScrollView(HorizontalScrollView scrollView){
-        util.setHorizontalScrollView(scrollView);
-    }
+//    public void setHorizontalScrollView(HorizontalScrollView scrollView){
+//        util.setHorizontalScrollView(scrollView);
+//    }
 
     public void refreshRadioToGroup(boolean addRadio){
         util.refreshRadioToGroup(addRadio);
@@ -80,7 +80,7 @@ public class PagerTimeEntity<CL extends ChangeListener> extends TimeEntity<CL>
     }
 
     @Override
-    public void checkIndexPager(int index, RadioButton radioButton, RadioButton lastRadioButton) {
+    public void checkIndexPager(int index, RadioGroup group, RadioButton radioButton, RadioButton lastRadioButton) {
 
     }
 

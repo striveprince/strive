@@ -1,5 +1,8 @@
 package com.cutv.ningbo.ui.util.rotary;
 
+import android.view.View;
+import android.view.ViewGroup;
+
 /**
  * project：cutv_ningbo
  * description：
@@ -27,4 +30,6 @@ public interface ChangeListener<T> {
     int bottom();
 
     int getLayout();
+
+    ViewGroup.LayoutParams getLayoutParams(View view);
 }

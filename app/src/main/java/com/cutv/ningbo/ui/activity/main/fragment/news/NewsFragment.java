@@ -91,7 +91,7 @@ public class NewsFragment extends BaseFragment<NewsPagerViewModel,ViewPagerBindi
     }
 
     @Override
-    public void checkIndexPager(int index, RadioButton radioButton, RadioButton lastRadioButton) {
+    public void checkIndexPager(int index, RadioGroup group, RadioButton radioButton, RadioButton lastRadioButton) {
 
     }
 
