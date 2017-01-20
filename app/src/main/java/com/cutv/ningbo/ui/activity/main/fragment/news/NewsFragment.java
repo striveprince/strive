@@ -17,14 +17,11 @@ import com.cutv.ningbo.databinding.ViewPagerBinding;
 import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
 import com.cutv.ningbo.inject.qualifier.manager.ChildFragmentManager;
 import com.cutv.ningbo.inject.scope.FragmentScope;
-import com.cutv.ningbo.ui.activity.main.MainActivity;
-import com.cutv.ningbo.ui.activity.main.fragment.news.content.NewsContentFragment;
 import com.cutv.ningbo.ui.base.adapter.pager.FragmentViewPagerAdapter;
 import com.cutv.ningbo.ui.base.fragment.BaseFragment;
 import com.cutv.ningbo.ui.base.respond.Respond;
 import com.cutv.ningbo.ui.util.rotary.PagerChangeUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;

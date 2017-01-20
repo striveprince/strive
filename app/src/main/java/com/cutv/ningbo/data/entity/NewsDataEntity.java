@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.cutv.ningbo.R;
 import com.cutv.ningbo.ui.activity.main.fragment.news.content.NewsContentFragment;

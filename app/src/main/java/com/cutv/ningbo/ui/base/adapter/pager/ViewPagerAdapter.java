@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.cutv.ningbo.ui.util.rotary.ChangeListener;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class ViewPagerAdapter<T extends ChangeListener<? extends ViewDataBinding>> extends PagerAdapter

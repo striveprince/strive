@@ -1,9 +1,7 @@
 package com.cutv.ningbo.ui.util.rotary;
 
-import android.support.annotation.LayoutRes;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
