@@ -4,7 +4,7 @@ package com.cutv.ningbo.data.params;
  * Created by apple on 17/1/6.
  */
 
-public class LoginParams implements DesParams{
+public class LoginParams extends DesParams{
     private String cczyidt;
     private String pczyidt;
 
@@ -23,4 +23,6 @@ public class LoginParams implements DesParams{
     public void setCczyidt(String cczyidt) {
         this.cczyidt = cczyidt;
     }
+
+
 }

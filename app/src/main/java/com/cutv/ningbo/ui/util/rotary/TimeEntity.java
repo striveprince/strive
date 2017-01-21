@@ -13,7 +13,7 @@ public class TimeEntity<Type> {
     private int loop = -1;
     protected List<Type> list;
     private View view;
-    private List<RotateListener<Type>> rotateListeners = new ArrayList<>();
+    private List<PagerRotateListener<Type>> pagerRotateListeners = new ArrayList<>();
 
     public TimeEntity(List<Type> list, View view) {
         this(3, list, view);
@@ -38,8 +38,8 @@ public class TimeEntity<Type> {
         return list.indexOf(type);
     }
 
-    public TimeEntity<Type> addRotateListener(RotateListener<Type> listener) {
-        rotateListeners.add(listener);
+    public TimeEntity<Type> addRotateListener(PagerRotateListener<Type> listener) {
+        pagerRotateListeners.add(listener);
         return this;
     }
 
@@ -48,9 +48,9 @@ public class TimeEntity<Type> {
             Type type = getType();
             if (loop == -1 || loop > 0) {
                 if (loop > 0) loop--;
-                for (RotateListener<Type> rotateListener : rotateListeners)
-                    rotateListener.nextRotate(type, view);
-                //            rotateListeners.forEach(typeCarouselListener -> typeCarouselListener.nextRotate(type,view));
+                for (PagerRotateListener<Type> pagerRotateListener : pagerRotateListeners)
+                    pagerRotateListener.nextRotate(type, view);
+                //            pagerRotateListeners.forEach(typeCarouselListener -> typeCarouselListener.nextRotate(type,view));
             }
         }
     }

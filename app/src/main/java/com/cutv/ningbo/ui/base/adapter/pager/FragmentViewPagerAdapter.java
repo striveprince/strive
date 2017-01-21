@@ -1,10 +1,11 @@
 package com.cutv.ningbo.ui.base.adapter.pager;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.cutv.ningbo.ui.util.rotary.ChangeListener;
+import com.cutv.ningbo.ui.util.rotary.PagerModel;
 
 import java.util.List;
 
@@ -18,12 +19,14 @@ import java.util.List;
  * modify remark：
  * @version 2.0
  */
-public class FragmentViewPagerAdapter<F extends ChangeListener<? extends Fragment>> extends FragmentPagerAdapter
-        implements PagerListener<F>{
+public class FragmentViewPagerAdapter<F extends PagerModel<? extends Fragment>> extends FragmentPagerAdapter
+        implements PagerListener<F> {
     private List<? extends F> list;
+    private Context context;
 
-    public FragmentViewPagerAdapter(FragmentManager fm) {
+    public FragmentViewPagerAdapter(FragmentManager fm,Context context) {
         super(fm);
+        this.context = context;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class FragmentViewPagerAdapter<F extends ChangeListener<? extends Fragmen
 
     @Override
     public Fragment getItem(int position) {
-        return list == null?null:list.get(position).getT();
+        return list == null?null:list.get(position).getItem(context);
     }
 
     @Override

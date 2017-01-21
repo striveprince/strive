@@ -10,13 +10,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.cutv.ningbo.data.entity.InfoEntity;
-import com.cutv.ningbo.data.entity.PrivateInfoEntity;
 import com.cutv.ningbo.data.http.RestfulObserver;
 import com.cutv.ningbo.data.http.RestfulSubscriber;
 import com.cutv.ningbo.data.http.RestfulTransformer;
 import com.cutv.ningbo.ui.base.respond.Respond;
-
-import javax.inject.Inject;
 
 import rx.Observable;
 import rx.functions.Action1;
@@ -42,8 +39,8 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
     private Context context;
 
-//    @Inject
-    PrivateInfoEntity infoEntity;
+    //    @Inject
+//    PrivateInfoEntity infoEntity;
     public BaseViewModel(Context context) {
         this.context = context;
     }
@@ -60,9 +57,6 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
             restoreInstanceState(savedInstanceState);
         }
     }
-
-
-
 
 
     @BindingAdapter({"android:src"})
@@ -100,29 +94,37 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
     }
 
 
-
-
-    public <E> void http(Observable<InfoEntity<E>> observable,RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
-        http( observable, t -> {}, Timber::i, onCompletedListener);
+    public <E> void http(Observable<InfoEntity<E>> observable, RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
+        http(observable, t -> {
+        }, Timber::i, onCompletedListener);
     }
 
     public <E> void http(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer) {
-        http( observable, observer, Timber::i, null);
+        http(observable, observer, Timber::i, null);
+    }
+
+    public <E> void httpToast(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer) {
+        httpToast(observable, observer, Timber::i, null);
     }
 
     public <E> void http(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer,
                          RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
-        http( observable, observer, Timber::i, onCompletedListener);
+        http(observable, observer, Timber::i, onCompletedListener);
     }
 
     public <E> void http(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer,
                          Action1<Throwable> action, RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
-        if(observable!=null)compositeSubscription.add(observable
+        if (observable != null) compositeSubscription.add(observable
                 .compose(new RestfulTransformer<>())
                 .subscribe(new RestfulSubscriber<>(context, observer, action, onCompletedListener)));
     }
 
-
+    public <E> void httpToast(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer,
+                         Action1<Throwable> action, RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
+        if (observable != null) compositeSubscription.add(observable
+                .compose(new RestfulTransformer<E>().setToast(true))
+                .subscribe(new RestfulSubscriber<>(context, observer, action, onCompletedListener)));
+    }
 
 
 }

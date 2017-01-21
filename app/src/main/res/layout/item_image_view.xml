@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
             name="vm"
-            type="com.cutv.ningbo.ui.activity.main.fragment.home.ImageHeaderViewModel"/>
+            type="com.cutv.ningbo.ui.util.rotary.PagerViewModel"/>
     </data>
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,8 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            app:imageUrl="@{vm.imageUrl}"
-            app:error="@{@drawable/error}"
+            android:src="@{vm.imageUrl}"
             android:onClick="@{vm.onClick}"/>
     </FrameLayout>
 

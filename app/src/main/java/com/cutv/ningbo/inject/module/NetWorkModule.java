@@ -52,7 +52,7 @@ public class NetWorkModule {
         return new Retrofit.Builder()
                 .baseUrl(USERURL)
                 .addConverterFactory(JsonConverterFactory.create())
-//                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .callFactory(client)
                 .build().create(UserApi.class);

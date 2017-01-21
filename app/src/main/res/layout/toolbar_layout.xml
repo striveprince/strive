@@ -8,33 +8,55 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/main_toolbar"
-        app:theme="@style/ToolBarTheme"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:layout_height="45dp"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="@mipmap/head_tubiao"
-        >
-
-        <HorizontalScrollView
-            android:id="@+id/news_hscr"
+        app:theme="@style/ToolBarTheme">
+        <!--android:layout_height="?android:attr/actionBarSize"-->
+        <!--app:navigationIcon="@mipmap/head_tubiao"-->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:scrollbars="none">
+            android:layout_height="match_parent">
+            <ImageButton
+                android:layout_width="45dp"
+                android:background="@color/alpha"
+                android:src="@mipmap/head_tubiao"
+                android:layout_height="match_parent" />
+            <ImageButton
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@color/alpha"
+                android:src="@mipmap/ic_zhankai"
+                android:layout_width="45dp"
+                android:layout_height="match_parent" />
 
-            <LinearLayout
+            <RadioButton
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:layout_centerInParent="true"
+                />
+                <!--android:text="@string/app_name"-->
+                <!--android:drawableLeft="@mipmap/title_home_img"-->
+            <HorizontalScrollView
+                android:id="@+id/news_hscr"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="45dp"
+                android:scrollbars="none">
+                    <RadioGroup
+                        android:id="@+id/tool_rg_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" />
+            </HorizontalScrollView>
 
-                <RadioGroup
-                    android:id="@+id/tool_rg_tag"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal" />
-            </LinearLayout>
-        </HorizontalScrollView>
+
+        </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 

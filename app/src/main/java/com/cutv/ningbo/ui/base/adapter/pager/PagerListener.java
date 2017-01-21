@@ -1,5 +1,7 @@
 package com.cutv.ningbo.ui.base.adapter.pager;
 
+import android.support.v4.view.ViewPager;
+
 import java.util.List;
 
 /**

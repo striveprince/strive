@@ -14,10 +14,11 @@ import com.cutv.ningbo.data.entity.HomeSlideEntity;
 import com.cutv.ningbo.databinding.HeaderHomePageBinding;
 import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
 import com.cutv.ningbo.inject.scope.FragmentScope;
+import com.cutv.ningbo.ui.base.adapter.pager.ViewPagerAdapter;
 import com.cutv.ningbo.ui.base.fragment.ListFragment;
 import com.cutv.ningbo.ui.base.respond.Respond;
+import com.cutv.ningbo.ui.util.rotary.PagerTimeEntity;
 import com.cutv.ningbo.ui.util.rotary.TimeUtil;
-import com.cutv.ningbo.ui.util.rotary.ViewPagerTimeEntity;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ import javax.inject.Inject;
 
 @FragmentScope
 public class HomePageFragment
-        extends ListFragment<HomeDataEntity,HomeSlideEntity, HomePageViewModel, HomeAdapter>
+        extends ListFragment<HomeDataEntity, HomeSlideEntity, HomePageViewModel, HomeAdapter>
         implements Respond.TransformRespond<HomeDataEntity, HomeSlideEntity> {
     @Inject
     LayoutInflater inflater;
@@ -56,16 +57,12 @@ public class HomePageFragment
     @Override
     public List<HomeSlideEntity> transform(HomeDataEntity homeDataEntity) {
         HeaderHomePageBinding binding = DataBindingUtil.inflate(inflater, R.layout.header_home_page, null, false);
-        binding.setVm(new HomePagerHeaderModel(context,homeDataEntity));
+        binding.setVm(new HomePagerHeaderModel(context, homeDataEntity));
         getAdapter().removeAllHeader();
         getAdapter().addHeaderView(binding.getRoot());
-        ViewPagerTimeEntity<HomeSlideEntity> timeEntity = new ViewPagerTimeEntity<>(homeDataEntity.getSlide(),  binding.headerHome.vpNewsFigure,R.layout.image_view);
-        timeEntity.setInjectImageListener((binding1, t) -> {
-            binding1.setVm(new HomeViewPageViewModel(context,t));
-            binding1.executePendingBindings();
-        }).addRotateListener((homeSlideEntity, view) -> binding.setSlide(homeSlideEntity));
-        timeEntity.setPoint(binding.headerHome.interactTopLinNav,R.layout.view_spot_iv);
-        timeEntity.init();
+        ViewPagerAdapter<HomeSlideEntity> adapter = new ViewPagerAdapter<>();
+        PagerTimeEntity<HomeSlideEntity> timeEntity = new PagerTimeEntity<>(homeDataEntity.getSlide(), binding.headerHome.sliderVp, adapter);
+        timeEntity.initData(binding.headerHome.interactTopLinNav,binding);
         TimeUtil.getInstance().start(timeEntity);
         return homeDataEntity.getNews();
     }

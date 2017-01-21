@@ -32,24 +32,31 @@ public class UserViewModel<RD extends Respond> extends BaseViewModel<RD> {
     @NingSharePreference
     SharePreferenceUtil util;
 
-    public <E> void httpLogin(Observable<InfoEntity<E>> observable, RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
-        httpLogin(observable, t -> {
-        }, Timber::i, onCompletedListener);
-    }
 
     public <E> void httpLogin(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer) {
         httpLogin(observable, observer, Timber::i, null);
     }
-
-    public <E> void httpLogin(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer,
-                              RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
-        httpLogin(observable, observer, Timber::i, onCompletedListener);
+    public <E> void httpLoginToast(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer) {
+        httpLogin(observable, observer, Timber::i, null);
     }
 
     public <E> void httpLogin(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer,
                               Action1<Throwable> action, RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
         if(util.getShare().getInt("id",0)!=0)
             http(observable, observer, action, onCompletedListener);
+        else{
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            if(!(getContext() instanceof Activity))
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            getContext().startActivity(intent);
+        }
+    }
+
+
+    public <E> void httpLoginToast(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer,
+                              Action1<Throwable> action, RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
+        if(util.getShare().getInt("id",0)!=0)
+            httpToast(observable, observer, action, onCompletedListener);
         else{
             Intent intent = new Intent(getContext(), LoginActivity.class);
             if(!(getContext() instanceof Activity))

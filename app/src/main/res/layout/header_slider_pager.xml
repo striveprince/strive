@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-
         <variable
             name="slide"
             type="com.cutv.ningbo.data.entity.HomeSlideEntity" />
@@ -14,7 +11,7 @@
         android:layout_height="200.0dip">
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/vp_news_figure"
+            android:id="@+id/slider_vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@mipmap/loading_thumb" />
@@ -36,12 +33,11 @@
             android:textColor="@color/white"
             android:textSize="16sp" />
 
-        <LinearLayout
+        <RadioGroup
             android:id="@+id/interact_top_lin_nav"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/interact_tv_title"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/interact_tv_title"

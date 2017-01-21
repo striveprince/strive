@@ -1,9 +1,6 @@
 package com.cutv.ningbo.data.params;
 
-import android.content.Context;
-
 import com.cutv.ningbo.data.save.SharePreferenceUtil;
-import com.cutv.ningbo.inject.qualifier.context.AppContext;
 import com.cutv.ningbo.inject.qualifier.preference.NingSharePreference;
 
 import javax.inject.Inject;
@@ -12,7 +9,7 @@ import javax.inject.Inject;
  * Created by apple on 17/1/4.
  */
 
-public class UserParams implements DesParams{
+public class UserParams extends DesParams{
     private int tczeidt;
     private int room_id;
     private int room;

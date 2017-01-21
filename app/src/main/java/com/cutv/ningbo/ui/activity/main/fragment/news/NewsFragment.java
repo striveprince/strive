@@ -44,19 +44,19 @@ import javax.inject.Inject;
 
 @FragmentScope
 public class NewsFragment extends BaseFragment<NewsPagerViewModel,ViewPagerBinding>
-        implements Respond ,PagerChangeUtil.Listener<NewsDataEntity> {
-//    private List<NewsContentFragment> list = new ArrayList<>();
-//    @Inject
-//    FragmentViewPagerAdapter<NewsContentFragment> adapter;
+        implements Respond{// ,PagerChangeUtil.Listener<NewsDataEntity> {
     @Inject @FragmentContext Context context;
     @Inject NbtvApi api;
     @ChildFragmentManager
     @Inject FragmentManager fragmentManager;
+    private MainActivity activity;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentComponent().inject(this);
+        activity = (MainActivity)context;
         return setAndBindContentView(inflater,container, R.layout.view_pager,savedInstanceState);
     }
 
@@ -67,36 +67,23 @@ public class NewsFragment extends BaseFragment<NewsPagerViewModel,ViewPagerBindi
     }
 
     private void successRespond(List<NewsDataEntity> newsDataEntities){
-        FragmentViewPagerAdapter<NewsDataEntity> adapter = new FragmentViewPagerAdapter<>(fragmentManager);
+        FragmentViewPagerAdapter<NewsDataEntity> adapter = new FragmentViewPagerAdapter<>(fragmentManager,context);
         PagerChangeUtil<NewsDataEntity> util = new PagerChangeUtil<>();
         util.setAdapter(adapter);
-        util.setListener(this);
-        util.refreshRadioToGroup(true);
+//        util.setListener(this);
         // TODO: 17/1/19 need to add achieve the radio group and anim view;
-//        util.setAnimView();
-        util.setData(newsDataEntities,binding.viewpager,null);
+        //util.setAnimView();
+        util.setData(newsDataEntities,binding.viewpager,activity.getGroup());
+        activity.getScrollView().scrollTo(0,0);
+    }
 
-//        list.clear();
-//        for(NewsDataEntity entity:newsDataEntities){
-//            NewsContentFragment fragment = new NewsContentFragment();
-//            Bundle bundle = new Bundle();
-//            bundle.putInt("channelId",entity.getId());
-//            fragment.setArguments(bundle);
-//            list.add(fragment);
-//        }
-//        adapter.setList(list);
-//        binding.viewpager.setAdapter(adapter);
+//    @Override
+//    public void checkIndexPager(int index, int lastIndex, RadioGroup group) {
 //
-//        RadioGroup newsRgNavContent = (RadioGroup)((MainActivity)context).getMainBinding().toolbar.findViewById(R.id.tool_rg_tag);
-    }
-
-    @Override
-    public void checkIndexPager(int index, RadioGroup group, RadioButton radioButton, RadioButton lastRadioButton) {
-
-    }
-
-    @Override
-    public void initPager(NewsDataEntity o, RadioButton radioButton) {
-
-    }
+//    }
+//
+//    @Override
+//    public void initPager(NewsDataEntity newsDataEntity, RadioButton radioButton) {
+//
+//    }
 }

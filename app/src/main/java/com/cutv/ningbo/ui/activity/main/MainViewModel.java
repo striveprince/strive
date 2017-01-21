@@ -50,9 +50,9 @@ public class MainViewModel extends UserViewModel<Respond> {
     @Override
     public void attachView(Respond httpInitRespond, Bundle savedInstanceState) {
         super.attachView(httpInitRespond,savedInstanceState);
-        httpLogin(api.getScore(userScore), integer -> {
-            Toast.makeText(getContext(),"obtain score success",Toast.LENGTH_SHORT).show();
-        });
+//        http(api.getScore(userScore), integer -> {
+//            Toast.makeText(getContext(),"obtain score success",Toast.LENGTH_SHORT).show();
+//        });
     }
 
 }

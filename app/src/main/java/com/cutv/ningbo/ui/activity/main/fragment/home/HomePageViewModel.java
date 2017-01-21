@@ -83,7 +83,7 @@ public class HomePageViewModel extends RecyclerBindViewModel<HomeDataEntity, Hom
     @Override
     protected void onScrollBottom() {
         super.onScrollBottom();
-        if(getAdapter().getItemCount()==3){
+        if(getAdapter().getRealItemCount()==3){
             getAdapter().setCount(6);
             View v = inflater.inflate(R.layout.footer_home_pager, null);
             v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));

@@ -1,15 +1,16 @@
 package com.cutv.ningbo.data.entity;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.View;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.RadioButton;
 
 import com.cutv.ningbo.R;
 import com.cutv.ningbo.ui.activity.main.fragment.news.content.NewsContentFragment;
-import com.cutv.ningbo.ui.util.rotary.ChangeListener;
+import com.cutv.ningbo.ui.util.rotary.PagerModel;
 
 /**
  * project：cutv_ningbo
@@ -21,7 +22,7 @@ import com.cutv.ningbo.ui.util.rotary.ChangeListener;
  * modify remark：
  * @version 2.0`
  */
-public class NewsDataEntity extends BaseEntity implements ChangeListener<NewsContentFragment> {
+public class NewsDataEntity extends BaseEntity implements PagerModel<NewsContentFragment> {
     private int id;
     private String name,index_img,description,source;
 
@@ -67,7 +68,7 @@ public class NewsDataEntity extends BaseEntity implements ChangeListener<NewsCon
 
 
     @Override
-    public NewsContentFragment getT() {
+    public NewsContentFragment getItem(Context context) {
         NewsContentFragment fragment = new NewsContentFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("channelId",id);
@@ -76,42 +77,16 @@ public class NewsDataEntity extends BaseEntity implements ChangeListener<NewsCon
     }
 
     @Override
-    public String getTextName() {
-        return name;
-    }
-
-    @Override
-    public int left() {
-        return 0;
-    }
-
-    @Override
-    public int right() {
-        return 0;
-    }
-
-    @Override
-    public int top() {
-        return 0;
-    }
-
-    @Override
-    public int bottom() {
-        return 0;
-    }
-
-    @Override
-    public int getLayout() {
-        return R.layout.view_radio_news_tag;
-    }
-
-    @Override
-    public ViewGroup.LayoutParams getLayoutParams(View view) {
-        DisplayMetrics dm = view.getContext().getResources().getDisplayMetrics();
-        ViewGroup.LayoutParams params = view.getLayoutParams() == null ?
+    public RadioButton getRadioButton(LayoutInflater inflater) {
+        RadioButton rb = (RadioButton) inflater.inflate(R.layout.view_radio_news_tag, null);
+        rb.setText(name);
+        DisplayMetrics dm = rb.getContext().getResources().getDisplayMetrics();
+        ViewGroup.LayoutParams params = rb.getLayoutParams() == null ?
                 new ViewGroup.LayoutParams(dm.widthPixels/5, ViewGroup.LayoutParams.MATCH_PARENT)
-                : view.getLayoutParams();
+                : rb.getLayoutParams();
         params.width = dm.widthPixels/5;
-        return params;
+        rb.setLayoutParams(params);
+        return rb;
     }
+
 }

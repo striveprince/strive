@@ -1,16 +1,14 @@
 package com.cutv.ningbo.ui.base.adapter.pager;
 
-import android.databinding.ViewDataBinding;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cutv.ningbo.ui.util.rotary.ChangeListener;
+import com.cutv.ningbo.ui.util.rotary.PagerModel;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class ViewPagerAdapter<T extends ChangeListener<? extends ViewDataBinding>> extends PagerAdapter
+public class ViewPagerAdapter<T extends PagerModel<? extends View>> extends PagerAdapter
         implements PagerListener<T> {
     private List<? extends T> list;
     private int count;
@@ -32,16 +30,12 @@ public class ViewPagerAdapter<T extends ChangeListener<? extends ViewDataBinding
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        try {
-            return view == ((T)object).getT().getRoot();
-        } catch (Exception e) {
-            return false;
-        }
+        return view == object;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View v = list.get(position % count).getT().getRoot();
+        View v = list.get(position % count).getItem(container.getContext());
         if (container.equals(v.getParent())) container.removeView(v);
         container.addView(v);
         return v;
@@ -49,7 +43,6 @@ public class ViewPagerAdapter<T extends ChangeListener<? extends ViewDataBinding
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView(list.get(position % count).getT().getRoot());
+        container.removeView(list.get(position % count).getItem(container.getContext()));
     }
-
 }

@@ -5,6 +5,7 @@ local.properties
 .idea
 .DS_Store
 build
+unusefulFile
 /captures
 /projectFilesBackup
 /gradle.properties

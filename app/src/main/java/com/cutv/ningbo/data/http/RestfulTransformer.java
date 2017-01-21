@@ -21,20 +21,19 @@ import rx.schedulers.Schedulers;
 
 
 public class RestfulTransformer<T> implements Observable.Transformer<InfoEntity<T>, T> {
+    private boolean isToast = false;
+
     @Override
     public Observable<T> call(Observable<InfoEntity<T>> observable) {
         return observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-
                 .flatMap(entity ->
                         Observable.create(subscriber -> {
                             if (!subscriber.isUnsubscribed())
                                 try {
-                                    if (entity.isSucc())
-                                        subscriber.onNext(entity.getData());
-                                    else
-                                        subscriber.onError(new ApiException(entity.getInfo()));
+                                        if (entity.isSucc()) subscriber.onNext(entity.getData());
+                                        if(isToast||!entity.isSucc())subscriber.onError(new ApiException(entity.getInfo()));
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                     subscriber.onError(e);
@@ -42,6 +41,11 @@ public class RestfulTransformer<T> implements Observable.Transformer<InfoEntity<
                                     subscriber.onCompleted();
                                 }
                         }));
+    }
+
+    public RestfulTransformer<T> setToast(boolean isToast) {
+        this.isToast = isToast;
+        return this;
     }
 
 }

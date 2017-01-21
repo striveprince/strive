@@ -6,7 +6,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.cutv.ningbo.R;
@@ -24,36 +26,41 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     @Inject UserApi userApi;
     @Inject OnMainChecked checked;
     @Inject @ActivityContext Context context;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityComponent().inject(this);
         setBindingView(R.layout.activity_main,savedInstanceState);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         binding.mainBottomTab.setOnCheckedChangeListener(checked);
         binding.mainRadioHomepager.setChecked(true);
 
-        LinearLayout  gallery = (LinearLayout)binding.navigationView.getMenu().findItem(R.id.menu_message).getActionView();
-        TextView msg= (TextView) gallery.findViewById(R.id.msg);
-        msg.setText("9");
-        msg.setVisibility(View.GONE);
+//        LinearLayout  gallery = (LinearLayout)binding.navigationView.getMenu().findItem(R.id.menu_message).getActionView();
+//        TextView msg= (TextView) gallery.findViewById(R.id.msg);
+//        msg.setText("9");
+//        msg.setVisibility(View.GONE);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_navigation_main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_navigation_main, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return item.getItemId() == R.id.message || super.onOptionsItemSelected(item);
     }
 
-    public ActivityMainBinding getMainBinding() {
-        return binding;
+    public RadioGroup getGroup(){
+        return (RadioGroup) toolbar.findViewById(R.id.tool_rg_tag);
+    }
+
+    public HorizontalScrollView getScrollView(){
+        return (HorizontalScrollView)toolbar.findViewById(R.id.news_hscr);
     }
 
 }

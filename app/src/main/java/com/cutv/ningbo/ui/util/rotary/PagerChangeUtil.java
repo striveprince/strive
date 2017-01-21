@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -31,9 +30,10 @@ import timber.log.Timber;
  *
  * @version 2.0
  */
-public class PagerChangeUtil<CL extends ChangeListener> implements ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener {
+public class PagerChangeUtil<CL extends PagerModel> implements ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener {
     private ViewPager viewPager;
-    private RadioButton lastRadioButton;
+    //    private RadioButton lastRadioButton;
+    private int lastIndex = 0;
     //    private HorizontalScrollView horizontalScrollView;
     private ImageView animView;
     //    private @LayoutRes int pointLayout;
@@ -41,7 +41,6 @@ public class PagerChangeUtil<CL extends ChangeListener> implements ViewPager.OnP
     private Listener<CL> listener;
     private int currentLeft = 0;
     private RadioGroup group;
-    private boolean refreshRadio = false;
     /**
      * the appropriate adapter
      */
@@ -64,14 +63,7 @@ public class PagerChangeUtil<CL extends ChangeListener> implements ViewPager.OnP
         this.animView = animView;
     }
 
-
-//    public void setPointLayout(@LayoutRes int pointLayout){this.pointLayout = pointLayout;}
-
 //    public void setHorizontalScrollView(HorizontalScrollView horizontalScrollView) {this.horizontalScrollView = horizontalScrollView;}
-
-    public void refreshRadioToGroup(boolean refreshRadio) {
-        this.refreshRadio = refreshRadio;
-    }
 
     /**
      * init the data,all the params can't be  null;
@@ -83,23 +75,19 @@ public class PagerChangeUtil<CL extends ChangeListener> implements ViewPager.OnP
     public void setData(Collection<CL> data, @NonNull ViewPager viewPager, @NonNull RadioGroup group) {
         this.viewPager = viewPager;
         this.group = group;
-        if (group != null && refreshRadio) group.removeAllViews();
+        if (group != null) group.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(viewPager.getContext());
         if (count == 0) count = data.size();
         if (data != null) {
             changeListeners.clear();
-            for (CL CL : data) {
-                changeListeners.add(CL);
-                RadioButton rb = (RadioButton) inflater.inflate(CL.getLayout(), null);
-                rb.setText(CL.getTextName());
-                rb.setCompoundDrawablesWithIntrinsicBounds(CL.left(), CL.top(), CL.right(), CL.bottom());
-                if(CL.getLayoutParams(rb)!=null)rb.setLayoutParams(CL.getLayoutParams(rb));
-                lastRadioButton = rb;
-                if (listener != null) listener.initPager(CL, rb);
-                if (group != null && refreshRadio) group.addView(rb);
+            for (CL cl : data) {
+                changeListeners.add(cl);
+                RadioButton rb = cl.getRadioButton(inflater);
+                if (listener != null) listener.initPager(cl, rb);
+                if (group != null && rb != null) group.addView(rb);
             }
             adapter.setList(changeListeners);
-            if (adapter instanceof PagerAdapter) viewPager.setAdapter((PagerAdapter) adapter);
+            if (adapter instanceof PagerAdapter)viewPager.setAdapter((PagerAdapter) adapter);
         }
         if (group != null) {
             group.setOnCheckedChangeListener(this);
@@ -115,7 +103,6 @@ public class PagerChangeUtil<CL extends ChangeListener> implements ViewPager.OnP
 
     @Override
     public void onPageSelected(int position) {
-        Timber.i("util:%1d", position);
         group.check(group.getChildAt(position).getId());
     }
 
@@ -139,15 +126,15 @@ public class PagerChangeUtil<CL extends ChangeListener> implements ViewPager.OnP
             viewPager.setCurrentItem(indexOfChild);
             currentLeft = view.getLeft();
             if (listener != null)
-                listener.checkIndexPager(indexOfChild, group, (RadioButton) view, lastRadioButton);
+                listener.checkIndexPager(indexOfChild, lastIndex, group);
 //            int mIndex = group.getChildCount() - 1 > 2 ? 2 : group.getChildCount();
 //            if(horizontalScrollView!=null)horizontalScrollView.smoothScrollTo((indexOfChild >1?currentLeft:0)-group.getChildAt(mIndex).getLeft(),0);
-            lastRadioButton = (RadioButton) view;
+            lastIndex = indexOfChild;
         }
     }
 
     public interface Listener<T> {
-        void checkIndexPager(int index, RadioGroup group, RadioButton radioButton, RadioButton lastRadioButton);
+        void checkIndexPager(int index, int lastIndex, RadioGroup group);
 
         void initPager(T t, RadioButton radioButton);
     }

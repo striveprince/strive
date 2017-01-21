@@ -14,7 +14,7 @@
     </style>
     <!--修改toolbar菜单按钮的style-->
     <style name="OverflowButtonStyle" parent="@android:style/Widget.ActionButton.Overflow">
-        <item name="android:src">@mipmap/ic_zhankai</item>
+        <!--<item name="android:src">@mipmap/ic_zhankai</item>-->
     </style>
     -->
     <!--toolbar菜单按钮的颜色-->

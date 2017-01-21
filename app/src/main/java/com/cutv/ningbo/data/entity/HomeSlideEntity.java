@@ -1,11 +1,19 @@
 package com.cutv.ningbo.data.entity;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.Toast;
+
+import com.cutv.ningbo.R;
+import com.cutv.ningbo.databinding.ItemImageViewBinding;
+import com.cutv.ningbo.ui.util.rotary.PagerViewModel;
 
 /**
  * project：cutv_ningbo
@@ -18,9 +26,10 @@ import android.widget.Toast;
  *
  * @version 2.0
  */
-public class HomeSlideEntity extends BaseEntity implements Parcelable {
+public class HomeSlideEntity extends BaseEntity implements Parcelable, PagerViewModel<View> {
     private String title, images, out_url, description, index_img, tags2, image, share_url, maid;
     private int item_id, media_type, id, type;
+    private transient View view;
 
     public HomeSlideEntity() {
     }
@@ -129,11 +138,11 @@ public class HomeSlideEntity extends BaseEntity implements Parcelable {
         this.maid = maid;
     }
 
-    public View.OnClickListener getOnClick(){
+    public View.OnClickListener getOnClick() {
         return this::onClick;
     }
 
-    public void onClick(View view){
+    public void onClick(View view) {
         Toast.makeText(view.getContext(), toString(), Toast.LENGTH_SHORT).show();
     }
 
@@ -175,6 +184,7 @@ public class HomeSlideEntity extends BaseEntity implements Parcelable {
         this.type = in.readInt();
     }
 
+
     public static final Creator<HomeSlideEntity> CREATOR = new Creator<HomeSlideEntity>() {
         @Override
         public HomeSlideEntity createFromParcel(Parcel source) {
@@ -186,4 +196,25 @@ public class HomeSlideEntity extends BaseEntity implements Parcelable {
             return new HomeSlideEntity[size];
         }
     };
+
+    @Override
+    public View getItem(Context context) {
+        if(view == null){
+            LayoutInflater inflater = LayoutInflater.from(context);
+            ItemImageViewBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_image_view, null, false);
+            binding.setVm(this);
+            view = binding.getRoot();
+        }
+        return view;
+    }
+
+    @Override
+    public RadioButton getRadioButton(LayoutInflater inflater) {
+        return (RadioButton) inflater.inflate(R.layout.view_spot_iv, null);
+    }
+
+    @Override
+    public String getImageUrl() {
+        return TextUtils.isEmpty(image) ? index_img : image;
+    }
 }
