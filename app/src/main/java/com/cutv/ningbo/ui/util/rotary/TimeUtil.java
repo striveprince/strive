@@ -32,11 +32,11 @@ public class TimeUtil {
         return util;
     }
 
-    private TimeUtil() {handler.postDelayed(runnable,50);}
+    private TimeUtil() {
+        handler.postDelayed(runnable, 50);
+    }
 
-
-
-    //    Iterator<Map.Entry<String, Object>> it = map.entrySet().iterator();
+//    Iterator<Map.Entry<String, Object>> it = map.entrySet().iterator();
 //    while (it.hasNext()) {
 //        Map.Entry<String, Object> entry = it.next();
 //        String key = entry.getKey();
@@ -45,27 +45,27 @@ public class TimeUtil {
 //            it.remove();
 //        }
 //    }
+
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            synchronized (hashSet){
-                Iterator<TimeEntity> it = hashSet.iterator();
-                while (it.hasNext()) it.next().getTurn();
-            }
-
-//            for (TimeEntity timeEntity : hashSet) timeEntity.getTurn();
-//            hashSet.forEach(TimeEntity::getTurn);
+            for (TimeEntity timeEntity : hashSet) timeEntity.getTurn();
             handler.postDelayed(runnable, 1000);
         }
     };
 
-    public synchronized static boolean start(TimeEntity timeEntity) {
-        return hashSet.add(timeEntity);
+    public void add(TimeEntity timeEntity) {
+        hashSet.add(timeEntity);
     }
 
-    public synchronized static boolean stop(TimeEntity timeEntity) {
-        return hashSet.remove(timeEntity);
+    public void switching(TimeEntity timeEntity, int state) {
+        if (state == 0 ^ hashSet.contains(timeEntity)) {
+            handler.removeCallbacks(runnable);
+            boolean b = state == 0 ? hashSet.add(timeEntity) : hashSet.remove(timeEntity);
+            handler.postDelayed(runnable, 500);
+        }
     }
+
 
     public void destroy() {
         hashSet.clear();

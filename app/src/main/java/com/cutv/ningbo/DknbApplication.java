@@ -5,6 +5,7 @@ import android.app.Application;
 import com.cutv.ningbo.inject.component.AppComponent;
 import com.cutv.ningbo.inject.component.DaggerAppComponent;
 import com.cutv.ningbo.inject.module.AppModule;
+import com.cutv.ningbo.ui.util.CrashHandler;
 
 import timber.log.Timber;
 
@@ -30,6 +31,7 @@ public class DknbApplication extends Application {
                 .appModule(new AppModule(this))
                 .build();
         if(BuildConfig.DEBUG) { Timber.plant(new Timber.DebugTree()); }
+        CrashHandler.getInstance().init(this);
     }
     public static AppComponent getAppComponent() {
         return mAppComponent;

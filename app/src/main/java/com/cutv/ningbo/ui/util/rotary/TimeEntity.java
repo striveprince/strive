@@ -11,6 +11,7 @@ public class TimeEntity<Type> {
     private int index = 0;
     private int lastIndex = 0;
     private int loop = -1;
+    private int count = 0;
     protected List<Type> list;
     private View view;
     private List<PagerRotateListener<Type>> pagerRotateListeners = new ArrayList<>();
@@ -28,10 +29,15 @@ public class TimeEntity<Type> {
         this.view = view;
         this.list = list;
         this.index = list.size() - 1;
+        count = list.size();
     }
 
     public View getView() {
         return view;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public int getCheckIndex(Type type) {
@@ -46,8 +52,7 @@ public class TimeEntity<Type> {
     void getTurn() {
         if (totalTime == getTime()) {
             Type type = getType();
-            if (loop == -1 || loop > 0) {
-                if (loop > 0) loop--;
+            if (loop == -1 || --loop > 0) {
                 for (PagerRotateListener<Type> pagerRotateListener : pagerRotateListeners)
                     pagerRotateListener.nextRotate(type, view);
                 //            pagerRotateListeners.forEach(typeCarouselListener -> typeCarouselListener.nextRotate(type,view));
@@ -57,7 +62,7 @@ public class TimeEntity<Type> {
 
     private int getCheckIndex() {
         lastIndex = index;
-        return index = index == list.size() - 1 ? 0 : ++index;
+        return index = index == count - 1 ? 0 : ++index;
     }
 
     public int getLastIndex() {
@@ -74,7 +79,7 @@ public class TimeEntity<Type> {
     }
 
     public Type getType() {
-        return list.get(getCheckIndex());
+        return list.get(getCheckIndex()%count);
     }
 
 

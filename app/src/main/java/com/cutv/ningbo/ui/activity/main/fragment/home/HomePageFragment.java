@@ -62,8 +62,9 @@ public class HomePageFragment
         getAdapter().addHeaderView(binding.getRoot());
         ViewPagerAdapter<HomeSlideEntity> adapter = new ViewPagerAdapter<>();
         PagerTimeEntity<HomeSlideEntity> timeEntity = new PagerTimeEntity<>(homeDataEntity.getSlide(), binding.headerHome.sliderVp, adapter);
+//        timeEntity.setLimitLoop(true);
         timeEntity.initData(binding.headerHome.interactTopLinNav,binding);
-        TimeUtil.getInstance().start(timeEntity);
+        TimeUtil.getInstance().add(timeEntity);
         return homeDataEntity.getNews();
     }
 

@@ -95,6 +95,7 @@ public class NewsViewModel extends RecyclerBindViewModel<List<HomeSlideEntity>, 
             ViewPagerAdapter<HomeSlideEntity> adapter = new ViewPagerAdapter<>();
             RestfulSubscriber<List<HomeSlideEntity>> subscriber = new RestfulSubscriber<>(getContext(), entities -> {
                 PagerTimeEntity<HomeSlideEntity> timeEntity = new PagerTimeEntity<>(entities, headerBinding.sliderVp, adapter);
+//                timeEntity.setLimitLoop(true);
                 timeEntity.initData(headerBinding.interactTopLinNav,headerBinding);
             }, Timber::e, (t, e) -> {
             });

@@ -19,13 +19,14 @@ import timber.log.Timber;
  */
 
 public class PagerTimeEntity<CL extends PagerModel> extends TimeEntity<CL>
-        implements PagerRotateListener<CL>, ViewPager.OnPageChangeListener{
+        implements PagerRotateListener<CL>, ViewPager.OnPageChangeListener {
     private PagerChangeUtil<CL> util = new PagerChangeUtil<>();
     private List<CL> list = new ArrayList<>();
     private ViewPager viewPager;
     private ViewDataBinding binding;
-    public PagerTimeEntity(List<CL> list, ViewPager container,  PagerListener<CL> adapter) {
-        this(3,list, container,adapter);
+
+    public PagerTimeEntity(List<CL> list, ViewPager container, PagerListener<CL> adapter) {
+        this(3, list, container, adapter);
     }
 
 
@@ -37,17 +38,23 @@ public class PagerTimeEntity<CL extends PagerModel> extends TimeEntity<CL>
         container.addOnPageChangeListener(this);
     }
 
-    public void setListener(PagerChangeUtil.Listener<CL> listener){
+    public void setListener(PagerChangeUtil.Listener<CL> listener) {
         util.setListener(listener);
     }
 
-    public void setAnimView(ImageView view){
+    public void setAnimView(ImageView view) {
         util.setAnimView(view);
     }
 
-    public void initData(RadioGroup group,ViewDataBinding binding){
+    public void setLimitLoop(boolean loop){
+//        setCount(Integer.MAX_VALUE);
+//        util.setLoop(true);
+    }
+
+    public void initData(RadioGroup group, ViewDataBinding binding) {
         this.binding = binding;
-        util.setData(list,viewPager,group);
+        util.setData(list, viewPager, group);
+        if (list.size() > 0) binding.setVariable(BR.slide, list.get(0));
         addRotateListener(this);
     }
 
@@ -58,21 +65,18 @@ public class PagerTimeEntity<CL extends PagerModel> extends TimeEntity<CL>
 
     @Override
     public void nextRotate(CL cl, View view) {
-        binding.setVariable(BR.slide,cl);
         viewPager.setCurrentItem(getIndex());
     }
 
     @Override
     public void onPageSelected(int position) {
-        if (position < list.size()) {
-            setIndex(position);
-        }
+        setIndex(position % list.size());
+        binding.setVariable(BR.slide, list.get(position % list.size()));
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        boolean b = state == 0?TimeUtil.start(this):TimeUtil.stop(this);
-        if(!b){Timber.i("page scroll failed");}
+        TimeUtil.getInstance().switching(this, state);
     }
 
 }
