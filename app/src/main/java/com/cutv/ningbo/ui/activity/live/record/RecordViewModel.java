@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -64,7 +66,7 @@ public class RecordViewModel extends BaseViewModel<Respond> {
      */
     private final Context mContext;
 
-//    private ActivityLiveRecordBinding bing;
+    //    private ActivityLiveRecordBinding bing;
     private String pushUrl;//推流的地址
     private int resolution;//清晰度设置
     private boolean screenOrientation;//是否横竖屏幕
@@ -104,7 +106,7 @@ public class RecordViewModel extends BaseViewModel<Respond> {
     @Inject
     public RecordViewModel(@ActivityContext Context context) {
         super(context);
-        this.mActivity = (AppCompatActivity)context;
+        this.mActivity = (AppCompatActivity) context;
         this.mContext = context;
         mActivity.setRequestedOrientation(getScreenOrientation() ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initDirect().setExtraData();
@@ -151,7 +153,6 @@ public class RecordViewModel extends BaseViewModel<Respond> {
         mConfigure.put(AlivcMediaFormat.KEY_FRAME_RATE, frameRate);
         return this;
     }
-
 
 
     private void permissionCheck() {
@@ -209,13 +210,12 @@ public class RecordViewModel extends BaseViewModel<Respond> {
     }
 
 
-
     public void destroy() {
         mDataStatistics.stop();
         mMediaRecorder.release();
     }
 
-    private final View.OnClickListener _PushOnClick =(view)->{
+    private final View.OnClickListener _PushOnClick = (view) -> {
         if (!isChecked) {
             try {
                 mMediaRecorder.startRecord(pushUrl);
@@ -314,18 +314,20 @@ public class RecordViewModel extends BaseViewModel<Respond> {
             mMediaRecorder.addFlag(AlivcMediaFormat.FLAG_BEAUTY_ON);
         }
     }
+
     private View view;
-    public void setView(View v){
+
+    public void setView(View v) {
         this.view = v;
     }
 
     @BindingAdapter("camerCallback")
-    public static void setCameraSurfaceCallback(SurfaceView view, SurfaceHolder.Callback callback){
+    public static void setCameraSurfaceCallback(SurfaceView view, SurfaceHolder.Callback callback) {
         view.getHolder().addCallback(callback);
     }
 
     @BindingAdapter("onTouch")
-    public static void setCameraSurfaceCallback(SurfaceView view, View.OnTouchListener onTouch){
+    public static void setCameraSurfaceCallback(SurfaceView view, View.OnTouchListener onTouch) {
         view.setOnTouchListener(onTouch);
     }
 
@@ -333,7 +335,7 @@ public class RecordViewModel extends BaseViewModel<Respond> {
         return mOnTouchListener;
     }
 
-    public SurfaceHolder.Callback getCameraSurfaceCallback(){
+    public SurfaceHolder.Callback getCameraSurfaceCallback() {
         return _CameraSurfaceCallback;
     }
 
@@ -435,7 +437,6 @@ public class RecordViewModel extends BaseViewModel<Respond> {
         }
 
 
-
         @Override
         public boolean onNetworkReconnectFailed() {
             Log.d(TAG, "Reconnect timeout, not adapt to living");
@@ -514,8 +515,6 @@ public class RecordViewModel extends BaseViewModel<Respond> {
             }
         }
     };
-
-
 
 
     private AlivcEventResponse mBitrateUpRes = new AlivcEventResponse() {
@@ -631,33 +630,9 @@ public class RecordViewModel extends BaseViewModel<Respond> {
         return this;
     }
 
-    //开启关闭美颜功能
-    public RecordViewModel openBeauty(boolean isBeauty){
-        if (isBeauty){
-            mMediaRecorder.addFlag(AlivcMediaFormat.FLAG_BEAUTY_ON);
-        }else{
-            mMediaRecorder.removeFlag(AlivcMediaFormat.FLAG_BEAUTY_ON);
-
-        }
-        return this;
-
-    }
-    //开启关闭闪光灯
-    public RecordViewModel openFlashLight(boolean isFlashLight){
-        if (isFlashLight){
-            mMediaRecorder.addFlag(AlivcMediaFormat.FLAG_FLASH_MODE_ON);
-        }else {
-            mMediaRecorder.removeFlag(AlivcMediaFormat.FLAG_FLASH_MODE_ON);
-        }
-        return this;
-
-    }
-    //改变前后摄像头
-    public RecordViewModel changeCamera(boolean isChange){
-        if (isChange){
-            mMediaRecorder.switchCamera();
-        }
-        return this;
+    @Bindable
+    public boolean isCheckedVisivle() {
+        return isChecked;
     }
 
 
@@ -701,7 +676,38 @@ public class RecordViewModel extends BaseViewModel<Respond> {
             mMediaRecorder.stopRecord();
             isRecording = false;
             isChecked = false;
+        }
+    }
+
+    //开启关闭美颜功能
+    private boolean isBeauty;
+
+    public void onBeautyClick() {
+        if (isBeauty) {
+            mMediaRecorder.addFlag(AlivcMediaFormat.FLAG_BEAUTY_ON);
+        } else {
+            mMediaRecorder.removeFlag(AlivcMediaFormat.FLAG_BEAUTY_ON);
 
         }
+        isBeauty = true;
+
+    }
+
+    //改变前后摄像头
+    public void onCameraClick() {
+
+        mMediaRecorder.switchCamera();
+    }
+
+    private boolean isSpeck;
+
+    public void onVocieClick() {
+        AudioManager audioManager = (AudioManager) mActivity.getSystemService(Context.AUDIO_SERVICE);
+        //设置声音模式
+        audioManager.setMode(AudioManager.STREAM_MUSIC);
+        //关闭麦克风
+
+        audioManager.setMicrophoneMute(isSpeck);
+        isSpeck = !isSpeck;
     }
 }

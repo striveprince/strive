@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
-
+        <import type="android.view.View" />
         <variable
             name="vm"
             type="com.cutv.ningbo.ui.activity.live.record.RecordViewModel" />
-
     </data>
 
     <LinearLayout
@@ -64,7 +62,8 @@
                     android:gravity="center"
                     android:onClick="@{vm::onStartEndClick}"
                     android:text="@string/start_liver"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:visibility="@{vm.checkedVisivle?View.GONE:View.VISIBLE}"/>
 
                 <LinearLayout
                     android:id="@+id/setting"
@@ -72,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:visibility="@{vm.checkedVisivle?View.VISIBLE:View.GONE}">
 
                     <ImageView
                         android:id="@+id/voice"
@@ -80,8 +79,8 @@
                         android:layout_height="30dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/live_image_black"
+                        android:onClick="@{vm::onVocieClick}"
                         android:src="@mipmap/voice" />
-                        <!--android:onClick="@{vm::onVocieClick}"-->
 
                     <ImageView
                         android:id="@+id/beauty"
@@ -89,21 +88,23 @@
                         android:layout_height="30dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/live_image_black"
+                        android:onClick="@{vm::onBeautyClick}"
                         android:src="@mipmap/beauty" />
 
-                        <!--android:onClick="@{vm::onBeautyClick}"-->
                     <ImageView
                         android:id="@+id/camera"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/live_image_black"
+                        android:onClick="@{vm::onCameraClick}"
                         android:src="@mipmap/camera" />
-                        <!--android:onClick="@{vm::onCameraClick}"-->
 
                     <ImageView
                         android:id="@+id/come_back"
                         android:layout_width="30dp"
+                        android:onClick="@{vm::onStartEndClick}"
+
                         android:layout_height="30dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/live_image_black"
