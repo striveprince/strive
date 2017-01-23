@@ -1,6 +1,5 @@
-package com.cutv.ningbo.ui.util.rotary;
+package com.cutv.ningbo.data.portlet;
 
-import android.databinding.ViewDataBinding;
 import android.view.View;
 
 /**

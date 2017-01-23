@@ -52,6 +52,7 @@ public class HomePageFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentComponent().inject(this);
         return super.onCreateView(inflater, container, savedInstanceState);
+
     }
 
     @Override

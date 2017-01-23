@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.cutv.ningbo.ui.util.rotary.PagerModel;
+import com.cutv.ningbo.data.portlet.PagerModel;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class FragmentViewPagerAdapter<F extends PagerModel<? extends Fragment>> 
 
     @Override
     public Fragment getItem(int position) {
-        return list == null?null:list.get(position).getItem(context);
+        return list == null?null:list.get(position).getItem(position,context);
     }
 
     @Override

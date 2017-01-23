@@ -62,9 +62,7 @@ public class BaseFragment<VM extends ViewModel, Binding extends ViewDataBinding>
     }
 
     protected final View setAndBindContentView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @LayoutRes int layoutResId, Bundle savedInstanceState) {
-        if (viewModel == null) {
-            throw new IllegalStateException("viewModel must not be null and should be injected via fragmentComponent().inject(this)");
-        }
+        if (viewModel == null) throw new IllegalStateException("viewModel must not be null and should be injected via fragmentComponent().inject(this)");
         binding = DataBindingUtil.inflate(inflater, layoutResId, container, false);
         binding.setVariable(BR.vm, viewModel);
         viewModel.attachView(this, savedInstanceState);

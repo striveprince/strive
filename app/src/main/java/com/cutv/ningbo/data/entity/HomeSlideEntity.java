@@ -2,7 +2,6 @@ package com.cutv.ningbo.data.entity;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 
 import com.cutv.ningbo.R;
 import com.cutv.ningbo.databinding.ItemImageViewBinding;
-import com.cutv.ningbo.ui.util.rotary.PagerViewModel;
+import com.cutv.ningbo.data.portlet.PagerViewModel;
 
 /**
  * project：cutv_ningbo
@@ -198,7 +197,7 @@ public class HomeSlideEntity extends BaseEntity implements Parcelable, PagerView
     };
 
     @Override
-    public View getItem(Context context) {
+    public View getItem(int position,Context context) {
         if(view == null){
             LayoutInflater inflater = LayoutInflater.from(context);
             ItemImageViewBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_image_view, null, false);
@@ -209,8 +208,8 @@ public class HomeSlideEntity extends BaseEntity implements Parcelable, PagerView
     }
 
     @Override
-    public RadioButton getRadioButton(LayoutInflater inflater) {
-        return (RadioButton) inflater.inflate(R.layout.view_spot_iv, null);
+    public RadioButton getView(int position,Context inflater) {
+        return (RadioButton) LayoutInflater.from(inflater).inflate(R.layout.view_spot_iv, null);
     }
 
     @Override

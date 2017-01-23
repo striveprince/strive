@@ -10,7 +10,7 @@ import android.widget.RadioButton;
 
 import com.cutv.ningbo.R;
 import com.cutv.ningbo.ui.activity.main.fragment.news.content.NewsContentFragment;
-import com.cutv.ningbo.ui.util.rotary.PagerModel;
+import com.cutv.ningbo.data.portlet.PagerModel;
 
 /**
  * project：cutv_ningbo
@@ -68,7 +68,7 @@ public class NewsDataEntity extends BaseEntity implements PagerModel<NewsContent
 
 
     @Override
-    public NewsContentFragment getItem(Context context) {
+    public NewsContentFragment getItem(int position,Context context) {
         NewsContentFragment fragment = new NewsContentFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("channelId",id);
@@ -77,8 +77,8 @@ public class NewsDataEntity extends BaseEntity implements PagerModel<NewsContent
     }
 
     @Override
-    public RadioButton getRadioButton(LayoutInflater inflater) {
-        RadioButton rb = (RadioButton) inflater.inflate(R.layout.view_radio_news_tag, null);
+    public RadioButton getView(int position,Context context) {
+        RadioButton rb = (RadioButton) LayoutInflater.from(context).inflate(R.layout.view_radio_news_tag, null);
         rb.setText(name);
         DisplayMetrics dm = rb.getContext().getResources().getDisplayMetrics();
         ViewGroup.LayoutParams params = rb.getLayoutParams() == null ?

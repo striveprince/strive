@@ -24,7 +24,6 @@ import javax.inject.Inject;
 @ActivityScope
 public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> implements Respond{
     @Inject UserApi userApi;
-    @Inject OnMainChecked checked;
     @Inject @ActivityContext Context context;
     private Toolbar toolbar;
     @Override
@@ -32,11 +31,10 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         super.onCreate(savedInstanceState);
         activityComponent().inject(this);
         setBindingView(R.layout.activity_main,savedInstanceState);
-
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
-        binding.mainBottomTab.setOnCheckedChangeListener(checked);
-        binding.mainRadioHomepager.setChecked(true);
+//        binding.mainBottomTab.setOnCheckedChangeListener(checked);
+//        binding.mainRadioHomepager.setChecked(true);
 
 //        LinearLayout  gallery = (LinearLayout)binding.navigationView.getMenu().findItem(R.id.menu_message).getActionView();
 //        TextView msg= (TextView) gallery.findViewById(R.id.msg);

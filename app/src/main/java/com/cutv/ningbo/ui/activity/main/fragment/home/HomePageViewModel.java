@@ -87,6 +87,7 @@ public class HomePageViewModel extends RecyclerBindViewModel<HomeDataEntity, Hom
             getAdapter().setCount(6);
             View v = inflater.inflate(R.layout.footer_home_pager, null);
             v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            getAdapter().removeAllFooter();
             getAdapter().addFooterView(v);
         }
     }

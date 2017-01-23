@@ -1,7 +1,5 @@
-package com.cutv.ningbo.ui.util.rotary;
+package com.cutv.ningbo.data.portlet;
 
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.widget.RadioButton;
 
 /**
@@ -17,7 +15,5 @@ import android.widget.RadioButton;
  */
 
 
-public interface PagerModel<Item> {
-    Item getItem(Context context);
-    RadioButton getRadioButton(LayoutInflater inflater);
+public interface PagerModel<Item> extends Model<Item,RadioButton>{
 }

@@ -4,7 +4,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cutv.ningbo.ui.util.rotary.PagerModel;
+import com.cutv.ningbo.data.portlet.PagerModel;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class ViewPagerAdapter<T extends PagerModel<? extends View>> extends Page
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View v = list.get(position % count).getItem(container.getContext());
+        View v = list.get(position % count).getItem(position,container.getContext());
         if (container.equals(v.getParent())) container.removeView(v);
         container.addView(v);
         return v;
@@ -43,6 +43,6 @@ public class ViewPagerAdapter<T extends PagerModel<? extends View>> extends Page
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView(list.get(position % count).getItem(container.getContext()));
+        container.removeView(list.get(position % count).getItem(position,container.getContext()));
     }
 }

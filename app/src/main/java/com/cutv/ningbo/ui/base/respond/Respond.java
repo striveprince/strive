@@ -19,18 +19,6 @@ import java.util.List;
 
 public interface Respond {
 
-
-//    interface HttpTouch extends Respond {
-//        void onHttpTouch();
-//    }
-//
-//    interface HttpRespond<T> extends Respond ,HttpInitRespond<T>{
-//        void onRespond(boolean success, boolean initialLoading, T t);
-//    }
-//    interface HttpInitRespond<T> extends Respond{
-//        void onInitRespond(boolean success, T t);
-//    }
-
     interface RecyclerRespond<T> extends Respond {
         void onCompleted(Throwable e, T t,int count);
     }

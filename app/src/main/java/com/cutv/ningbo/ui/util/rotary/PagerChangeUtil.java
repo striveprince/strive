@@ -11,14 +11,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.android.annotations.NonNull;
+import com.cutv.ningbo.data.portlet.PagerModel;
 import com.cutv.ningbo.ui.base.adapter.pager.PagerListener;
 import com.cutv.ningbo.ui.base.adapter.pager.ViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * project：cutv_ningbo
@@ -74,13 +73,12 @@ public class PagerChangeUtil<CL extends PagerModel> implements ViewPager.OnPageC
         this.viewPager = viewPager;
         this.group = group;
         if (group != null) group.removeAllViews();
-        LayoutInflater inflater = LayoutInflater.from(viewPager.getContext());
         if (count == 0) count = data.size();
         if (data != null) {
             changeListeners.clear();
             for (CL cl : data) {
                 changeListeners.add(cl);
-                RadioButton rb = cl.getRadioButton(inflater);
+                RadioButton rb = (RadioButton)cl.getView(0,viewPager.getContext());
                 if (listener != null) listener.initPager(cl, rb);
                 if (group != null && rb != null) group.addView(rb);
             }

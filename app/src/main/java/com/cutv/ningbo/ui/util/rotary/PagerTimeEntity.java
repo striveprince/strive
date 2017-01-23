@@ -7,12 +7,11 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import com.cutv.ningbo.BR;
+import com.cutv.ningbo.data.portlet.PagerModel;
 import com.cutv.ningbo.ui.base.adapter.pager.PagerListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * Created by apple on 17/1/18.
