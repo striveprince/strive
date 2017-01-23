@@ -34,7 +34,6 @@ public class RecordActivity extends BaseActivity<RecordViewModel,ActivityLiveRec
         activityComponent().inject(this);
         setBindingView(R.layout.activity_live_record,savedInstanceState);
 //        viewModel.setBinding(binding);
-
         viewModel.setView(binding.directView);
     }
 
