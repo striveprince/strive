@@ -36,16 +36,6 @@ public class TimeUtil {
         handler.postDelayed(runnable, 50);
     }
 
-//    Iterator<Map.Entry<String, Object>> it = map.entrySet().iterator();
-//    while (it.hasNext()) {
-//        Map.Entry<String, Object> entry = it.next();
-//        String key = entry.getKey();
-//        if (entry.getValue() instanceof File[] || entry.getValue() instanceof File) {
-//            params.addParameter(key, map.get(key));
-//            it.remove();
-//        }
-//    }
-
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
