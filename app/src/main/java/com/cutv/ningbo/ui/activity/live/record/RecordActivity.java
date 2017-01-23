@@ -21,18 +21,42 @@ import com.cutv.ningbo.ui.base.activity.BaseActivity;
  * @version 2.0
  */
 
+
+//@RuntimePermissions
 @ActivityScope
 public class RecordActivity extends BaseActivity<RecordViewModel,ActivityLiveRecordBinding>{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        activityComponent().inject(this);
+        activityComponent().inject(this);
         setBindingView(R.layout.activity_live_record,savedInstanceState);
 //        viewModel.setBinding(binding);
+
+        viewModel.setView(binding.directView);
     }
 
 
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        viewModel.pause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewModel.destroy();
+    }
 
 }

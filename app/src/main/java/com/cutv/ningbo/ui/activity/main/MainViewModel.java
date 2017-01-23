@@ -5,22 +5,14 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.cutv.ningbo.data.api.UserApi;
-import com.cutv.ningbo.data.entity.InfoEntity;
-import com.cutv.ningbo.data.entity.PrivateInfoEntity;
-import com.cutv.ningbo.data.params.LoginParams;
 import com.cutv.ningbo.data.params.UserParams;
 import com.cutv.ningbo.data.save.SharePreferenceUtil;
 import com.cutv.ningbo.inject.qualifier.context.ActivityContext;
 import com.cutv.ningbo.inject.qualifier.preference.NingSharePreference;
 import com.cutv.ningbo.ui.base.respond.Respond;
-import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 import com.cutv.ningbo.ui.base.viewModel.UserViewModel;
 
-import java.util.HashMap;
-
 import javax.inject.Inject;
-
-import rx.Observable;
 
 /**
  * project：cutv_ningbo

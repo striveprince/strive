@@ -1,4 +1,4 @@
-package com.cutv.ningbo.ui.activity.live.login;
+package com.cutv.ningbo.ui.activity.login;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.cutv.ningbo.data.api.LiveApi;
+import com.cutv.ningbo.data.params.LoginParams;
 import com.cutv.ningbo.data.save.SharePreferenceUtil;
 import com.cutv.ningbo.inject.qualifier.context.ActivityContext;
 import com.cutv.ningbo.inject.qualifier.preference.NingSharePreference;
@@ -40,9 +41,7 @@ public class LoginViewModel extends BaseViewModel<Respond> {
     public String password = "";
     public SpannableStringBuilder mSp;
 
-//    public String getmSp() {
-//        return mSp.toString();
-//    }
+
 
 
 
@@ -64,11 +63,15 @@ public class LoginViewModel extends BaseViewModel<Respond> {
     }
 
 
+
+
     public void onLoginClick(View view) {
         Toast.makeText(view.getContext(), "cellPhone:" + cellPhone + "\npassword:" + password, Toast.LENGTH_SHORT).show();
-
+        LoginParams params = new LoginParams();
+        params.setCczyidt(cellPhone);
+        params.setPczyidt(password);
 //        getContext().startActivity(new Intent(getContext(), RecordActivity.class));
-        http(api.login(cellPhone, password), entity -> {
+        http(api.login(params), entity -> {
             util.setAllDto(entity);
             util.setValue("password", password);
             getContext().startActivity(new Intent(getContext(), RecordActivity.class));

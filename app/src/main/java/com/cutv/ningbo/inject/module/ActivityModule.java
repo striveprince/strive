@@ -7,18 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 
-import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
-import com.cutv.ningbo.inject.scope.FragmentScope;
-import com.cutv.ningbo.ui.base.fragment.BaseFragment;
 import com.cutv.ningbo.inject.qualifier.context.ActivityContext;
 import com.cutv.ningbo.inject.scope.ActivityScope;
+import com.cutv.ningbo.ui.activity.live.record.RecordViewModel;
 import com.cutv.ningbo.ui.activity.main.fragment.home.HomePageFragment;
 import com.cutv.ningbo.ui.activity.main.fragment.news.NewsFragment;
-
+import com.cutv.ningbo.ui.base.fragment.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 import dagger.Module;
 import dagger.Provides;
@@ -60,6 +57,12 @@ public class ActivityModule {
 //        list.add(new InteractFragment());
 //        list.add(new MallFragment());
         return list;
+    }
+
+    @Provides
+    @ActivityScope
+    RecordViewModel provideDiectPlayer(){
+        return new RecordViewModel(activity);
     }
 
     @Provides

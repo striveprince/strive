@@ -31,6 +31,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi-v7a'
+        }
+
+    }
 }
 
 retrolambda {
@@ -43,7 +51,6 @@ dependencies {
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile "com.android.support:design:${supportLibVersion}"
-
     compile 'io.reactivex:rxjava:1.1.8'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -53,12 +60,16 @@ dependencies {
     compile 'com.google.dagger:dagger:2.6'
     apt 'com.google.dagger:dagger-compiler:2.6'
     compile 'com.facebook.fresco:fresco:0.12.0'
-//    compile 'com.orhanobut:logger:1.15'
+    //    compile 'com.orhanobut:logger:1.15'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.jakewharton.timber:timber:4.3.0'
-
     testCompile 'org.mockito:mockito-core:1.10.19'
-    testCompile "org.powermock:powermock-module-junit4:1.6.5"
-    testCompile "org.powermock:powermock-module-junit4-rule:1.6.5"
-    testCompile "org.powermock:powermock-api-mockito:1.6.5"
+    testCompile 'org.powermock:powermock-module-junit4:1.6.5'
+    testCompile 'org.powermock:powermock-module-junit4-rule:1.6.5'
+    testCompile 'org.powermock:powermock-api-mockito:1.6.5'
+    compile 'com.android.support:multidex:1.0.1'
+    compile files('libs/alivc-live-record-v1.2.0.jar')
+    compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
+
 }

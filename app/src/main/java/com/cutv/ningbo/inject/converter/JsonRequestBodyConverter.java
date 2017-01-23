@@ -74,17 +74,18 @@ public class JsonRequestBodyConverter<T> implements Converter<T, RequestBody> {
         for(Field f:c.getDeclaredFields()){
             try {
                 boolean type = f.getType() == boolean.class;
-                Method method = c.getDeclaredMethod(type?"is":"get"+f.getName());
+                char[] cs = f.getName().toCharArray();
+                if (cs[0] >= 97 && cs[0] <= 122) cs[0] -= 32;//匹配ascii码表，发现是小写字母的话，-32变为小写
+                Method method = c.getDeclaredMethod(type?"is":"get"+String.valueOf(cs));
                 Object o = method.invoke(value);
                 if(o!=null){
-                    if(o instanceof String) stringHashMap.put(f.getName(),o.toString());
-                    else if(o instanceof File)fileHashMap.put(f.getName(),(File)o);
+                    if(o instanceof File)fileHashMap.put(f.getName(),(File)o);
                     else if(o instanceof File[]) {
                         File[] files = (File[])o;
                         for(int i = 0;i<files.length;i++)
                             fileHashMap.put(f.getName()+"["+i+"]",files[i]);
-
                     }
+                    else stringHashMap.put(f.getName(),String.valueOf(o));
                 }
             }catch (Exception e){}
         }
@@ -121,8 +122,24 @@ public class JsonRequestBodyConverter<T> implements Converter<T, RequestBody> {
                 }
                 return multiBuilder.build();
             }
+        } else {
+            if(fileHashMap.size()==0){
+                FormBody.Builder builder = new FormBody.Builder();
+                for (String key:stringHashMap.keySet())
+                    builder.addEncoded(key,stringHashMap.get(key));
+                return builder.build();
+            }else {
+                MultipartBody.Builder multiBuilder = new MultipartBody.Builder();
+                for (String key:stringHashMap.keySet())
+                    multiBuilder.addFormDataPart(key,stringHashMap.get(key));
+                for(String key:fileHashMap.keySet()){
+                    File file = fileHashMap.get(key);
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+                    multiBuilder.addFormDataPart(key,file.getName(),requestBody);
+                }
+                return multiBuilder.build();
+            }
         }
-        return null;
     }
 
 }

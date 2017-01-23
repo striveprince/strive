@@ -71,8 +71,8 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
 
     public <E> void http(Observable<InfoEntity<E>> observable, RestfulObserver<E> observer,
                          Action1<Throwable> action, RestfulSubscriber.OnCompletedListener<E> onCompletedListener) {
-        if(observable!=null)compositeSubscription.add(observable
-                .compose(new RestfulTransformer<>())
+        if(observable!=null)compositeSubscription
+                .add(observable.compose(new RestfulTransformer<>())
                 .subscribe(new RestfulSubscriber<>(context, observer, action, onCompletedListener)));
     }
 
@@ -111,4 +111,6 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
         rd = null;
         compositeSubscription.clear();
     }
+
+
 }

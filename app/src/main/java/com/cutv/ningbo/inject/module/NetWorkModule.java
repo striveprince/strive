@@ -52,7 +52,7 @@ public class NetWorkModule {
         return new Retrofit.Builder()
                 .baseUrl(USERURL)
                 .addConverterFactory(JsonConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .callFactory(client)
                 .build().create(UserApi.class);
@@ -66,7 +66,7 @@ public class NetWorkModule {
                 .addInterceptor(userInterceptor).build();
         return new Retrofit.Builder()
                 .baseUrl(LiveUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(JsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .callFactory(client)
                 .build().create(LiveApi.class);
@@ -107,7 +107,7 @@ public class NetWorkModule {
         return new Retrofit.Builder()
                 .baseUrl(DKNBURL)
                 .addConverterFactory(JsonConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .callFactory(client)
                 .build().create(NbtvApi.class);

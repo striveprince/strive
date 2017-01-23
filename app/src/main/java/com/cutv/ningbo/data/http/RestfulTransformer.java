@@ -31,6 +31,7 @@ public class RestfulTransformer<T> implements Observable.Transformer<InfoEntity<
                         Observable.create(subscriber -> {
                             if (!subscriber.isUnsubscribed())
                                 try {
+//                                    entity.getInfo();
                                     if (entity.isSucc())
                                         subscriber.onNext(entity.getData());
                                     else

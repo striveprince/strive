@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="vm"
-            type="com.cutv.ningbo.ui.activity.live.record.RecordViewModel"/>
+            type="com.cutv.ningbo.ui.activity.live.record.RecordViewModel" />
 
-        <!--<variable-->
-        <!--name="onClick"-->
-        <!--type="com.cutv.ningbo.ui.activity.live.record.DirectPlayer"/>-->
     </data>
 
     <LinearLayout
@@ -26,16 +22,17 @@
             android:orientation="vertical">
 
             <SurfaceView
+
                 android:id="@+id/direct_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-              />
-            <!--  app:camerCallback="@{vm.cameraSurfaceCallback}"-->
-
+                app:camerCallback="@{vm.cameraSurfaceCallback}"
+                app:onTouch="@{vm.OnTouchListener}"
+                />
+                <!--app:camerCallback="@{vm.cameraSurfaceCallback}"-->
 
             <TextView
                 android:id="@+id/heard_icon"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
@@ -49,7 +46,7 @@
                 android:text="@string/icon_liver"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/layout_preferences"
@@ -58,7 +55,6 @@
                 android:layout_gravity="bottom"
                 android:orientation="vertical">
 
-                    <!--android:onClick="@{vm::onStartClick}"-->
                 <TextView
                     android:id="@+id/push"
                     android:layout_width="300dp"
@@ -66,8 +62,9 @@
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/shape_live_button_green"
                     android:gravity="center"
+                    android:onClick="@{vm::onStartEndClick}"
                     android:text="@string/start_liver"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@android:color/white" />
 
                 <LinearLayout
                     android:id="@+id/setting"
@@ -75,44 +72,42 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:orientation="horizontal"
-                    android:visibility="gone"
-                    >
+                    android:visibility="gone">
 
-                        <!--android:onClick="@{vm::onVocieClick}"-->
                     <ImageView
                         android:id="@+id/voice"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/live_image_black"
-                        android:src="@mipmap/voice"/>
+                        android:src="@mipmap/voice" />
+                        <!--android:onClick="@{vm::onVocieClick}"-->
 
-                        <!--android:onClick="@{vm::onBeautyClick}"-->
                     <ImageView
                         android:id="@+id/beauty"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/live_image_black"
-                        android:src="@mipmap/beauty"/>
+                        android:src="@mipmap/beauty" />
 
-                        <!--android:onClick="@{vm::onCameraClick}"-->
+                        <!--android:onClick="@{vm::onBeautyClick}"-->
                     <ImageView
+                        android:id="@+id/camera"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/live_image_black"
-                        android:id="@+id/camera"
-                        android:src="@mipmap/camera"/>
+                        android:src="@mipmap/camera" />
+                        <!--android:onClick="@{vm::onCameraClick}"-->
 
                     <ImageView
-                        android:onClick="@{vm::onEndClick}"
                         android:id="@+id/come_back"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/live_image_black"
-                        android:src="@mipmap/stop"/>
+                        android:src="@mipmap/stop" />
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>
