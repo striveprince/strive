@@ -23,6 +23,9 @@ public interface Respond {
         void onCompleted(Throwable e, T t,int count);
     }
 
+    interface RadioRespond<T> extends Respond{
+        void onCheckedChanged(int position);
+    }
 
     interface TransformRespond<T, Entity extends BaseEntity>
             extends Respond.RecyclerRespond<T> {

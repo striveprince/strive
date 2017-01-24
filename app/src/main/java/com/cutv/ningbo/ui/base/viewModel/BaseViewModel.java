@@ -3,6 +3,7 @@ package com.cutv.ningbo.ui.base.viewModel;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -39,8 +40,6 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
     private Context context;
 
-    //    @Inject
-//    PrivateInfoEntity infoEntity;
     public BaseViewModel(Context context) {
         this.context = context;
     }
@@ -57,6 +56,7 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
             restoreInstanceState(savedInstanceState);
         }
     }
+
 
 
     @BindingAdapter({"android:src"})

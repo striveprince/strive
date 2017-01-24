@@ -31,7 +31,7 @@ import javax.inject.Inject;
 public class BaseActivity<VM extends BaseViewModel,Binding extends ViewDataBinding> extends AppCompatActivity implements Respond{
     private ActivityComponent mActivityComponent;
     public Binding binding;
-    @Inject VM viewModel;
+    @Inject public VM viewModel;
 
     protected final ActivityComponent activityComponent() {
         if(mActivityComponent == null) {

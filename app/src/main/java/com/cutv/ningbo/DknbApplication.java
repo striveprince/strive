@@ -31,7 +31,7 @@ public class DknbApplication extends Application {
                 .appModule(new AppModule(this))
                 .build();
         if(BuildConfig.DEBUG) { Timber.plant(new Timber.DebugTree()); }
-        CrashHandler.getInstance().init(this);
+//        CrashHandler.getInstance().init(this);
     }
     public static AppComponent getAppComponent() {
         return mAppComponent;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableInt;
 import android.support.annotation.IdRes;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.widget.RadioGroup;
 
@@ -52,4 +53,12 @@ public abstract class RadioViewModel<T extends Respond> extends UserViewModel<T>
         return checkedId.get();
     }
 
+//    @Override
+//    public void onCheckedChanged(RadioGroup group, int checkedId) {
+//        int position = group.indexOfChild(group.findViewById(checkedId));
+//        getRespond().onCheckedChanged(position);
+//        onCheckedChanged(position);
+//    }
+
+//    public abstract void onCheckedChanged(int position);
 }

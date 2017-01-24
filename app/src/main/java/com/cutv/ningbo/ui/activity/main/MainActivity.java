@@ -22,17 +22,21 @@ import com.cutv.ningbo.ui.base.respond.Respond;
 import javax.inject.Inject;
 
 @ActivityScope
-public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> implements Respond{
-    @Inject UserApi userApi;
-    @Inject @ActivityContext Context context;
-    private Toolbar toolbar;
+public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> implements Respond.RadioRespond {
+    @Inject
+    UserApi userApi;
+    @Inject
+    @ActivityContext
+    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityComponent().inject(this);
-        setBindingView(R.layout.activity_main,savedInstanceState);
-        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        setSupportActionBar(toolbar);
+        setBindingView(R.layout.activity_main, savedInstanceState);
+        setSupportActionBar(binding.toolLayoutMain.mainToolbar);
+//        viewModel.setBinding(binding);
+
 //        binding.mainBottomTab.setOnCheckedChangeListener(checked);
 //        binding.mainRadioHomepager.setChecked(true);
 
@@ -53,12 +57,17 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         return item.getItemId() == R.id.message || super.onOptionsItemSelected(item);
     }
 
-    public RadioGroup getGroup(){
-        return (RadioGroup) toolbar.findViewById(R.id.tool_rg_tag);
+    @Override
+    public void onCheckedChanged(int position) {
+        binding.setBar(viewModel.getList().get(position));
     }
 
-    public HorizontalScrollView getScrollView(){
-        return (HorizontalScrollView)toolbar.findViewById(R.id.news_hscr);
+    public RadioGroup getGroup() {
+        return binding.toolLayoutMain.toolRgTag;
+    }
+
+    public HorizontalScrollView getScrollView() {
+        return binding.toolLayoutMain.newsHscr;
     }
 
 }
