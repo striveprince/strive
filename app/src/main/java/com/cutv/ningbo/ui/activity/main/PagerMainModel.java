@@ -79,22 +79,14 @@ public class PagerMainModel implements PagerModel<BaseFragment> {
         return View.GONE;
     }
 
-    public int getViewVisible(){
+    public boolean isViewVisible(){
         switch (position){
-            case 0:return View.VISIBLE;
-            case 3:return View.VISIBLE;
-            case 4:return View.VISIBLE;
+            case 0:return true;
         }
-        return View.GONE;
+        return false;
     }
 
-
-//    @BindingAdapter(value = {"android:drawableLeft"})
-//    public static void setDrawable(RadioButton button,int drawable) {
-//        button.setCompoundDrawablesWithIntrinsicBounds(drawable,0,0,0);
-//    }
-//title_home_img
-    public boolean getImage(){
+    public boolean isImage(){
         switch (position){
             case 0:return true;
         }
@@ -117,7 +109,7 @@ public class PagerMainModel implements PagerModel<BaseFragment> {
         radioButton.setCompoundDrawablesWithIntrinsicBounds(0,drawables[position],0,0);
         radioButton.setText(context.getString(texts[position]));
 //        radioButton.setId(mainIds[position]);
-        if(position == 0)radioButton.setChecked(true);
+//        if(position == 0)radioButton.setChecked(true);
         return radioButton;
     }
 

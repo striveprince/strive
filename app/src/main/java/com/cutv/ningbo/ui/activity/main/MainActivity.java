@@ -2,14 +2,9 @@ package com.cutv.ningbo.ui.activity.main;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.cutv.ningbo.R;
 import com.cutv.ningbo.data.api.UserApi;
@@ -19,10 +14,12 @@ import com.cutv.ningbo.inject.scope.ActivityScope;
 import com.cutv.ningbo.ui.base.activity.BaseActivity;
 import com.cutv.ningbo.ui.base.respond.Respond;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 @ActivityScope
-public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> implements Respond.RadioRespond {
+public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> implements Respond.RadioRespond<PagerMainModel> {
     @Inject
     UserApi userApi;
     @Inject
@@ -57,9 +54,10 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         return item.getItemId() == R.id.message || super.onOptionsItemSelected(item);
     }
 
+
     @Override
-    public void onCheckedChanged(int position) {
-        binding.setBar(viewModel.getList().get(position));
+    public <L extends List<PagerMainModel>> void onCheckedChanged(L l, int position) {
+        binding.setBar(l.get(position));
     }
 
     public RadioGroup getGroup() {

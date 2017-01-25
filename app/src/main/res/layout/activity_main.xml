@@ -30,27 +30,22 @@
                 <!--android:layout_marginTop="45dp"-->
             <FrameLayout
                 android:layout_below="@+id/tool_layout_main"
+                android:id="@+id/tab_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <FrameLayout
-                    android:id="@+id/tab_content"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="55dip"
-                    android:layout_height="match_parent"/>
-                <RadioGroup
-                    android:id="@+id/main_bottom_tab"
-                    android:layout_width="fill_parent"
-                    android:layout_height="55dip"
-                    app:checked="@{vm}"
-                    app:addRadio="@{vm.pagerModels}"
-                    android:layout_gravity="bottom"
-                    android:background="@color/white"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    android:paddingBottom="2.0dip"
-                    android:paddingTop="6.0dip"/>
-            </FrameLayout>
-                    <!--android:checkedButton="@={vm.checkedId}"-->
+                android:layout_height="match_parent"/>
+            <RadioGroup
+                android:id="@+id/main_bottom_tab"
+                android:layout_width="fill_parent"
+                android:layout_height="55dip"
+                app:checked="@{vm}"
+                app:addRadio="@{vm.pagerModels}"
+                android:layout_gravity="bottom"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingBottom="2.0dip"
+                android:paddingTop="6.0dip"/>
+            <!--android:checkedButton="@={vm.checkedId}"-->
 
         </android.support.design.widget.CoordinatorLayout>
 

@@ -6,6 +6,7 @@ import android.databinding.ObservableInt;
 import android.support.annotation.IdRes;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RadioGroup;
 
 import com.cutv.ningbo.R;
@@ -26,21 +27,26 @@ import java.util.Collection;
  * @version 2.0
  */
 
-public abstract class RadioViewModel<T extends Respond> extends UserViewModel<T> implements RadioGroup.OnCheckedChangeListener{
+public abstract class RadioViewModel<T extends Respond> extends UserViewModel<T> implements RadioGroup.OnCheckedChangeListener {
     public final ObservableInt checkedId = new ObservableInt(0);
+
     public RadioViewModel(Context context) {
         super(context);
     }
 
     @BindingAdapter("addRadio")
-    public static void addRadioButton(RadioGroup group, Collection<? extends PagerModel> collection){
+    public static void addRadioButton(RadioGroup group, Collection<? extends PagerModel> collection) {
         group.removeAllViews();
         int i = -1;
-        for(PagerModel model : collection) group.addView(model.getView(++i,group.getContext()));
+        for (PagerModel model : collection) {
+            View view = model.getView(++i, group.getContext());
+            group.addView(view);
+            if(i == 0)group.check(view.getId());
+        }
     }
 
     @BindingAdapter("checked")
-    public static void addRadioButton(RadioGroup group,RadioGroup.OnCheckedChangeListener listener){
+    public static void addRadioButton(RadioGroup group, RadioGroup.OnCheckedChangeListener listener) {
         group.setOnCheckedChangeListener(listener);
 //        group.addOnCheckedChangeListener(listener);
     }
@@ -51,7 +57,9 @@ public abstract class RadioViewModel<T extends Respond> extends UserViewModel<T>
         this.checkedId.set(checkedId);
     }
 
-    public @IdRes int getCheckedId() {
+    public
+    @IdRes
+    int getCheckedId() {
         return checkedId.get();
     }
 

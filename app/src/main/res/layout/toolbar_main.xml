@@ -42,17 +42,23 @@
                     <!--android:visibility="@{!bar.scrollVisibile}"-->
                     <!--android:drawableLeft="@{bar.image?mipmap/title_home_img:null}"-->
                     <!--android:drawableStart="@{bar.image}"-->
-                <RadioButton
-                    android:visibility="@{bar.viewVisible}"
+                <ImageView
+                    android:layout_margin="12dp"
+                    android:visibility="@{bar.viewVisible?View.VISIBLE:View.GONE}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/title_home_img"
+                    android:layout_centerInParent="true"/>
+                <!--android:text="@string/app_name"-->
+                <!--android:drawableLeft="@mipmap/title_home_img"-->
+
+                <TextView
                     android:text="@{bar.text}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
                     android:layout_centerInParent="true"
-                    android:button="@null" />
-                <!--android:text="@string/app_name"-->
-                <!--android:drawableLeft="@mipmap/title_home_img"-->
+                    android:textSize="16sp"/>
+
                 <HorizontalScrollView
                     android:visibility="@{bar.scrollVisible}"
                     android:id="@+id/news_hscr"

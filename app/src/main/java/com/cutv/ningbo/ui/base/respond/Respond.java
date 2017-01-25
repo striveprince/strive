@@ -24,7 +24,7 @@ public interface Respond {
     }
 
     interface RadioRespond<T> extends Respond{
-        void onCheckedChanged(int position);
+        <L extends List<T>>void onCheckedChanged(L collection, int position);
     }
 
     interface TransformRespond<T, Entity extends BaseEntity>

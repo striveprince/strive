@@ -1,25 +1,21 @@
 package com.cutv.ningbo.ui.activity.main;
 
 import android.content.Context;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.cutv.ningbo.R;
 import com.cutv.ningbo.data.api.UserApi;
 import com.cutv.ningbo.data.params.UserParams;
+import com.cutv.ningbo.data.portlet.PagerModel;
 import com.cutv.ningbo.data.save.SharePreferenceUtil;
-import com.cutv.ningbo.databinding.ActivityMainBinding;
 import com.cutv.ningbo.inject.qualifier.context.ActivityContext;
 import com.cutv.ningbo.inject.qualifier.preference.NingSharePreference;
 import com.cutv.ningbo.ui.base.fragment.BaseFragment;
 import com.cutv.ningbo.ui.base.respond.Respond;
 import com.cutv.ningbo.ui.base.viewModel.RadioViewModel;
-import com.cutv.ningbo.data.portlet.PagerModel;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,12 +37,14 @@ import javax.inject.Inject;
 public class MainViewModel extends RadioViewModel<Respond.RadioRespond> {
     private UserApi api;
     private List<PagerMainModel> list = new ArrayList<>();
-    private int currentTab = 0;
+    private int currentTab = -1;
     @Inject
     @NingSharePreference
     SharePreferenceUtil util;
     @Inject
     UserParams userScore;
+
+
 
     @Inject
     MainViewModel(@ActivityContext Context context, UserApi api) {
@@ -72,10 +70,12 @@ public class MainViewModel extends RadioViewModel<Respond.RadioRespond> {
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         int position = group.indexOfChild(group.findViewById(checkedId));
-        if(position<0||position>=list.size())position = 0;
+        if (currentTab == position)return;
+        if(position<0||position>=list.size())return;
         FragmentTransaction ft = ((AppCompatActivity)getContext()).getSupportFragmentManager().beginTransaction();
         BaseFragment fragment = list.get(position).getItem(position,getContext());
-        BaseFragment beforeFragment = list.get(currentTab).getItem(position,getContext());
+        BaseFragment beforeFragment = list.get(currentTab==-1?0:currentTab).getItem(position,getContext());
+//        if(fragment.getId() == beforeFragment.getId())return;
         beforeFragment.onPause();
         ft.hide(beforeFragment);
         if (fragment.isAdded()) fragment.onResume();
@@ -83,11 +83,6 @@ public class MainViewModel extends RadioViewModel<Respond.RadioRespond> {
         ft.show(fragment);
         ft.commitAllowingStateLoss();
         currentTab = position;
-        getRespond().onCheckedChanged(position);
-    }
-
-
-    public List<PagerMainModel> getList() {
-        return list;
+        getRespond().onCheckedChanged(list,position);
     }
 }
