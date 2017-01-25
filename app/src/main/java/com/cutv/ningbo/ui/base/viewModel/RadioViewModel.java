@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.widget.RadioGroup;
 
+import com.cutv.ningbo.R;
 import com.cutv.ningbo.ui.base.respond.Respond;
 import com.cutv.ningbo.data.portlet.PagerModel;
 
@@ -41,6 +42,7 @@ public abstract class RadioViewModel<T extends Respond> extends UserViewModel<T>
     @BindingAdapter("checked")
     public static void addRadioButton(RadioGroup group,RadioGroup.OnCheckedChangeListener listener){
         group.setOnCheckedChangeListener(listener);
+//        group.addOnCheckedChangeListener(listener);
     }
 
     public abstract Collection<? extends PagerModel> getPagerModels();

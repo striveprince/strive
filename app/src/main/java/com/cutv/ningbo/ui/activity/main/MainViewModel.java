@@ -42,16 +42,11 @@ public class MainViewModel extends RadioViewModel<Respond.RadioRespond> {
     private UserApi api;
     private List<PagerMainModel> list = new ArrayList<>();
     private int currentTab = 0;
-    private ActivityMainBinding binding;
     @Inject
     @NingSharePreference
     SharePreferenceUtil util;
     @Inject
     UserParams userScore;
-
-    public void setBinding(ActivityMainBinding binding){
-        this.binding = binding;
-    }
 
     @Inject
     MainViewModel(@ActivityContext Context context, UserApi api) {
@@ -76,8 +71,8 @@ public class MainViewModel extends RadioViewModel<Respond.RadioRespond> {
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if(checkedId==0)return;
         int position = group.indexOfChild(group.findViewById(checkedId));
+        if(position<0||position>=list.size())position = 0;
         FragmentTransaction ft = ((AppCompatActivity)getContext()).getSupportFragmentManager().beginTransaction();
         BaseFragment fragment = list.get(position).getItem(position,getContext());
         BaseFragment beforeFragment = list.get(currentTab).getItem(position,getContext());

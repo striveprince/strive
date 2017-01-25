@@ -1,7 +1,12 @@
 package com.cutv.ningbo.ui.activity.main;
 
 import android.content.Context;
+import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RadioButton;
 
 import com.cutv.ningbo.R;
@@ -28,11 +33,6 @@ import com.cutv.ningbo.ui.base.fragment.BaseFragment;
 
 public class PagerMainModel implements PagerModel<BaseFragment> {
     private int position;
-//    private static final HomePageFragment homePageFragment =  new HomePageFragment();
-//    private static final NewsFragment NewsFragment =  new NewsFragment();
-//    private static final InteractFragment interactFragment =  new InteractFragment();
-//    private static final VideoFragment videoFragment =  new VideoFragment();
-//    private static final MallFragment mallFragment =  new MallFragment();
     private static final int[] drawables = {
             R.drawable.main_selector_radio_me,
             R.drawable.main_selector_radio_news,
@@ -46,13 +46,13 @@ public class PagerMainModel implements PagerModel<BaseFragment> {
             R.string.main_radio_interact,
             R.string.main_radio_mail
     };
-    private static final int[] mainIds = {
-            R.id.main_home,
-            R.id.main_news,
-            R.id.main_video,
-            R.id.main_interact,
-            R.id.main_mall
-    };
+//    private static final int[] mainIds = {
+//            R.id.main_home,
+//            R.id.main_news,
+//            R.id.main_video,
+//            R.id.main_interact,
+//            R.id.main_mall
+//    };
     private BaseFragment fragment;
 
     public PagerMainModel(int position) {
@@ -71,13 +71,28 @@ public class PagerMainModel implements PagerModel<BaseFragment> {
         return fragment;
     }
 
-    public boolean isScrollVisibile(){
+    public int getScrollVisible(){
         switch (position){
-            case 1:return true;
-            case 2:return true;
+            case 1:return View.VISIBLE;
+            case 2:return View.VISIBLE;
         }
-        return false;
+        return View.GONE;
     }
+
+    public int getViewVisible(){
+        switch (position){
+            case 0:return View.VISIBLE;
+            case 3:return View.VISIBLE;
+            case 4:return View.VISIBLE;
+        }
+        return View.GONE;
+    }
+
+
+//    @BindingAdapter(value = {"android:drawableLeft"})
+//    public static void setDrawable(RadioButton button,int drawable) {
+//        button.setCompoundDrawablesWithIntrinsicBounds(drawable,0,0,0);
+//    }
 
     public int getImage(){
         switch (position){
@@ -97,9 +112,11 @@ public class PagerMainModel implements PagerModel<BaseFragment> {
     @Override
     public RadioButton getView(int position,Context context) {
         RadioButton radioButton = (RadioButton) LayoutInflater.from(context).inflate(R.layout.view_radio_main,null);
+        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+        radioButton.setWidth(dm.widthPixels/5);
         radioButton.setCompoundDrawablesWithIntrinsicBounds(0,drawables[position],0,0);
         radioButton.setText(context.getString(texts[position]));
-        radioButton.setId(mainIds[position]);
+//        radioButton.setId(mainIds[position]);
         if(position == 0)radioButton.setChecked(true);
         return radioButton;
     }

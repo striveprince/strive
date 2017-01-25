@@ -46,7 +46,7 @@ public class BaseActivity<VM extends BaseViewModel,Binding extends ViewDataBindi
     protected final void setBindingView(@LayoutRes int layoutId, @Nullable Bundle savedInstanceState){
         binding = DataBindingUtil.setContentView(this,layoutId);
         binding.setVariable(BR.vm, viewModel);
-        viewModel.attachView((Respond) this,savedInstanceState);
+        viewModel.attachView( this,savedInstanceState);
     }
 
     @Override

@@ -41,7 +41,7 @@
 
                     <!--android:visibility="@{!bar.scrollVisibile}"-->
                 <RadioButton
-                    android:visibility="@{bar.scrollVisibile?View.GONE:View.VISIBLE}"
+                    android:visibility="@{bar.viewVisible}"
                     android:text="@{bar.text}"
                     android:drawableLeft="@{bar.image}"
                     android:drawableStart="@{bar.image}"
@@ -54,7 +54,7 @@
                 <!--android:text="@string/app_name"-->
                 <!--android:drawableLeft="@mipmap/title_home_img"-->
                 <HorizontalScrollView
-                    android:visibility="@{bar.scrollVisibile?View.VISIBLE:View.GONE}"
+                    android:visibility="@{bar.scrollVisible}"
                     android:id="@+id/news_hscr"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

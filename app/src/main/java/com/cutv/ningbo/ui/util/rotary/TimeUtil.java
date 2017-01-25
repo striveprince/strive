@@ -3,9 +3,12 @@ package com.cutv.ningbo.ui.util.rotary;
 import android.os.Handler;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import timber.log.Timber;
 
@@ -24,8 +27,9 @@ import timber.log.Timber;
 
 public class TimeUtil {
     private static Handler handler = new Handler();
-    public static final HashSet<TimeEntity> hashSet = new HashSet<>();
-
+//    private static final HashSet<TimeEntity> hashSet = new HashSet<>();
+    private static final HashMap<TimeEntity,Boolean> hashMap = new HashMap<>();
+//    private static final Queue<TimeEntity> queue = new ArrayBlockingQueue<>(1);
     private static TimeUtil util = new TimeUtil();
 
     public static TimeUtil getInstance() {
@@ -39,26 +43,25 @@ public class TimeUtil {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            for (TimeEntity timeEntity : hashSet) timeEntity.getTurn();
+            for (TimeEntity timeEntity : hashMap.keySet())
+                if(hashMap.get(timeEntity))timeEntity.getTurn();
             handler.postDelayed(runnable, 1000);
         }
     };
 
     public void add(TimeEntity timeEntity) {
-        hashSet.add(timeEntity);
+        hashMap.put(timeEntity,true);
     }
 
     public void switching(TimeEntity timeEntity, int state) {
-        if (state == 0 ^ hashSet.contains(timeEntity)) {
-            handler.removeCallbacks(runnable);
-            boolean b = state == 0 ? hashSet.add(timeEntity) : hashSet.remove(timeEntity);
-            handler.postDelayed(runnable, 500);
+        if (state == 0 ^ hashMap.keySet().contains(timeEntity)) {
+            boolean b = state == 0 ? hashMap.put(timeEntity,true) : hashMap.put(timeEntity,false);
         }
     }
 
 
     public void destroy() {
-        hashSet.clear();
+        hashMap.clear();
         handler.removeCallbacksAndMessages(null);
     }
 

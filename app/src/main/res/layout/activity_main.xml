@@ -27,9 +27,9 @@
                 app:bar="@{bar}"
                 />
 
+                <!--android:layout_marginTop="45dp"-->
             <FrameLayout
                 android:layout_below="@+id/tool_layout_main"
-                android:layout_marginTop="45dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <FrameLayout
@@ -41,9 +41,8 @@
                     android:id="@+id/main_bottom_tab"
                     android:layout_width="fill_parent"
                     android:layout_height="55dip"
-                    app:addRadio="@{vm.pagerModels}"
                     app:checked="@{vm}"
-                    android:checkedButton="@={vm.checkedId}"
+                    app:addRadio="@{vm.pagerModels}"
                     android:layout_gravity="bottom"
                     android:background="@color/white"
                     android:gravity="center_horizontal"
@@ -51,6 +50,7 @@
                     android:paddingBottom="2.0dip"
                     android:paddingTop="6.0dip"/>
             </FrameLayout>
+                    <!--android:checkedButton="@={vm.checkedId}"-->
 
         </android.support.design.widget.CoordinatorLayout>
 
