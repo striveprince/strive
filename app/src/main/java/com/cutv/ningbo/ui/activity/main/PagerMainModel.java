@@ -93,12 +93,12 @@ public class PagerMainModel implements PagerModel<BaseFragment> {
 //    public static void setDrawable(RadioButton button,int drawable) {
 //        button.setCompoundDrawablesWithIntrinsicBounds(drawable,0,0,0);
 //    }
-
-    public int getImage(){
+//title_home_img
+    public boolean getImage(){
         switch (position){
-            case 0:return R.mipmap.title_home_img;
+            case 0:return true;
         }
-        return 0;
+        return false;
     }
 
     public String getText(){

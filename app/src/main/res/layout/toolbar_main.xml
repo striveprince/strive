@@ -40,11 +40,11 @@
                     android:src="@mipmap/ic_zhankai" />
 
                     <!--android:visibility="@{!bar.scrollVisibile}"-->
+                    <!--android:drawableLeft="@{bar.image?mipmap/title_home_img:null}"-->
+                    <!--android:drawableStart="@{bar.image}"-->
                 <RadioButton
                     android:visibility="@{bar.viewVisible}"
                     android:text="@{bar.text}"
-                    android:drawableLeft="@{bar.image}"
-                    android:drawableStart="@{bar.image}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
