@@ -27,9 +27,7 @@ import timber.log.Timber;
 
 public class TimeUtil {
     private static Handler handler = new Handler();
-//    private static final HashSet<TimeEntity> hashSet = new HashSet<>();
     private static final HashMap<TimeEntity,Boolean> hashMap = new HashMap<>();
-//    private static final Queue<TimeEntity> queue = new ArrayBlockingQueue<>(1);
     private static TimeUtil util = new TimeUtil();
 
     public static TimeUtil getInstance() {
@@ -37,7 +35,7 @@ public class TimeUtil {
     }
 
     private TimeUtil() {
-        handler.postDelayed(runnable, 50);
+        handler.postDelayed(runnable, 500);
     }
 
     private Runnable runnable = new Runnable() {
@@ -54,7 +52,7 @@ public class TimeUtil {
     }
 
     public void switching(TimeEntity timeEntity, int state) {
-        if (state == 0 ^ hashMap.keySet().contains(timeEntity)) {
+        if (state == 0 ^ hashMap.get(timeEntity)) {
             boolean b = state == 0 ? hashMap.put(timeEntity,true) : hashMap.put(timeEntity,false);
         }
     }

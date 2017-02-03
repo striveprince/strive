@@ -39,7 +39,7 @@ public class PagerChangeUtil<CL extends PagerModel> implements ViewPager.OnPageC
     private int currentLeft = 0;
     private RadioGroup group;
 
-    private boolean loop = false;
+//    private boolean loop = false;
     /**
      * the appropriate adapter
      */
@@ -84,7 +84,7 @@ public class PagerChangeUtil<CL extends PagerModel> implements ViewPager.OnPageC
             }
             adapter.setList(changeListeners);
             if (adapter instanceof PagerAdapter)viewPager.setAdapter((PagerAdapter) adapter);
-            if(loop && adapter instanceof ViewPagerAdapter)((ViewPagerAdapter) adapter).setCount(Integer.MAX_VALUE);
+//            if(loop && adapter instanceof ViewPagerAdapter)((ViewPagerAdapter) adapter).setCount(Integer.MAX_VALUE);
         }
         viewPager.addOnPageChangeListener(this);
         if (group != null) {
@@ -93,9 +93,9 @@ public class PagerChangeUtil<CL extends PagerModel> implements ViewPager.OnPageC
         }
     }
 
-    public void setLoop(boolean loop) {
-        this.loop = loop;
-    }
+//    public void setLoop(boolean loop) {
+//        this.loop = loop;
+//    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

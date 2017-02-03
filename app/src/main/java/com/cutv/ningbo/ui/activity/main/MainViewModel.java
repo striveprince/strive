@@ -70,7 +70,7 @@ public class MainViewModel extends RadioViewModel<Respond.RadioRespond> {
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         int position = group.indexOfChild(group.findViewById(checkedId));
-        if (currentTab == position)return;
+//        if (currentTab == position)return;
         if(position<0||position>=list.size())return;
         FragmentTransaction ft = ((AppCompatActivity)getContext()).getSupportFragmentManager().beginTransaction();
         BaseFragment fragment = list.get(position).getItem(position,getContext());

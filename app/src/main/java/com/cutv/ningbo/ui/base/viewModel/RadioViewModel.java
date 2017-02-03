@@ -7,6 +7,7 @@ import android.support.annotation.IdRes;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.cutv.ningbo.R;
@@ -41,8 +42,8 @@ public abstract class RadioViewModel<T extends Respond> extends UserViewModel<T>
         for (PagerModel model : collection) {
             View view = model.getView(++i, group.getContext());
             group.addView(view);
-            if(i == 0)group.check(view.getId());
         }
+        if(i>=0)((RadioButton)group.getChildAt(0)).setChecked(true);
     }
 
     @BindingAdapter("checked")
