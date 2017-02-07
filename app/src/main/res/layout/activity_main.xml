@@ -1,63 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <data>
-        <variable
-            name="vm"
-            type="com.cutv.ningbo.ui.activity.main.MainViewModel" />
-        <variable
-            name="bar"
-            type="com.cutv.ningbo.ui.activity.main.PagerMainModel"/>
-    </data>
-
-    <android.support.v4.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-        <android.support.design.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include
-                android:id="@+id/tool_layout_main"
-                layout="@layout/toolbar_main"
-                app:bar="@{bar}"
-                />
-
-                <!--android:layout_marginTop="45dp"-->
-            <FrameLayout
-                android:layout_below="@+id/tool_layout_main"
-                android:id="@+id/tab_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-            <RadioGroup
-                android:id="@+id/main_bottom_tab"
-                android:layout_width="fill_parent"
-                android:layout_height="55dip"
-                app:checked="@{vm}"
-                app:addRadio="@{vm.pagerModels}"
-                android:layout_gravity="bottom"
-                android:background="@color/white"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:paddingBottom="2.0dip"
-                android:paddingTop="6.0dip"/>
-            <!--android:checkedButton="@={vm.checkedId}"-->
-
-        </android.support.design.widget.CoordinatorLayout>
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/navigation_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@mipmap/bg_menu_myself"
-            app:headerLayout="@layout/item_private_info"
-            app:itemIconTint="@color/white"
-            app:itemTextColor="@color/white"
-            app:menu="@menu/menu_navigation_view" />
-
-    </android.support.v4.widget.DrawerLayout>
-</layout>
+</LinearLayout>

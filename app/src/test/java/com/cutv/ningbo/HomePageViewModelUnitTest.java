@@ -1,31 +1,26 @@
-package com.cutv.ningbo;
+/*
+package com.app;
 
 import android.content.Context;
 
-import com.cutv.ningbo.data.api.UserApi;
-import com.cutv.ningbo.data.entity.HomeDataEntity;
-import com.cutv.ningbo.data.entity.HomeSlideEntity;
-import com.cutv.ningbo.data.http.RestfulTransformer;
-import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
-import com.cutv.ningbo.ui.base.respond.Respond;
-import com.cutv.ningbo.ui.activity.main.fragment.home.HomePageViewModel;
+import com.app.data.http.RestfulTransformer;
+import com.app.inject.qualifier.context.FragmentContext;
+import com.app.ui.base.respond.Respond;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import rx.Observable;
 
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+*/
 /**
  * project：cutv_ningbo
  * description：
@@ -36,7 +31,8 @@ import static org.mockito.Mockito.verify;
  * modify remark：
  *
  * @version 2.0
- */
+ *//*
+
 
 @RunWith(PowerMockRunner.class)
 public class HomePageViewModelUnitTest {
@@ -68,3 +64,4 @@ public class HomePageViewModelUnitTest {
 
 
 }
+*/

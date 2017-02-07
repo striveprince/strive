@@ -11,7 +11,7 @@ android {
         enabled = true
     }
     defaultConfig {
-        applicationId "com.cutv.ningbo"
+        applicationId "com.app"
         minSdkVersion 11
         targetSdkVersion 25
         versionCode 1
@@ -37,19 +37,20 @@ android {
 retrolambda {
 }
 
-ext.supportLibVersion = '25.1.0'
+ext.squareupVersion = '2.1.0'
+ext.supportLibVersion = '25.1.1'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile "com.android.support:design:${supportLibVersion}"
+    compile "com.squareup.retrofit2:retrofit:${squareupVersion}"
+    compile "com.squareup.retrofit2:converter-gson:${squareupVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${squareupVersion}"
 
-    compile 'io.reactivex:rxjava:1.1.8'
+//    compile 'io.reactivex:rxjava:1.1.8'
     compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.google.dagger:dagger:2.6'
     apt 'com.google.dagger:dagger-compiler:2.6'

@@ -6,16 +6,16 @@
         <item name="android:colorBackground">#aa333333</item>
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle
         </item> <!--新增一个item，用于控制menu-->
-         <item name="android:actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+         <!--<item name="android:actionOverflowButtonStyle">@style/OverflowButtonStyle</item>-->
     </style>
     <!--修改toolbar弹出菜单的位置-->
     <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
         <item name="overlapAnchor">false</item>  <!--把该属性改为false即可使menu位置位于toolbar之下-->
     </style>
     <!--修改toolbar菜单按钮的style-->
-    <style name="OverflowButtonStyle" parent="@android:style/Widget.ActionButton.Overflow">
+    <!--<style name="OverflowButtonStyle" parent="@android:style/Widget.ActionButton.Overflow">-->
         <!--<item name="android:src">@mipmap/ic_zhankai</item>-->
-    </style>
+    <!--</style>-->
     -->
     <!--toolbar菜单按钮的颜色-->
     <!--<style name="ActionButton.Overflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow"></style>-->
@@ -34,19 +34,17 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Toolbar">
+    <!--<style name="Toolbar">-->
 
-        <item name="android:src">@mipmap/ic_zhankai</item>
-    </style>
+        <!--<item name="android:src">@mipmap/ic_zhankai</item>-->
+    <!--</style>-->
 
-    <style name="Toolbar.Transparent">
-
-
-        <!--toolbar文字颜色 -->
+   <!-- <style name="Toolbar.Transparent">
+        &lt;!&ndash;toolbar文字颜色 &ndash;&gt;
         <item name="android:textColorPrimary">@color/white</item>
-        <!--toolbar按钮颜色 -->
+        &lt;!&ndash;toolbar按钮颜色 &ndash;&gt;
         <item name="colorControlNormal">?android:attr/textColorPrimary</item>
-    </style>
+    </style>-->
 
 
     <!-- Base application theme. -->
@@ -92,7 +90,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@drawable/selector_textcolor</item>
+        <!--<item name="android:textColor">@drawable/selector_textcolor</item>-->
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_weight">1.0</item>

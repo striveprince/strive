@@ -1,4 +1,5 @@
-package com.cutv.ningbo;
+/*
+package com.app;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
@@ -11,6 +12,7 @@ import rx.plugins.RxJavaPlugins;
 import rx.plugins.RxJavaSchedulersHook;
 import rx.schedulers.Schedulers;
 
+*/
 /*  Copyright 2015 Ribot Ltd.
 
         Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +25,8 @@ import rx.schedulers.Schedulers;
         distributed under the License is distributed on an "AS IS" BASIS,
         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
         See the License for the specific language governing permissions and
-        limitations under the License. */
+        limitations under the License. *//*
+
 
 public class RxSchedulersOverrideRule implements TestRule {
 
@@ -65,3 +68,4 @@ public class RxSchedulersOverrideRule implements TestRule {
         };
     }
 }
+*/
