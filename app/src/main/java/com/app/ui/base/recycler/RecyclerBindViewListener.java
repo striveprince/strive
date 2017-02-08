@@ -1,6 +1,4 @@
-package com.app.ui.base.adapter.recycler;
-
-import android.view.View;
+package com.app.ui.base.recycler;
 
 /**
  * project：cutv_ningbo

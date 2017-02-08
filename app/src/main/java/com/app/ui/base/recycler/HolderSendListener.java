@@ -1,4 +1,4 @@
-package com.app.ui.base.adapter.recycler;
+package com.app.ui.base.recycler;
 
 import com.app.data.entity.BaseEntity;
 import com.app.ui.base.holder.BaseHolder;

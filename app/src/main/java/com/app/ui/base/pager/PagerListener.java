@@ -1,6 +1,4 @@
-package com.app.ui.base.adapter.pager;
-
-import android.support.v4.view.ViewPager;
+package com.app.ui.base.pager;
 
 import java.util.List;
 

@@ -18,7 +18,7 @@ import com.app.data.entity.BaseEntity;
 import com.app.data.entity.InfoEntity;
 import com.app.data.http.RestfulSubscriber;
 import com.app.data.http.RestfulTransformer;
-import com.app.ui.base.adapter.recycler.RecyclerWrapper;
+import com.app.ui.base.recycler.RecyclerWrapper;
 import com.app.ui.base.respond.Respond;
 
 import javax.inject.Inject;

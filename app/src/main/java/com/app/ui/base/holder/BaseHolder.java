@@ -10,10 +10,10 @@ import android.view.View;
 
 import com.app.BR;
 import com.app.data.entity.BaseEntity;
-import com.app.ui.base.adapter.recycler.HolderGetListener;
-import com.app.ui.base.adapter.recycler.HolderSendListener;
-import com.app.ui.base.adapter.recycler.OnItemClickListener;
-import com.app.ui.base.adapter.recycler.RecyclerBindViewListener;
+import com.app.ui.base.recycler.HolderGetListener;
+import com.app.ui.base.recycler.HolderSendListener;
+import com.app.ui.base.recycler.OnItemClickListener;
+import com.app.ui.base.recycler.RecyclerBindViewListener;
 
 /**
  * project：cutv_ningbo

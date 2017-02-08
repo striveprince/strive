@@ -1,4 +1,4 @@
-package com.app.ui.base.adapter.pager;
+package com.app.ui.base.pager;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

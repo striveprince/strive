@@ -1,4 +1,4 @@
-package com.app.ui.base.adapter.recycler;
+package com.app.ui.base.recycler;
 
 import android.annotation.TargetApi;
 import android.content.Context;

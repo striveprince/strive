@@ -1,4 +1,4 @@
-package com.app.ui.base.adapter.pager;
+package com.app.ui.base.pager;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;

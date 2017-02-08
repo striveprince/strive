@@ -2,7 +2,6 @@ package com.app.ui.util.rotary;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
@@ -12,8 +11,7 @@ import android.widget.RadioGroup;
 
 import com.android.annotations.NonNull;
 import com.app.data.portlet.PagerModel;
-import com.app.ui.base.adapter.pager.PagerListener;
-import com.app.ui.base.adapter.pager.ViewPagerAdapter;
+import com.app.ui.base.pager.PagerListener;
 
 import java.util.ArrayList;
 import java.util.Collection;

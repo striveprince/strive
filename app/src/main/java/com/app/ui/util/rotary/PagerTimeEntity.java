@@ -8,7 +8,7 @@ import android.widget.RadioGroup;
 
 import com.app.BR;
 import com.app.data.portlet.PagerModel;
-import com.app.ui.base.adapter.pager.PagerListener;
+import com.app.ui.base.pager.PagerListener;
 
 import java.util.ArrayList;
 import java.util.List;

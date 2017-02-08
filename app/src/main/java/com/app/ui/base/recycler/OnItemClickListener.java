@@ -1,4 +1,4 @@
-package com.app.ui.base.adapter.recycler;
+package com.app.ui.base.recycler;
 
 /**
  * project：cutv_ningbo
