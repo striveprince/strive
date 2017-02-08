@@ -7,6 +7,7 @@ import android.databinding.InverseBindingMethod;
 import android.databinding.InverseBindingMethods;
 import android.databinding.ObservableBoolean;
 import android.databinding.adapters.ListenerUtil;
+import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -71,6 +72,12 @@ public class RecyclerViewModel<T,Entity extends BaseEntity> extends BaseViewMode
     }
 
     public void onHttp(View view) {
+        onHttp(0);
+    }
+
+    @Override
+    public void attachView(Respond.TransformRespond<T, Entity> tEntityTransformRespond, Bundle savedInstanceState) {
+        super.attachView(tEntityTransformRespond, savedInstanceState);
         onHttp(0);
     }
 
