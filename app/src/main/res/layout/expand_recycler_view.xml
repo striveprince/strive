@@ -12,14 +12,17 @@
             android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:refreshing="@={vm.loading}"
-            app:onRefreshListener="@{vm.onRefreshListener}">
+            app:onRefreshListener="@{vm.onRefreshListener}"
+            app:refreshing="@={vm.loading}">
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
+                app:setScroll="@{vm.onScrollListener}"
                 android:layout_height="match_parent"/>
         </android.support.v4.widget.SwipeRefreshLayout>
         <FrameLayout
+            android:id="@+id/empty_view"
+            android:onClick="@{vm::onHttp}"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

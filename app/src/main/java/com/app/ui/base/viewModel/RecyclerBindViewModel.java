@@ -1,3 +1,4 @@
+/*
 package com.app.ui.base.viewModel;
 
 import android.content.Context;
@@ -26,6 +27,7 @@ import rx.Observable;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
+*/
 /**
  * project：cutv_ningbo
  * description：
@@ -36,7 +38,8 @@ import timber.log.Timber;
  * modify remark：VM module, business logic to deal with this module; 业务逻辑在这里处理
  *
  * @version 2.0
- */
+ *//*
+
 @InverseBindingMethods({
     @InverseBindingMethod(
             type = android.support.v4.widget.SwipeRefreshLayout.class,
@@ -165,3 +168,4 @@ public abstract class RecyclerBindViewModel<T, Entity extends BaseEntity, Adapte
                 R.color.swipe_color4);
     }
 }
+*/

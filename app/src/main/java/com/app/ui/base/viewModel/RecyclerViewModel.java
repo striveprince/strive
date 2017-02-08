@@ -1,20 +1,31 @@
 package com.app.ui.base.viewModel;
 
+import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingListener;
 import android.databinding.InverseBindingMethod;
 import android.databinding.InverseBindingMethods;
 import android.databinding.ObservableBoolean;
 import android.databinding.adapters.ListenerUtil;
+import android.support.annotation.CallSuper;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.app.R;
 import com.app.data.entity.BaseEntity;
+import com.app.data.entity.InfoEntity;
+import com.app.data.http.RestfulSubscriber;
+import com.app.data.http.RestfulTransformer;
 import com.app.ui.base.adapter.recycler.RecyclerWrapper;
+import com.app.ui.base.respond.Respond;
 
+import java.util.List;
+
+import rx.Observable;
 import rx.subscriptions.CompositeSubscription;
+import timber.log.Timber;
 
 /**
  * project：cutv_ningbo
@@ -34,67 +45,45 @@ import rx.subscriptions.CompositeSubscription;
             event = "refreshingAttrChanged",
             method = "isRefreshing")
 })
-public class RecyclerViewModel<Entity extends BaseEntity>
-{
+public class RecyclerViewModel<T,Entity extends BaseEntity> extends BaseViewModel<Respond.TransformRespond<T,Entity>>{
     protected final CompositeSubscription compositeSubscription = new CompositeSubscription();
     public final ObservableBoolean loading = new ObservableBoolean(false);
     private RecyclerWrapper<Entity> adapter = new RecyclerWrapper<>();
     private boolean pageFlag = false;
-//    public abstract Observable<InfoEntity<T>> httpApi(int offset);
-//};
+    public RecyclerViewModel(Context context) {
+        super(context);
+    }
+    private Observable<InfoEntity<T>> observable;
 
-//    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = ()->onHttp(0);
 
-//    public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() {
-//        return onRefreshListener;
-//    }
+    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = ()->onHttp(0);
 
-//    public  RecyclerView.LayoutManager getManager(){
-//        return new LinearLayoutManager(getContext());
-//    };
-//    protected boolean getPageFlag() {
-//        return true;
-//    }
-//    public RecyclerView.OnScrollListener getOnScrollListener() {
-//        return scrollListener;
-//    }
-//    protected void onScrollBottom() {}
-//    public void onHttp(int offset) {
-//        onHttp(offset, httpApi(offset));
-//    }
-//
-//
-//    private void onHttp(int offset, Observable<InfoEntity<T>> observable) {
-//        loading.set(true);
-//        if (observable == null) return;
-//        RestfulSubscriber<T> subscriber = new RestfulSubscriber<>(getContext(),
-//                t -> {
-//                    if (offset == 0) adapter.clear();
-//                    adapter.addRangItemList(getRespond().transform(t));
-//                },
-//                e -> Timber.e(e, "load failed"),this::onCompleted);
-//        compositeSubscription.add(observable.compose(new RestfulTransformer<>()).subscribe(subscriber));
-//    }
+    public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() {
+        return onRefreshListener;
+    }
 
-//    @CallSuper
-//    protected void onCompleted(T t,Throwable e) {
-//        loading.set(false);
-//        getRespond().onCompleted(e, t, adapter.getRealItemCount());
-//    }
-//
-//    @Override
-//    public void detachView() {
-//        super.detachView();
-//        compositeSubscription.clear();
-//    }
+    public RecyclerView.OnScrollListener getOnScrollListener() {
+        return scrollListener;
+    }
+
+    public void onHttp(int offset) {
+        onHttp(offset, observable);
+    }
+
+    public void onHttp(View view) {
+        onHttp(0);
+    }
+
+    @Override
+    public void detachView() {
+        super.detachView();
+        compositeSubscription.clear();
+    }
 
     public void setPageFlag(boolean pageFlag) {
         this.pageFlag = pageFlag;
     }
 
-    private void onHttp(int offset){
-
-    }
 
     public void onScrollBottom(){}
 
@@ -121,10 +110,10 @@ public class RecyclerViewModel<Entity extends BaseEntity>
         }
     };
 
-    @BindingAdapter({"setAdapter"})
-    public static void setAdapter(RecyclerView layout, RecyclerWrapper adapter) {
-        layout.setAdapter(adapter);
-    }
+//    @BindingAdapter({"setAdapter"})
+//    public static void setAdapter(RecyclerView layout, RecyclerWrapper adapter) {
+//        layout.setAdapter(adapter);
+//    }
 
     @BindingAdapter({"setScroll"})
     public static void setOnScroll(RecyclerView view, RecyclerView.OnScrollListener listener) {
@@ -153,4 +142,32 @@ public class RecyclerViewModel<Entity extends BaseEntity>
                 R.color.swipe_color3,
                 R.color.swipe_color4);
     }
+
+    public void setObservable(Observable<InfoEntity<T>> observable) {
+        this.observable = observable;
+        loading.set(true);
+        onHttp(0,observable);
+    }
+
+    private void onHttp(int offset, Observable<InfoEntity<T>> observable) {
+        loading.set(true);
+        if (observable == null) return;
+        RestfulSubscriber<T> subscriber = new RestfulSubscriber<>(getContext(),
+                t -> {
+                    if (offset == 0) adapter.clear();
+                    adapter.addRangItemList(getRespond().transform(t));
+                },
+                e -> Timber.e(e, "load failed"),this::onCompleted);
+        compositeSubscription.add(observable.compose(new RestfulTransformer<>()).subscribe(subscriber));
+    }
+
+    @CallSuper
+    protected void onCompleted(T t,Throwable e) {
+        loading.set(false);
+        getRespond().onCompleted(e, t, adapter.getRealItemCount());
+    }
+
+//    public boolean isEmpty(){
+//        return adapter.getRealItemCount() == 0;
+//    }
 }

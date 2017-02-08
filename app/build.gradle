@@ -49,7 +49,7 @@ dependencies {
     compile "com.squareup.retrofit2:converter-gson:${squareupVersion}"
     compile "com.squareup.retrofit2:adapter-rxjava:${squareupVersion}"
 
-//    compile 'io.reactivex:rxjava:1.1.8'
+    compile 'io.reactivex:rxjava:1.1.8'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.google.dagger:dagger:2.6'
