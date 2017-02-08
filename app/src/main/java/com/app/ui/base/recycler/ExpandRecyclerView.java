@@ -112,9 +112,7 @@ public class ExpandRecyclerView<T, Entity extends BaseEntity> extends FrameLayou
         viewModel.detachView();
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
+    public void start(){
         if (respond != null) viewModel.attachView(respond, null);
     }
 
