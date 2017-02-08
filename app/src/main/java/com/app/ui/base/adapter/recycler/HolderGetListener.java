@@ -17,5 +17,5 @@ import com.app.ui.base.holder.BaseHolder;
  */
 
 public interface HolderGetListener<Entity extends BaseEntity> {
-    void getBaseHolder(BaseHolder<Entity,?,?> holder);
+    void getBaseHolder(BaseHolder<Entity> holder);
 }

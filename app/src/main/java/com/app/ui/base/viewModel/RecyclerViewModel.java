@@ -1,30 +1,20 @@
 package com.app.ui.base.viewModel;
 
-import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingListener;
 import android.databinding.InverseBindingMethod;
 import android.databinding.InverseBindingMethods;
 import android.databinding.ObservableBoolean;
 import android.databinding.adapters.ListenerUtil;
-import android.support.annotation.CallSuper;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.app.R;
 import com.app.data.entity.BaseEntity;
-import com.app.data.entity.InfoEntity;
-import com.app.data.http.RestfulSubscriber;
-import com.app.data.http.RestfulTransformer;
 import com.app.ui.base.adapter.recycler.RecyclerWrapper;
-import com.app.ui.base.respond.Respond;
 
-import javax.inject.Inject;
-
-import rx.Observable;
 import rx.subscriptions.CompositeSubscription;
-import timber.log.Timber;
 
 /**
  * project：cutv_ningbo
@@ -39,75 +29,74 @@ import timber.log.Timber;
  */
 @InverseBindingMethods({
     @InverseBindingMethod(
-            type = android.support.v4.widget.SwipeRefreshLayout.class,
+            type = SwipeRefreshLayout.class,
             attribute = "refreshing",
             event = "refreshingAttrChanged",
             method = "isRefreshing")
 })
-public abstract class RecyclerBindViewModel<T, Entity extends BaseEntity, Adapter extends RecyclerWrapper<Entity, ?>>
-        extends BaseViewModel<Respond.TransformRespond<T, Entity>> {
+public class RecyclerViewModel<Entity extends BaseEntity>
+{
     protected final CompositeSubscription compositeSubscription = new CompositeSubscription();
     public final ObservableBoolean loading = new ObservableBoolean(false);
-    @Inject
-    Adapter adapter;
+    private RecyclerWrapper<Entity> adapter = new RecyclerWrapper<>();
+    private boolean pageFlag = false;
+//    public abstract Observable<InfoEntity<T>> httpApi(int offset);
+//};
 
-    public abstract Observable<InfoEntity<T>> httpApi(int offset);
+//    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = ()->onHttp(0);
 
-    public Adapter getAdapter() {
-        return adapter;
+//    public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() {
+//        return onRefreshListener;
+//    }
+
+//    public  RecyclerView.LayoutManager getManager(){
+//        return new LinearLayoutManager(getContext());
+//    };
+//    protected boolean getPageFlag() {
+//        return true;
+//    }
+//    public RecyclerView.OnScrollListener getOnScrollListener() {
+//        return scrollListener;
+//    }
+//    protected void onScrollBottom() {}
+//    public void onHttp(int offset) {
+//        onHttp(offset, httpApi(offset));
+//    }
+//
+//
+//    private void onHttp(int offset, Observable<InfoEntity<T>> observable) {
+//        loading.set(true);
+//        if (observable == null) return;
+//        RestfulSubscriber<T> subscriber = new RestfulSubscriber<>(getContext(),
+//                t -> {
+//                    if (offset == 0) adapter.clear();
+//                    adapter.addRangItemList(getRespond().transform(t));
+//                },
+//                e -> Timber.e(e, "load failed"),this::onCompleted);
+//        compositeSubscription.add(observable.compose(new RestfulTransformer<>()).subscribe(subscriber));
+//    }
+
+//    @CallSuper
+//    protected void onCompleted(T t,Throwable e) {
+//        loading.set(false);
+//        getRespond().onCompleted(e, t, adapter.getRealItemCount());
+//    }
+//
+//    @Override
+//    public void detachView() {
+//        super.detachView();
+//        compositeSubscription.clear();
+//    }
+
+    public void setPageFlag(boolean pageFlag) {
+        this.pageFlag = pageFlag;
     }
 
-    public RecyclerBindViewModel(Context context) {
-        super(context);
-    }
-    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = ()->onHttp(0);
+    private void onHttp(int offset){
 
-    public SwipeRefreshLayout.OnRefreshListener getOnRefreshListener() {
-        return onRefreshListener;
     }
 
-    public  RecyclerView.LayoutManager getManager(){
-        return new LinearLayoutManager(getContext());
-    };
-
-    protected boolean getPageFlag() {
-        return true;
-    }
-
-    public RecyclerView.OnScrollListener getOnScrollListener() {
-        return scrollListener;
-    }
-
-    protected void onScrollBottom() {}
-
-    public void onHttp(int offset) {
-        onHttp(offset, httpApi(offset));
-    }
-
-
-    private void onHttp(int offset, Observable<InfoEntity<T>> observable) {
-        loading.set(true);
-        if (observable == null) return;
-        RestfulSubscriber<T> subscriber = new RestfulSubscriber<>(getContext(),
-                t -> {
-                    if (offset == 0) adapter.clear();
-                    adapter.addRangItemList(getRespond().transform(t));
-                },
-                e -> Timber.e(e, "load failed"),this::onCompleted);
-        compositeSubscription.add(observable.compose(new RestfulTransformer<>()).subscribe(subscriber));
-    }
-
-    @CallSuper
-    protected void onCompleted(T t,Throwable e) {
-        loading.set(false);
-        getRespond().onCompleted(e, t, adapter.getRealItemCount());
-    }
-
-    @Override
-    public void detachView() {
-        super.detachView();
-        compositeSubscription.clear();
-    }
+    public void onScrollBottom(){}
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
         int lastVisibleItem = 0;
@@ -119,7 +108,7 @@ public abstract class RecyclerBindViewModel<T, Entity extends BaseEntity, Adapte
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 >= adapter.getItemCount()
                     && !loading.get()) {
-                if (getPageFlag()&&dy>0) onHttp(adapter.getRealItemCount());
+                if (pageFlag&&dy>0) onHttp(adapter.getRealItemCount());
                 onScrollBottom();
             }
         }

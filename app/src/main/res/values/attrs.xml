@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="expandRecyclerView" >
         <attr name="isReverse" format="boolean" />
+        <attr name="isPage" format="boolean" />
         <attr name="isRefreshable" format="boolean" />
         <attr name="num" format="integer" />
         <attr name="item" format="reference" />

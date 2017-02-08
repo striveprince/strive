@@ -11,15 +11,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.app.R;
 import com.app.data.entity.BaseEntity;
-import com.app.data.entity.InfoEntity;
 import com.app.databinding.ExpandRecyclerViewBinding;
+import com.app.ui.base.adapter.recycler.RecyclerWrapper;
 import com.app.ui.base.viewModel.RecyclerBindViewModel;
-
-import rx.Observable;
+import com.app.ui.base.viewModel.RecyclerViewModel;
 
 /**
  * project：cutv_ningbo
@@ -36,8 +36,8 @@ import rx.Observable;
 
 public class ExpandRecyclerView<Entity extends BaseEntity> extends FrameLayout {
     private ExpandRecyclerViewBinding binding;
-    private RecyclerBindViewModel viewModel;
-    RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerViewModel<Entity> viewModel;
+    private LinearLayoutManager mLayoutManager;
     public ExpandRecyclerView(Context context) {
         this(context,null);
     }
@@ -64,7 +64,8 @@ public class ExpandRecyclerView<Entity extends BaseEntity> extends FrameLayout {
         int footType = ta.getResourceId(R.styleable.expandRecyclerView_foot,0);
         int headType = ta.getResourceId(R.styleable.expandRecyclerView_head,0);
         boolean isRefreshable = ta.getBoolean(R.styleable.expandRecyclerView_isRefreshable,true);
-        boolean isReverse = ta.getBoolean(R.styleable.expandRecyclerView_isReverse,true);
+        boolean isReverse = ta.getBoolean(R.styleable.expandRecyclerView_isReverse,false);
+        boolean isPage = ta.getBoolean(R.styleable.expandRecyclerView_isPage,true);
         int num = ta.getResourceId(R.styleable.expandRecyclerView_num,1);
         binding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.expand_recycler_view,this,true);
         if(num == 1)mLayoutManager = new LinearLayoutManager(context);
@@ -72,27 +73,25 @@ public class ExpandRecyclerView<Entity extends BaseEntity> extends FrameLayout {
         binding.recyclerView.setLayoutManager(mLayoutManager);
         binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
         binding.swipeRefreshLayout.setEnabled(isRefreshable);
-//        viewModel = new RecyclerBindViewModel<>(context);
-        binding.setVm(viewModel);
-//        new HolderViewModel<>();
         ta.recycle();
-
-
-//        View layout =  inflate(context, R.layout.layout_list_recyclerview, this);
-//        swipeRefresh = (SwipeRefreshLayout) layout.findViewById(R.id.swiperefresh);
-//        recyclerview = (RecyclerView) layout.findViewById(R.id.recyclerview);
-//        ll_emptyView = (LinearLayout) layout.findViewById(R.id.ll_emptyview);
-//        mCoreAdapterPresenter = new AdapterPresenter(this);
-//        swipeRefresh.setColorSchemeResources(android.R.color.holo_blue_bright);
-//        swipeRefresh.setOnRefreshListener(this::reFetch);
-//        recyclerview.setHasFixedSize(true);
-//        if(num == 1)mLayoutManager = new LinearLayoutManager(context);
-//        else mLayoutManager = new GridLayoutManager(context,num);
-//        recyclerview.setLayoutManager(mLayoutManager);
-//        recyclerview.setItemAnimator(new DefaultItemAnimator());
+        viewModel = new RecyclerViewModel<>();
+        viewModel.setPageFlag(isPage);
+        setViewModel(viewModel);
+        RecyclerWrapper<Entity> adapter = new RecyclerWrapper<>();
+        adapter.setItemType(itemType);
+        binding.recyclerView.setAdapter(adapter);
+        adapter.addHeaderView(View.inflate(context,headType,null));
+        adapter.addFooterView(View.inflate(context,footType,null));
+        if(isReverse){
+            mLayoutManager.setStackFromEnd(true);//列表再底部开始展示，反转后由上面开始展示
+            mLayoutManager.setReverseLayout(true);//列表翻转
+            binding.recyclerView.setLayoutManager(mLayoutManager);
+        }
     }
 
-
+    public void setViewModel(RecyclerViewModel viewModel) {
+        binding.setVm(viewModel);
+    }
 
 
 }

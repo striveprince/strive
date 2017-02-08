@@ -1,14 +1,11 @@
 package com.app.ui.base.adapter.recycler;
 
-import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.data.entity.BaseEntity;
-import com.app.ui.base.annotation.ContentView;
 import com.app.ui.base.holder.BaseHolder;
-import com.app.ui.base.viewModel.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,28 +22,17 @@ import java.util.List;
  * @version 2.0
  */
 
-public class RecyclerAdapter<
-        Entity extends BaseEntity,
-        Holder extends BaseHolder<Entity, ?, ?>
-        >
-        extends RecyclerView.Adapter<Holder>
+public class RecyclerAdapter<Entity extends BaseEntity>
+        extends RecyclerView.Adapter<BaseHolder<Entity>>
         implements HolderSendListener<Entity> {
     protected List<Entity> list = new ArrayList<>();
-    //    protected Class<BaseHolder> c;
-//    private LayoutInflater mInflater;
-//    private Holder lastHolder;
-    private BaseHolder<Entity, ?, ?> lastHolder;
-
-    private CreateHolderListener<Holder> listener;
-
+    private BaseHolder<Entity> lastHolder;
+    private int itemType;
     private int count = 0;
 
-    public RecyclerAdapter(CreateHolderListener<Holder> listener) {
-        this.listener = listener;
+    public RecyclerAdapter(int layout) {
+        this.itemType =layout;
     }
-//    public RecyclerAdapter(BaseHolder holder) {
-//        this.c = c;
-//    }
 
     public void setList(List<Entity> list) {
         this.list.clear();
@@ -54,20 +40,9 @@ public class RecyclerAdapter<
     }
 
     @Override
-    public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return listener.onCreateHolder(parent, viewType);
-//        if(mInflater == null)mInflater = LayoutInflater.from(parent.getContext());
-////        Log.i("onCreateViewHolder","create baseHolder");
-//        try {
-//            Constructor<BaseHolder> con = c.getConstructor(View.class);
-//            View view = mInflater.inflate(findContentView(c).value(), null);
-//            return con.newInstance(view);
-//        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-//                | InvocationTargetException | NoSuchMethodException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return baseHolder;
-
+    public BaseHolder<Entity> onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(itemType == 0)throw new RuntimeException("item must inject");
+        return new BaseHolder<>(parent.getContext(),itemType);
     }
 
     public void setCount(int count) {
@@ -81,23 +56,21 @@ public class RecyclerAdapter<
     }
 
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(BaseHolder<Entity> holder, int position) {
         holder.setListener(this);
         Entity entity = list.get(position);
         holder.itemView.setOnClickListener(new OnItemListener(entity, holder, position));
         holder.itemView.setOnLongClickListener(new OnItemListener(entity, holder, position));
-//        holder.on
-//        holder.viewModel.
         holder.onBindViewHolder(list.get(position), position);
     }
 
 
     private class OnItemListener implements View.OnClickListener, View.OnLongClickListener {
         private Entity entity;
-        private Holder baseHolder;
+        private BaseHolder<Entity> baseHolder;
         private int position;
 
-        OnItemListener(Entity entity, Holder holder, int position) {
+        OnItemListener(Entity entity, BaseHolder<Entity> holder, int position) {
             this.entity = entity;
             this.baseHolder = holder;
             this.position = position;
@@ -178,7 +151,7 @@ public class RecyclerAdapter<
 
 
     @Override
-    public void setBaseHolder(BaseHolder<Entity, ?, ?> baseHolder) {
+    public void setBaseHolder(BaseHolder<Entity> baseHolder) {
         baseHolder.getBaseHolder(lastHolder);
         lastHolder = baseHolder;
     }

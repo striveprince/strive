@@ -4,7 +4,7 @@
     <data>
         <variable
             name="vm"
-            type="com.app.ui.base.viewModel.RecyclerBindViewModel" />
+            type="com.app.ui.base.viewModel.RecyclerViewModel" />
     </data>
     <FrameLayout android:layout_width="match_parent"
         android:layout_height="match_parent">

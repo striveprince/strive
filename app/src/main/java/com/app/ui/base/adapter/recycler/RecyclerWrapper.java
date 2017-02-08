@@ -1,8 +1,10 @@
 package com.app.ui.base.adapter.recycler;
 
+import android.support.annotation.LayoutRes;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,34 +26,31 @@ import java.util.List;
  * @version 2.0
  */
 
-public abstract class RecyclerWrapper<
-        Entity extends BaseEntity,
-        Holder extends BaseHolder<Entity,?,?>
-//        BaseHolder extends com.cutv.ningbo.ui.base.holder.BaseHolder
-//        VM extends ViewModel,
-//        Binding extends ViewDataBinding
-        >
+public  class RecyclerWrapper<Entity extends BaseEntity>
         extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-        implements CreateHolderListener<Holder>
+//        implements CreateHolderListener<BaseHolder<Entity>>
 {
-
-    private RecyclerAdapter<Entity, Holder> adapter;
-
+    @LayoutRes
+    private int itemType;
+    private RecyclerAdapter<Entity> adapter;
     private static final int TYPE_HEADER = 100000;
     private static final int TYPE_FOOTER = 200000;
-
     private SparseArrayCompat<View> headerViews = new SparseArrayCompat<>();
     private SparseArrayCompat<View> footerViews = new SparseArrayCompat<>();
 
-//    public RecyclerWrapper(Class<T> c) {
-//        adapter = new RecyclerAdapter<>(c);
-//    }
     public RecyclerWrapper() {
-        adapter = new RecyclerAdapter<>(this);
+//        adapter = new RecyclerAdapter<>(this);
+    }
+    public RecyclerWrapper(int layout) {
+        adapter = new RecyclerAdapter<>(layout);
     }
 
     public void setList(List<Entity> list){
         adapter.setList(list);
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
     }
 
     /**
@@ -60,8 +59,10 @@ public abstract class RecyclerWrapper<
      * @return true  this viewType is headView
      */
     private boolean isHeaderViewPos(int position) {
-        return position < getHeadersCount();
+        return position <getHeadersCount();
     }
+
+
 
     /**
      * judge that this viewType is footView
@@ -141,7 +142,7 @@ public abstract class RecyclerWrapper<
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (isHeaderViewPos(position)) return;
         if (isFooterViewPos(position)) return;
-        adapter.onBindViewHolder((Holder) holder, position - getHeadersCount());
+        adapter.onBindViewHolder((BaseHolder) holder, position - getHeadersCount());
     }
 
     @Override
