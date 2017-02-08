@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.app.data.entity.BaseEntity;
-import com.app.ui.base.respond.Respond;
 
 import java.util.List;
 

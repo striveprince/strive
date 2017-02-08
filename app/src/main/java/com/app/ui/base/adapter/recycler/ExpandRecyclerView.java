@@ -20,8 +20,6 @@ import com.app.databinding.ExpandRecyclerViewBinding;
 import com.app.ui.base.respond.Respond;
 import com.app.ui.base.viewModel.RecyclerViewModel;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
 
 import rx.Observable;
@@ -63,14 +61,13 @@ public class ExpandRecyclerView<T, Entity extends BaseEntity> extends FrameLayou
         init(context, attrs, defStyleAttr);
     }
 
-
     public void init(Context context, AttributeSet attrs, int defStyleAttr) {
         this.respond = this;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.expandRecyclerView);
         int itemType = ta.getResourceId(R.styleable.expandRecyclerView_item, 0);
         int empty = ta.getResourceId(R.styleable.expandRecyclerView_empty, 0);
-        int footType = ta.getResourceId(R.styleable.expandRecyclerView_foot, 0);
         int headType = ta.getResourceId(R.styleable.expandRecyclerView_head, 0);
+        int footType = ta.getResourceId(R.styleable.expandRecyclerView_foot, 0);
         boolean isRefreshable = ta.getBoolean(R.styleable.expandRecyclerView_isRefreshable, true);
         boolean isReverse = ta.getBoolean(R.styleable.expandRecyclerView_isReverse, false);
         boolean isPage = ta.getBoolean(R.styleable.expandRecyclerView_isPage, true);
@@ -97,7 +94,6 @@ public class ExpandRecyclerView<T, Entity extends BaseEntity> extends FrameLayou
             binding.recyclerView.setLayoutManager(mLayoutManager);
         }
     }
-
 
     public ExpandRecyclerView setObservable(Observable<InfoEntity<T>> observable) {
         viewModel.setObservable(observable);
@@ -127,10 +123,8 @@ public class ExpandRecyclerView<T, Entity extends BaseEntity> extends FrameLayou
         return null;
     }
 
-
     @Override
     public void onCompleted(Throwable e, T t, int count) {
-        // TODO: 2017/2/8 deal with error
         binding.emptyView.setVisibility(count == 0?VISIBLE:GONE);
     }
 }
