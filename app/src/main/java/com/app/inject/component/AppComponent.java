@@ -3,6 +3,7 @@ package com.app.inject.component;
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.app.data.api.LiveApi;
 import com.app.data.api.ShakeApi;
 import com.app.data.api.TopicApi;
 import com.app.data.save.SharePreferenceUtil;
@@ -36,7 +37,7 @@ public interface AppComponent {
     TopicApi getTopicApi();
 //    NbtvApi getNbtvApi();
     ShakeApi getShakeApi();
-//    LiveApi getLiveApi();
+    LiveApi getLiveApi();
 
     @NingSharePreference SharePreferenceUtil NingUtil();
 }

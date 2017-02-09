@@ -39,15 +39,25 @@ retrolambda {
 
 ext.squareupVersion = '2.1.0'
 ext.supportLibVersion = '25.1.1'
+ext.ijkplayerVersion = '0.7.7.1'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile "com.android.support:design:${supportLibVersion}"
+
     compile "com.squareup.retrofit2:retrofit:${squareupVersion}"
     compile "com.squareup.retrofit2:converter-gson:${squareupVersion}"
     compile "com.squareup.retrofit2:adapter-rxjava:${squareupVersion}"
+
+    compile "tv.danmaku.ijk.media:ijkplayer-java:${ijkplayerVersion}"
+    compile "tv.danmaku.ijk.media:ijkplayer-armv7a:${ijkplayerVersion}"
+    compile "tv.danmaku.ijk.media:ijkplayer-armv5:${ijkplayerVersion}"
+    compile "tv.danmaku.ijk.media:ijkplayer-arm64:${ijkplayerVersion}"
+    compile "tv.danmaku.ijk.media:ijkplayer-x86:${ijkplayerVersion}"
+    compile "tv.danmaku.ijk.media:ijkplayer-x86_64:${ijkplayerVersion}"
+    compile "tv.danmaku.ijk.media:ijkplayer-exo:${ijkplayerVersion}"
 
     compile 'io.reactivex:rxjava:1.1.8'
     compile 'io.reactivex:rxandroid:1.2.1'

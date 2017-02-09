@@ -1,5 +1,6 @@
 package com.app.ui.activity.live.content;
 
+import com.app.inject.component.ActivityComponent;
 import com.app.ui.base.activity.BaseActivity;
 
 /**
@@ -16,4 +17,10 @@ import com.app.ui.base.activity.BaseActivity;
 
 
 public class LiveContentActivity extends BaseActivity {
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
+    }
+
+
 }

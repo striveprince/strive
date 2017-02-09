@@ -1,14 +1,14 @@
 package com.app.ui.base.activity;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.app.BR;
 import com.app.App;
+import com.app.BR;
 import com.app.inject.component.ActivityComponent;
 import com.app.inject.component.DaggerActivityComponent;
 import com.app.inject.module.ActivityModule;
@@ -27,12 +27,37 @@ import javax.inject.Inject;
  * modify remark：
  * @version 2.0
  */
-public class BaseActivity<VM extends BaseViewModel,Binding extends ViewDataBinding> extends AppCompatActivity implements Respond{
+public abstract class BaseActivity<VM extends BaseViewModel<Respond>,Binding extends ViewDataBinding> extends AppCompatActivity implements Respond{
     private ActivityComponent mActivityComponent;
     public Binding binding;
     @Inject public VM viewModel;
 
-    protected final ActivityComponent activityComponent() {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        inject(this,savedInstanceState);
+    }
+
+    public void inject(Activity activity, @Nullable Bundle savedInstanceState) {
+        Class<?> handlerType = activity.getClass();
+        try {
+            ContentView contentView = findContentView(handlerType);
+            if (contentView != null) {
+                int viewId = contentView.value();
+                if (viewId > 0) {
+                    inject(activityComponent());
+                    binding = DataBindingUtil.setContentView(this,viewId);
+                    binding.setVariable(BR.vm, viewModel);
+                    viewModel.attachView(this,savedInstanceState);
+                }
+            }
+        } catch (Throwable ex) {}
+    }
+
+
+    public abstract void inject(ActivityComponent component);
+
+    private ActivityComponent activityComponent() {
         if(mActivityComponent == null) {
             mActivityComponent = DaggerActivityComponent.builder()
                     .appComponent(App.getAppComponent())
@@ -42,10 +67,11 @@ public class BaseActivity<VM extends BaseViewModel,Binding extends ViewDataBindi
         return mActivityComponent;
     }
 
-    protected final void setBindingView(@LayoutRes int layoutId, @Nullable Bundle savedInstanceState){
-        binding = DataBindingUtil.setContentView(this,layoutId);
-        binding.setVariable(BR.vm, viewModel);
-        viewModel.attachView(this,savedInstanceState);
+    private ContentView findContentView(Class<?> thisCls) {
+        if (thisCls == null ) return null;
+        ContentView contentView = thisCls.getAnnotation(ContentView.class);
+        if (contentView == null) return findContentView(thisCls.getSuperclass());
+        return contentView;
     }
 
     @Override

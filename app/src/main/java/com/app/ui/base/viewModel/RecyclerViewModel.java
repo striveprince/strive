@@ -89,7 +89,6 @@ public class RecyclerViewModel<T,Entity extends BaseEntity> extends BaseViewMode
         this.pageFlag = pageFlag;
     }
 
-
     public void onScrollBottom(){}
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
@@ -114,11 +113,6 @@ public class RecyclerViewModel<T,Entity extends BaseEntity> extends BaseViewMode
             this.dy = dy;
         }
     };
-
-//    @BindingAdapter({"setAdapter"})
-//    public static void setAdapter(RecyclerView layout, RecyclerWrapper adapter) {
-//        layout.setAdapter(adapter);
-//    }
 
     @BindingAdapter({"setScroll"})
     public static void setOnScroll(RecyclerView view, RecyclerView.OnScrollListener listener) {

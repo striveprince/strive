@@ -3,6 +3,8 @@ package com.app.inject.component;
 
 import com.app.inject.module.ActivityModule;
 import com.app.inject.scope.ActivityScope;
+import com.app.ui.activity.live.content.LiveContentActivity;
+import com.app.ui.activity.live.list.LiveListActivity;
 
 import dagger.Component;
 
@@ -24,4 +26,6 @@ public interface ActivityComponent {
 //    void inject(DetailActivity activity);
 //    void inject(LoginActivity activity);
 //    void inject(StartActivity activity);
+    void inject(LiveListActivity activity);
+    void inject(LiveContentActivity activity);
 }

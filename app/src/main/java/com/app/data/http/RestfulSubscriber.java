@@ -37,7 +37,7 @@ public class RestfulSubscriber<T> extends Subscriber<T>{
     private Action1<Throwable> action1;
     private Throwable e = null;
     private T t;
-//    private FrameLayout layout;
+//    private FrameLayout activity_live_list;
 
 //    public RestfulSubscriber(Context context, RestfulObserver<T> observer, Action1<Throwable> action1) {
 //        this.context = context;

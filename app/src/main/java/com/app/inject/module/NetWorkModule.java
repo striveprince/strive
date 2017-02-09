@@ -1,8 +1,10 @@
 package com.app.inject.module;
 
 import com.app.BuildConfig;
+import com.app.data.api.LiveApi;
 import com.app.data.api.ShakeApi;
 import com.app.data.api.TopicApi;
+import com.app.data.api.UserApi;
 import com.app.inject.converter.JsonConverterFactory;
 import com.app.inject.interceptor.NbtvInterceptor;
 import com.app.inject.interceptor.UserInterceptor;
@@ -49,6 +51,32 @@ public class NetWorkModule {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .callFactory(client)
                 .build().create(TopicApi.class);
+    }
+
+    @Provides
+    @ApplicationScope
+    UserApi provideUserApi(OkHttpClient okHttpClient, UserInterceptor userInterceptor) {
+        OkHttpClient client = okHttpClient.newBuilder()
+                .addInterceptor(userInterceptor).build();
+        return new Retrofit.Builder()
+                .baseUrl(USERURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .callFactory(client)
+                .build().create(UserApi.class);
+    }
+
+    @Provides
+    @ApplicationScope
+    LiveApi provideLiveApi(OkHttpClient okHttpClient, UserInterceptor userInterceptor) {
+        OkHttpClient client = okHttpClient.newBuilder()
+                .addInterceptor(userInterceptor).build();
+        return new Retrofit.Builder()
+                .baseUrl(LiveUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .callFactory(client)
+                .build().create(LiveApi.class);
     }
 
     @Provides

@@ -136,8 +136,8 @@ public abstract class RecyclerBindViewModel<T, Entity extends BaseEntity, Adapte
     };
 
     @BindingAdapter({"setAdapter"})
-    public static void setAdapter(RecyclerView layout, RecyclerWrapper adapter) {
-        layout.setAdapter(adapter);
+    public static void setAdapter(RecyclerView activity_live_list, RecyclerWrapper adapter) {
+        activity_live_list.setAdapter(adapter);
     }
 
     @BindingAdapter({"setScroll"})

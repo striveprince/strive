@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.app.data.entity.InfoEntity;
+import com.app.ui.base.recycler.ExpandRecyclerView;
 import com.bumptech.glide.Glide;
 import com.app.data.http.RestfulObserver;
 import com.app.data.http.RestfulSubscriber;
@@ -55,7 +56,6 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
             restoreInstanceState(savedInstanceState);
         }
     }
-
 
 
     @BindingAdapter({"android:src"})
