@@ -1,14 +1,11 @@
 package com.cutv.ningbo.ui.base.adapter;
 
-import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.cutv.ningbo.data.entity.BaseEntity;
-import com.cutv.ningbo.ui.base.annotation.ContentView;
 import com.cutv.ningbo.ui.base.holder.BaseHolder;
-import com.cutv.ningbo.ui.base.viewModel.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +29,6 @@ public class RecyclerAdapter<
         extends RecyclerView.Adapter<Holder>
         implements HolderSendListener<Entity> {
     protected List<Entity> list = new ArrayList<>();
-    //    protected Class<BaseHolder> c;
-//    private LayoutInflater mInflater;
-//    private Holder lastHolder;
     private BaseHolder<Entity, ?, ?> lastHolder;
 
     private CreateHolderListener<Holder> listener;
@@ -44,9 +38,6 @@ public class RecyclerAdapter<
     public RecyclerAdapter(CreateHolderListener<Holder> listener) {
         this.listener = listener;
     }
-//    public RecyclerAdapter(BaseHolder holder) {
-//        this.c = c;
-//    }
 
     public void setList(List<Entity> list) {
         this.list.clear();
@@ -56,18 +47,6 @@ public class RecyclerAdapter<
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         return listener.onCreateHolder(parent, viewType);
-//        if(mInflater == null)mInflater = LayoutInflater.from(parent.getContext());
-////        Log.i("onCreateViewHolder","create baseHolder");
-//        try {
-//            Constructor<BaseHolder> con = c.getConstructor(View.class);
-//            View view = mInflater.inflate(findContentView(c).value(), null);
-//            return con.newInstance(view);
-//        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-//                | InvocationTargetException | NoSuchMethodException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return baseHolder;
-
     }
 
     public void setCount(int count) {
@@ -86,8 +65,6 @@ public class RecyclerAdapter<
         Entity entity = list.get(position);
         holder.itemView.setOnClickListener(new OnItemListener(entity, holder, position));
         holder.itemView.setOnLongClickListener(new OnItemListener(entity, holder, position));
-//        holder.on
-//        holder.viewModel.
         holder.onBindViewHolder(list.get(position), position);
     }
 
@@ -148,10 +125,6 @@ public class RecyclerAdapter<
         }
     }
 
-//    public void changeItemList(int positionStart,List<entity> list){
-////        this.list.set();
-//        notifyItemRangeRemoved(positionStart,list.size());
-//    }
 
     public void addRangItemList(int itemStart, List<Entity> list) {
         this.list.addAll(itemStart, list);
