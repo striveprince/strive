@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -59,17 +61,17 @@ import java.util.Locale;
  * <p>
  * Functions like show() and hide() have no effect when MediaController
  * is created in an xml layout.
- *
+ * <p>
  * MediaController will hide and
  * show the buttons according to these rules:
  * <ul>
  * <li> The "previous" and "next" buttons are hidden until setPrevNextListeners()
- *   has been called
+ * has been called
  * <li> The "previous" and "next" buttons are visible but disabled if
- *   setPrevNextListeners() was called with null listeners
+ * setPrevNextListeners() was called with null listeners
  * <li> The "rewind" and "fastforward" buttons are shown unless requested
- *   otherwise by using the MediaController(Context, boolean) constructor
- *   with the boolean set to false
+ * otherwise by using the MediaController(Context, boolean) constructor
+ * with the boolean set to false
  * </ul>
  */
 public class IjkMediaController extends FrameLayout {
@@ -108,7 +110,7 @@ public class IjkMediaController extends FrameLayout {
         mContext = context;
         mUseFastForward = true;
         mFromXml = true;
-//        mAccessibilityManager = AccessibilityManager.getInstance(context);
+//        mAccessibilityManager = getAccessibilityManager(context);
     }
 
     @Override
@@ -123,26 +125,45 @@ public class IjkMediaController extends FrameLayout {
         mUseFastForward = useFastForward;
         initFloatingWindowLayout();
         initFloatingWindow();
-//        mAccessibilityManager = AccessibilityManager.getInstance(context);
+//        mAccessibilityManager = getAccessibilityManager(context);
     }
 
     public IjkMediaController(Context context) {
         this(context, true);
     }
 
-    private void initFloatingWindow() {
-        mWindowManager = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
+    private AccessibilityManager getAccessibilityManager(Context context) {
+//        AccessibilityManager accessibilityManager =(AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
+        AccessibilityManager mAccessibilityManager;
         try {
+            Class<AccessibilityManager> clazz = AccessibilityManager.class;
+            Method method = clazz.getDeclaredMethod("getInstance");
+            mAccessibilityManager = (AccessibilityManager) method.invoke(null, context);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return mAccessibilityManager;
+    }
+
+    private Window getWindow() {
+        Window mWindow;
+        try {
+            Class clazz = Class.forName("com.android.internal.policy.impl.PhoneWindow");
+            Constructor constructor = clazz.getDeclaredConstructor(Context.class);
+            mWindow = (Window) constructor.newInstance(mContext);
 //            mWindow = PolicyManager.makeNewWidow(mContext);//反射调用
 //            Class clazz = Class.forName("com.android.internal.policy.PolicyManager");
 //            Method method = clazz.getDeclaredMethod("makeNewWidow");//静态方法
-//            method.invoke(null,mContext);
-            Class clazz = Class.forName("com.android.internal.policy.impl.PhoneWindow");
-            Constructor constructor = clazz.getDeclaredConstructor(Context.class);
-            mWindow = (Window)constructor.newInstance(mContext);
-        }catch (Exception e){
-            e.printStackTrace();
+//           mWindow = method.invoke(null,mContext);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+        return mWindow;
+    }
+
+    private void initFloatingWindow() {
+        mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        mWindow = getWindow();
         mWindow.setWindowManager(mWindowManager, null, null);
         mWindow.requestFeature(Window.FEATURE_NO_TITLE);
         mDecor = mWindow.getDecorView();
@@ -181,7 +202,7 @@ public class IjkMediaController extends FrameLayout {
     // Update the dynamic parts of mDecorLayoutParams
     // Must be called with mAnchor != NULL.
     private void updateFloatingWindowLayout() {
-        int [] anchorPos = new int[2];
+        int[] anchorPos = new int[2];
         mAnchor.getLocationOnScreen(anchorPos);
 
         // we need to know the size of the controller so we can properly position it
@@ -231,6 +252,7 @@ public class IjkMediaController extends FrameLayout {
      * This can for example be a VideoView, or your Activity's main view.
      * When VideoView calls this method, it will use the VideoView's parent
      * as the anchor.
+     *
      * @param view The view to which to anchor the controller when it is visible.
      */
     public void setAnchorView(View view) {
@@ -255,6 +277,7 @@ public class IjkMediaController extends FrameLayout {
     /**
      * Create the view that holds the widgets that control playback.
      * Derived classes can override this to create their own.
+     *
      * @return The controller view.
      * @hide This doesn't work as advertised
      */
@@ -366,8 +389,9 @@ public class IjkMediaController extends FrameLayout {
     /**
      * Show the controller on screen. It will go away
      * automatically after 'timeout' milliseconds of inactivity.
+     *
      * @param timeout The timeout in milliseconds. Use 0 to show
-     * the controller until hide() is called.
+     *                the controller until hide() is called.
      */
     public void show(int timeout) {
         if (!mShowing && mAnchor != null) {
@@ -386,10 +410,17 @@ public class IjkMediaController extends FrameLayout {
         // was already true.  This happens, for example, if we're
         // paused with the progress bar showing the user hits play.
         post(mShowProgress);
-        if (timeout != 0) {
+        if (timeout != 0){// && !isTouchExplorationEnabled()) {
             removeCallbacks(mFadeOut);
             postDelayed(mFadeOut, timeout);
         }
+    }
+
+    private boolean isTouchExplorationEnabled() {
+//        if (Build.VERSION.SDK_INT > 13) {
+//            return mAccessibilityManager.isTouchExplorationEnabled();
+//        } else
+            return false;
     }
 
     public boolean isShowing() {
@@ -436,7 +467,7 @@ public class IjkMediaController extends FrameLayout {
 
         int seconds = totalSeconds % 60;
         int minutes = (totalSeconds / 60) % 60;
-        int hours   = totalSeconds / 3600;
+        int hours = totalSeconds / 3600;
 
         mFormatBuilder.setLength(0);
         if (hours > 0) {
@@ -456,7 +487,7 @@ public class IjkMediaController extends FrameLayout {
             if (duration > 0) {
                 // use long to avoid overflow
                 long pos = 1000L * position / duration;
-                mProgress.setProgress( (int) pos);
+                mProgress.setProgress((int) pos);
             }
             int percent = mPlayer.getBufferPercentage();
             mProgress.setSecondaryProgress(percent * 10);
@@ -499,7 +530,7 @@ public class IjkMediaController extends FrameLayout {
         int keyCode = event.getKeyCode();
         final boolean uniqueDown = event.getRepeatCount() == 0
                 && event.getAction() == KeyEvent.ACTION_DOWN;
-        if (keyCode ==  KeyEvent.KEYCODE_HEADSETHOOK
+        if (keyCode == KeyEvent.KEYCODE_HEADSETHOOK
                 || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
                 || keyCode == KeyEvent.KEYCODE_SPACE) {
             if (uniqueDown) {
@@ -608,9 +639,9 @@ public class IjkMediaController extends FrameLayout {
 
             long duration = mPlayer.getDuration();
             long newposition = (duration * progress) / 1000L;
-            mPlayer.seekTo( (int) newposition);
+            mPlayer.seekTo((int) newposition);
             if (mCurrentTime != null)
-                mCurrentTime.setText(stringForTime( (int) newposition));
+                mCurrentTime.setText(stringForTime((int) newposition));
         }
 
         @Override
@@ -710,22 +741,32 @@ public class IjkMediaController extends FrameLayout {
     }
 
     public interface MediaPlayerControl {
-        void    start();
-        void    pause();
-        int     getDuration();
-        int     getCurrentPosition();
-        void    seekTo(int pos);
+        void start();
+
+        void pause();
+
+        int getDuration();
+
+        int getCurrentPosition();
+
+        void seekTo(int pos);
+
         boolean isPlaying();
-        int     getBufferPercentage();
+
+        int getBufferPercentage();
+
         boolean canPause();
+
         boolean canSeekBackward();
+
         boolean canSeekForward();
 
         /**
          * Get the audio session id for the player used by this VideoView. This can be used to
          * apply audio effects to the audio track of a video.
+         *
          * @return The audio session, or 0 if there was an error.
          */
-        int     getAudioSessionId();
+        int getAudioSessionId();
     }
 }
