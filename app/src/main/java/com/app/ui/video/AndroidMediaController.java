@@ -27,7 +27,7 @@ import android.widget.MediaController;
 
 import java.util.ArrayList;
 
-public class AndroidMediaController extends MediaController implements IMediaController {
+public class AndroidMediaController extends IjkMediaController implements IMediaController {
     private ActionBar mActionBar;
 
     public AndroidMediaController(Context context, AttributeSet attrs) {
@@ -50,11 +50,9 @@ public class AndroidMediaController extends MediaController implements IMediaCon
 
     public void setSupportActionBar(@Nullable ActionBar actionBar) {
         mActionBar = actionBar;
-        if (isShowing()) {
-            actionBar.show();
-        } else {
-            actionBar.hide();
-        }
+        if (actionBar != null)
+            if (isShowing()) actionBar.show();
+            else actionBar.hide();
     }
 
     @Override
@@ -77,7 +75,7 @@ public class AndroidMediaController extends MediaController implements IMediaCon
     //----------
     // Extends
     //----------
-    private ArrayList<View> mShowOnceArray = new ArrayList<View>();
+    private ArrayList<View> mShowOnceArray = new ArrayList<>();
 
     public void showOnce(@NonNull View view) {
         mShowOnceArray.add(view);
