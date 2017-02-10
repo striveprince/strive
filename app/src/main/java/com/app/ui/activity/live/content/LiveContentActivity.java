@@ -15,11 +15,10 @@ import com.app.ui.base.activity.BaseActivity;
  * @version 2.0
  */
 
-
 public class LiveContentActivity extends BaseActivity {
     @Override
     public void inject(ActivityComponent component) {
-        component.inject(this);
+//        component.inject(this);
     }
 
 

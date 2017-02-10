@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.app.ui.base.viewModel.BaseViewModel;
 
+import javax.inject.Inject;
+
 /**
  * project：cutv_ningbo
  * description：
@@ -19,7 +21,10 @@ import com.app.ui.base.viewModel.BaseViewModel;
 
 public class LiveContentViewModel extends BaseViewModel {
 
+    @Inject
     public LiveContentViewModel(Context context) {
         super(context);
     }
+
+
 }
