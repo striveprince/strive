@@ -19,7 +19,6 @@ import com.cutv.ningbo.data.http.RestfulSubscriber;
 import com.cutv.ningbo.data.http.RestfulTransformer;
 import com.cutv.ningbo.ui.base.adapter.RecyclerWrapper;
 import com.cutv.ningbo.ui.base.respond.Respond;
-import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 
 import javax.inject.Inject;
 
@@ -40,7 +39,7 @@ import timber.log.Timber;
  */
 @InverseBindingMethods({
     @InverseBindingMethod(
-            type = android.support.v4.widget.SwipeRefreshLayout.class,
+            type = SwipeRefreshLayout.class,
             attribute = "refreshing",
             event = "refreshingAttrChanged",
             method = "isRefreshing")

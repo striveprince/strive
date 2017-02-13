@@ -32,12 +32,12 @@ public interface Respond {
 //    }
 
     interface RecyclerRespond<T> extends Respond {
-        void onCompleted(Throwable e, T t,int count);
+        void onCompleted(Throwable e, T t, int count);
     }
 
 
     interface TransformRespond<T, Entity extends BaseEntity>
-            extends Respond.RecyclerRespond<T> {
+            extends RecyclerRespond<T> {
         List<Entity> transform(T t);
     }
 

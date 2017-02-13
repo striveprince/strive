@@ -27,7 +27,6 @@
                 app:camerCallback="@{vm.cameraSurfaceCallback}"
                 app:onTouch="@{vm.OnTouchListener}"
                 />
-                <!--app:camerCallback="@{vm.cameraSurfaceCallback}"-->
 
             <TextView
                 android:id="@+id/heard_icon"

@@ -17,5 +17,5 @@ import com.cutv.ningbo.ui.base.holder.BaseHolder;
  */
 
 public interface HolderSendListener<Entity extends BaseEntity> {
-   void setBaseHolder(BaseHolder<Entity,?,?> holder);
+   void setBaseHolder(BaseHolder<Entity, ?, ?> holder);
 }
