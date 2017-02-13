@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.app.ui.video.IjkVideoViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/pause"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="3dp"
+            android:button="@null"
+            android:checked="@={vm.isPlay}"
+            android:onClick="@{vm::onPlayClick}"
+            android:drawableLeft="@drawable/ijk_media_play"
+            android:drawableStart="@drawable/ijk_media_play" />
+        <SeekBar
+            android:progress="@={vm.progress}"
+            android:layout_gravity="center"
+            android:id="@+id/media_controller_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null" />
+
+        <TextView
+            android:id="@+id/time_current"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:visibility="@={vm.show}" />
+    </LinearLayout>
+</layout>

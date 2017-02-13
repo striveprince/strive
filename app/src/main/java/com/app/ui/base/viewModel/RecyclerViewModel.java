@@ -37,13 +37,13 @@ import timber.log.Timber;
  *
  * @version 2.0
  */
-@InverseBindingMethods({
-    @InverseBindingMethod(
-            type = SwipeRefreshLayout.class,
-            attribute = "refreshing",
-            event = "refreshingAttrChanged",
-            method = "isRefreshing")
-})
+//@InverseBindingMethods({
+//    @InverseBindingMethod(
+//            type = SwipeRefreshLayout.class,
+//            attribute = "refreshing",
+//            event = "refreshingAttrChanged",
+//            method = "isRefreshing")
+//})
 public class RecyclerViewModel<T,Entity extends BaseEntity> extends BaseViewModel<Respond.TransformRespond<T,Entity>>{
     protected final CompositeSubscription compositeSubscription = new CompositeSubscription();
     public final ObservableBoolean loading = new ObservableBoolean(false);
@@ -119,28 +119,28 @@ public class RecyclerViewModel<T,Entity extends BaseEntity> extends BaseViewMode
         view.addOnScrollListener(listener);
     }
 
-    @BindingAdapter({"refreshing"})
-    public static void setRefreshing(SwipeRefreshLayout view, boolean refreshing) {
-        if (refreshing != view.isRefreshing()) {
-            view.setRefreshing(refreshing);
-        }
-    }
-
-    @BindingAdapter(value = {"onRefreshListener", "refreshingAttrChanged"}, requireAll = false)
-    public static void setOnRefreshListener(SwipeRefreshLayout view,SwipeRefreshLayout.OnRefreshListener listener,InverseBindingListener refreshingAttrChanged) {
-        SwipeRefreshLayout.OnRefreshListener newValue = () -> {
-            if (refreshingAttrChanged != null) refreshingAttrChanged.onChange();
-            if (listener != null) listener.onRefresh();
-        };
-        SwipeRefreshLayout.OnRefreshListener oldValue = ListenerUtil.trackListener(view, newValue, R.id.swipe_refresh_layout);
-        if (oldValue != null) view.setOnRefreshListener(null);
-        view.setOnRefreshListener(newValue);
-        view.setColorSchemeResources(
-                R.color.swipe_color1,
-                R.color.swipe_color2,
-                R.color.swipe_color3,
-                R.color.swipe_color4);
-    }
+//    @BindingAdapter({"refreshing"})
+//    public static void setRefreshing(SwipeRefreshLayout view, boolean refreshing) {
+//        if (refreshing != view.isRefreshing()) {
+//            view.setRefreshing(refreshing);
+//        }
+//    }
+//
+//    @BindingAdapter(value = {"onRefreshListener", "refreshingAttrChanged"}, requireAll = false)
+//    public static void setOnRefreshListener(SwipeRefreshLayout view,SwipeRefreshLayout.OnRefreshListener listener,InverseBindingListener refreshingAttrChanged) {
+//        SwipeRefreshLayout.OnRefreshListener newValue = () -> {
+//            if (refreshingAttrChanged != null) refreshingAttrChanged.onChange();
+//            if (listener != null) listener.onRefresh();
+//        };
+//        SwipeRefreshLayout.OnRefreshListener oldValue = ListenerUtil.trackListener(view, newValue, R.id.swipe_refresh_layout);
+//        if (oldValue != null) view.setOnRefreshListener(null);
+//        view.setOnRefreshListener(newValue);
+//        view.setColorSchemeResources(
+//                R.color.swipe_color1,
+//                R.color.swipe_color2,
+//                R.color.swipe_color3,
+//                R.color.swipe_color4);
+//    }
 
     public void setObservable(Observable<InfoEntity<T>> observable) {
         this.observable = observable;

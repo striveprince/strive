@@ -16,12 +16,9 @@
 
 package com.app.ui.video;
 
-import android.app.admin.DevicePolicyManager;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -34,12 +31,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-//import com.android.internal.policy.PolicyManager;
+
+
+import com.app.R;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -84,7 +83,7 @@ public class IjkMediaController extends FrameLayout {
     private Window mWindow;
     private View mDecor;
     private WindowManager.LayoutParams mDecorLayoutParams;
-    private ProgressBar mProgress;
+    private SeekBar mProgress;
     private TextView mEndTime, mCurrentTime;
     private boolean mShowing;
     private boolean mDragging;
@@ -92,16 +91,16 @@ public class IjkMediaController extends FrameLayout {
     private final boolean mUseFastForward;
     private boolean mFromXml;
     private boolean mListenersSet;
-    private View.OnClickListener mNextListener, mPrevListener;
-    StringBuilder mFormatBuilder;
-    Formatter mFormatter;
-    private ImageButton mPauseButton;
-    private ImageButton mFfwdButton;
-    private ImageButton mRewButton;
-    private ImageButton mNextButton;
-    private ImageButton mPrevButton;
-    private CharSequence mPlayDescription;
-    private CharSequence mPauseDescription;
+    //    private View.OnClickListener mNextListener, mPrevListener;
+    private StringBuilder mFormatBuilder;
+    private Formatter mFormatter;
+    private RadioButton mPauseButton;
+//    private RadioButton mFfwdButton;
+//    private RadioButton mRewButton;
+//    private RadioButton mNextButton;
+//    private RadioButton mPrevButton;
+//    private CharSequence mPlayDescription;
+//    private CharSequence mPauseDescription;
 //    private final AccessibilityManager mAccessibilityManager;
 
     public IjkMediaController(Context context, AttributeSet attrs) {
@@ -283,66 +282,31 @@ public class IjkMediaController extends FrameLayout {
      */
     protected View makeControllerView() {
         LayoutInflater inflate = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mRoot = inflate.inflate(com.android.internal.R.layout.media_controller, null);
-
+        mRoot = inflate.inflate(R.layout.ijkmedia_controller, null);
         initControllerView(mRoot);
-
         return mRoot;
     }
 
     private void initControllerView(View v) {
-        Resources res = mContext.getResources();
-        mPlayDescription = res
-                .getText(com.android.internal.R.string.lockscreen_transport_play_description);
-        mPauseDescription = res
-                .getText(com.android.internal.R.string.lockscreen_transport_pause_description);
-        mPauseButton = (ImageButton) v.findViewById(com.android.internal.R.id.pause);
+//        Resources res = mContext.getResources();
+//        mPlayDescription = res
+//                .getText(R.string.lockscreen_transport_play_description);
+//        mPauseDescription = res
+//                .getText(R.string.lockscreen_transport_pause_description);
+        mPauseButton = (RadioButton) v.findViewById(R.id.pause);
         if (mPauseButton != null) {
             mPauseButton.requestFocus();
             mPauseButton.setOnClickListener(mPauseListener);
         }
-
-        mFfwdButton = (ImageButton) v.findViewById(com.android.internal.R.id.ffwd);
-        if (mFfwdButton != null) {
-            mFfwdButton.setOnClickListener(mFfwdListener);
-            if (!mFromXml) {
-                mFfwdButton.setVisibility(mUseFastForward ? View.VISIBLE : View.GONE);
-            }
-        }
-
-        mRewButton = (ImageButton) v.findViewById(com.android.internal.R.id.rew);
-        if (mRewButton != null) {
-            mRewButton.setOnClickListener(mRewListener);
-            if (!mFromXml) {
-                mRewButton.setVisibility(mUseFastForward ? View.VISIBLE : View.GONE);
-            }
-        }
-
-        // By default these are hidden. They will be enabled when setPrevNextListeners() is called
-        mNextButton = (ImageButton) v.findViewById(com.android.internal.R.id.next);
-        if (mNextButton != null && !mFromXml && !mListenersSet) {
-            mNextButton.setVisibility(View.GONE);
-        }
-        mPrevButton = (ImageButton) v.findViewById(com.android.internal.R.id.prev);
-        if (mPrevButton != null && !mFromXml && !mListenersSet) {
-            mPrevButton.setVisibility(View.GONE);
-        }
-
-        mProgress = (ProgressBar) v.findViewById(com.android.internal.R.id.mediacontroller_progress);
-        if (mProgress != null) {
-            if (mProgress instanceof SeekBar) {
-                SeekBar seeker = (SeekBar) mProgress;
-                seeker.setOnSeekBarChangeListener(mSeekListener);
-            }
-            mProgress.setMax(1000);
-        }
-
-        mEndTime = (TextView) v.findViewById(com.android.internal.R.id.time);
-        mCurrentTime = (TextView) v.findViewById(com.android.internal.R.id.time_current);
+        mProgress = (SeekBar) v.findViewById(R.id.media_controller_progress);
+        mProgress.setOnSeekBarChangeListener(mSeekListener);
+        mProgress.setMax(1000);
+        mEndTime = (TextView) v.findViewById(R.id.time);
+        mCurrentTime = (TextView) v.findViewById(R.id.time_current);
         mFormatBuilder = new StringBuilder();
         mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
 
-        installPrevNextListeners();
+//        installPrevNextListeners();
     }
 
     /**
@@ -362,12 +326,7 @@ public class IjkMediaController extends FrameLayout {
             if (mPauseButton != null && !mPlayer.canPause()) {
                 mPauseButton.setEnabled(false);
             }
-            if (mRewButton != null && !mPlayer.canSeekBackward()) {
-                mRewButton.setEnabled(false);
-            }
-            if (mFfwdButton != null && !mPlayer.canSeekForward()) {
-                mFfwdButton.setEnabled(false);
-            }
+
             // TODO What we really should do is add a canSeek to the MediaPlayerControl interface;
             // this scheme can break the case when applications want to allow seek through the
             // progress bar but disable forward/backward buttons.
@@ -410,7 +369,7 @@ public class IjkMediaController extends FrameLayout {
         // was already true.  This happens, for example, if we're
         // paused with the progress bar showing the user hits play.
         post(mShowProgress);
-        if (timeout != 0){// && !isTouchExplorationEnabled()) {
+        if (timeout != 0) {// && !isTouchExplorationEnabled()) {
             removeCallbacks(mFadeOut);
             postDelayed(mFadeOut, timeout);
         }
@@ -420,7 +379,7 @@ public class IjkMediaController extends FrameLayout {
 //        if (Build.VERSION.SDK_INT > 13) {
 //            return mAccessibilityManager.isTouchExplorationEnabled();
 //        } else
-            return false;
+        return false;
     }
 
     public boolean isShowing() {
@@ -445,12 +404,7 @@ public class IjkMediaController extends FrameLayout {
         }
     }
 
-    private final Runnable mFadeOut = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
+    private final Runnable mFadeOut = this::hide;
 
     private final Runnable mShowProgress = new Runnable() {
         @Override
@@ -464,11 +418,9 @@ public class IjkMediaController extends FrameLayout {
 
     private String stringForTime(int timeMs) {
         int totalSeconds = timeMs / 1000;
-
         int seconds = totalSeconds % 60;
         int minutes = (totalSeconds / 60) % 60;
         int hours = totalSeconds / 3600;
-
         mFormatBuilder.setLength(0);
         if (hours > 0) {
             return mFormatter.format("%d:%02d:%02d", hours, minutes, seconds).toString();
@@ -573,24 +525,20 @@ public class IjkMediaController extends FrameLayout {
         return super.dispatchKeyEvent(event);
     }
 
-    private final View.OnClickListener mPauseListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            doPauseResume();
-            show(sDefaultTimeout);
-        }
+    private final View.OnClickListener mPauseListener = v -> {
+        doPauseResume();
+        show(sDefaultTimeout);
     };
 
     private void updatePausePlay() {
         if (mRoot == null || mPauseButton == null)
             return;
-
         if (mPlayer.isPlaying()) {
-            mPauseButton.setImageResource(com.android.internal.R.drawable.ic_media_pause);
-            mPauseButton.setContentDescription(mPauseDescription);
+//            mPauseButton.setImageResource(R.drawable.ic_media_pause);
+//            mPauseButton.setContentDescription(mPauseDescription);
         } else {
-            mPauseButton.setImageResource(com.android.internal.R.drawable.ic_media_play);
-            mPauseButton.setContentDescription(mPlayDescription);
+//            mPauseButton.setImageResource(R.drawable.ic_media_play);
+//            mPauseButton.setContentDescription(mPlayDescription);
         }
     }
 
@@ -618,7 +566,6 @@ public class IjkMediaController extends FrameLayout {
         @Override
         public void onStartTrackingTouch(SeekBar bar) {
             show(3600000);
-
             mDragging = true;
 
             // By removing these pending progress messages we make sure
@@ -663,18 +610,7 @@ public class IjkMediaController extends FrameLayout {
         if (mPauseButton != null) {
             mPauseButton.setEnabled(enabled);
         }
-        if (mFfwdButton != null) {
-            mFfwdButton.setEnabled(enabled);
-        }
-        if (mRewButton != null) {
-            mRewButton.setEnabled(enabled);
-        }
-        if (mNextButton != null) {
-            mNextButton.setEnabled(enabled && mNextListener != null);
-        }
-        if (mPrevButton != null) {
-            mPrevButton.setEnabled(enabled && mPrevListener != null);
-        }
+
         if (mProgress != null) {
             mProgress.setEnabled(enabled);
         }
@@ -711,34 +647,34 @@ public class IjkMediaController extends FrameLayout {
         }
     };
 
-    private void installPrevNextListeners() {
-        if (mNextButton != null) {
-            mNextButton.setOnClickListener(mNextListener);
-            mNextButton.setEnabled(mNextListener != null);
-        }
+//    private void installPrevNextListeners() {
+//        if (mNextButton != null) {
+//            mNextButton.setOnClickListener(mNextListener);
+//            mNextButton.setEnabled(mNextListener != null);
+//        }
+//
+//        if (mPrevButton != null) {
+//            mPrevButton.setOnClickListener(mPrevListener);
+//            mPrevButton.setEnabled(mPrevListener != null);
+//        }
+//    }
 
-        if (mPrevButton != null) {
-            mPrevButton.setOnClickListener(mPrevListener);
-            mPrevButton.setEnabled(mPrevListener != null);
-        }
-    }
-
-    public void setPrevNextListeners(View.OnClickListener next, View.OnClickListener prev) {
-        mNextListener = next;
-        mPrevListener = prev;
-        mListenersSet = true;
-
-        if (mRoot != null) {
-            installPrevNextListeners();
-
-            if (mNextButton != null && !mFromXml) {
-                mNextButton.setVisibility(View.VISIBLE);
-            }
-            if (mPrevButton != null && !mFromXml) {
-                mPrevButton.setVisibility(View.VISIBLE);
-            }
-        }
-    }
+//    public void setPrevNextListeners(View.OnClickListener next, View.OnClickListener prev) {
+//        mNextListener = next;
+//        mPrevListener = prev;
+//        mListenersSet = true;
+//
+//        if (mRoot != null) {
+////            installPrevNextListeners();
+//
+//            if (mNextButton != null && !mFromXml) {
+//                mNextButton.setVisibility(View.VISIBLE);
+//            }
+//            if (mPrevButton != null && !mFromXml) {
+//                mPrevButton.setVisibility(View.VISIBLE);
+//            }
+//        }
+//    }
 
     public interface MediaPlayerControl {
         void start();
