@@ -17,6 +17,7 @@
 package com.app.ui.video;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
 import android.util.AttributeSet;
@@ -31,14 +32,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-
 import com.app.R;
+import com.app.databinding.IjkmediaControllerBinding;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -103,6 +103,7 @@ public class IjkMediaController extends FrameLayout {
 //    private CharSequence mPauseDescription;
 //    private final AccessibilityManager mAccessibilityManager;
 
+    private IjkVideoViewModel model = new IjkVideoViewModel();
     public IjkMediaController(Context context, AttributeSet attrs) {
         super(context, attrs);
         mRoot = this;
@@ -281,9 +282,12 @@ public class IjkMediaController extends FrameLayout {
      * @hide This doesn't work as advertised
      */
     protected View makeControllerView() {
+//        model
         LayoutInflater inflate = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mRoot = inflate.inflate(R.layout.ijkmedia_controller, null);
-        initControllerView(mRoot);
+        IjkmediaControllerBinding binding = DataBindingUtil.inflate(inflate,R.layout.ijkmedia_controller,this,true);
+        binding.setVm(model);
+//        mRoot = inflate.inflate(R.layout.ijkmedia_controller, null);
+//        initControllerView(mRoot);
         return mRoot;
     }
 
@@ -300,7 +304,6 @@ public class IjkMediaController extends FrameLayout {
         }
         mProgress = (SeekBar) v.findViewById(R.id.media_controller_progress);
         mProgress.setOnSeekBarChangeListener(mSeekListener);
-        mProgress.setMax(1000);
         mEndTime = (TextView) v.findViewById(R.id.time);
         mCurrentTime = (TextView) v.findViewById(R.id.time_current);
         mFormatBuilder = new StringBuilder();

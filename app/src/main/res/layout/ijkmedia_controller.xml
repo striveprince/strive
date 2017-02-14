@@ -7,11 +7,12 @@
             type="com.app.ui.video.IjkVideoViewModel" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
         <RadioButton
+            android:visibility="@={vm.vis}"
             android:id="@+id/pause"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -22,6 +23,8 @@
             android:drawableLeft="@drawable/ijk_media_play"
             android:drawableStart="@drawable/ijk_media_play" />
         <SeekBar
+            android:max="1000"
+            android:visibility="@={vm.seekbarVis}"
             android:progress="@={vm.progress}"
             android:layout_gravity="center"
             android:id="@+id/media_controller_progress"
@@ -35,5 +38,5 @@
             android:layout_height="wrap_content"
             android:button="@null"
             android:visibility="@={vm.show}" />
-    </LinearLayout>
+    </FrameLayout>
 </layout>

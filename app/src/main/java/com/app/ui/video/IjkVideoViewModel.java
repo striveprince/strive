@@ -20,7 +20,8 @@ public class IjkVideoViewModel {
     public boolean isPlay;
     public int show;
     public int progress;
-
+    public int vis;
+    public int  seekbarVis = View.VISIBLE;
 
 //    mNextListener
     public void onNextClick(View view){
