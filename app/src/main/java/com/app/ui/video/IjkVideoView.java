@@ -35,8 +35,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.MediaController;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.app.R;
@@ -57,7 +55,9 @@ import tv.danmaku.ijk.media.player.TextureMediaPlayer;
 import tv.danmaku.ijk.media.player.misc.IMediaDataSource;
 import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 
-public class IjkVideoView extends FrameLayout implements IjkMediaController.MediaPlayerControl {
+public class IjkVideoView extends FrameLayout
+        implements IjkMediaController.MediaPlayerControl
+{
     private String TAG = "IjkVideoView";
     // settable by the client
     private Uri mUri;
@@ -731,7 +731,7 @@ public class IjkVideoView extends FrameLayout implements IjkMediaController.Medi
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (isInPlaybackState() && mMediaController != null) {
-            toggleMediaControlsVisiblity();
+            toggleMediaControlsVisibility();
         }
         return false;
     }
@@ -739,7 +739,7 @@ public class IjkVideoView extends FrameLayout implements IjkMediaController.Medi
     @Override
     public boolean onTrackballEvent(MotionEvent ev) {
         if (isInPlaybackState() && mMediaController != null) {
-            toggleMediaControlsVisiblity();
+            toggleMediaControlsVisibility();
         }
         return false;
     }
@@ -778,14 +778,14 @@ public class IjkVideoView extends FrameLayout implements IjkMediaController.Medi
                 }
                 return true;
             } else {
-                toggleMediaControlsVisiblity();
+                toggleMediaControlsVisibility();
             }
         }
 
         return super.onKeyDown(keyCode, event);
     }
 
-    private void toggleMediaControlsVisiblity() {
+    private void toggleMediaControlsVisibility() {
         if (mMediaController.isShowing()) {
             mMediaController.hide();
         } else {
@@ -1016,13 +1016,13 @@ public class IjkVideoView extends FrameLayout implements IjkMediaController.Medi
 
         switch (playerType) {
             case Settings.PV_PLAYER__IjkExoMediaPlayer: {
-                IjkExoMediaPlayer IjkExoMediaPlayer = new IjkExoMediaPlayer(mAppContext);
-                mediaPlayer = IjkExoMediaPlayer;
+                mediaPlayer = new IjkExoMediaPlayer(mAppContext);
+//                mediaPlayer = IjkExoMediaPlayer;
             }
             break;
             case Settings.PV_PLAYER__AndroidMediaPlayer: {
-                AndroidMediaPlayer androidMediaPlayer = new AndroidMediaPlayer();
-                mediaPlayer = androidMediaPlayer;
+                mediaPlayer = new AndroidMediaPlayer();
+//                mediaPlayer = androidMediaPlayer;
             }
             break;
             case Settings.PV_PLAYER__IjkMediaPlayer:
@@ -1030,7 +1030,7 @@ public class IjkVideoView extends FrameLayout implements IjkMediaController.Medi
                 IjkMediaPlayer ijkMediaPlayer = null;
                 if (mUri != null) {
                     ijkMediaPlayer = new IjkMediaPlayer();
-                    ijkMediaPlayer.native_setLogLevel(IjkMediaPlayer.IJK_LOG_DEBUG);
+                    IjkMediaPlayer.native_setLogLevel(IjkMediaPlayer.IJK_LOG_DEBUG);
 
                     if (mSettings.getUsingMediaCodec()) {
                         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);

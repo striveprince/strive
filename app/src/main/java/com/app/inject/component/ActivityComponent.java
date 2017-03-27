@@ -27,5 +27,5 @@ public interface ActivityComponent {
 //    void inject(LoginActivity activity);
 //    void inject(StartActivity activity);
     void inject(LiveListActivity activity);
-//    void inject(LiveContentActivity activity);
+    void inject(LiveContentActivity activity);
 }

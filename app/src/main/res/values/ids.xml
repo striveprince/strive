@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="visibility" type="id"/>
     <!--<item name="main_home" type="id" />-->
     <!--<item name="main_news" type="id" />-->
     <!--<item name="main_mall" type="id" />-->

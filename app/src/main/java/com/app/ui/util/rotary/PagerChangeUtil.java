@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.android.annotations.NonNull;
 import com.app.data.portlet.PagerModel;
 import com.app.ui.base.pager.PagerListener;
 
@@ -67,7 +66,7 @@ public class PagerChangeUtil<CL extends PagerModel> implements ViewPager.OnPageC
      * @param viewPager viewPager
      * @param group     click the appropriate radioButton to go to the corresponding page;
      */
-    public void setData(Collection<CL> data, @NonNull ViewPager viewPager, @NonNull RadioGroup group) {
+    public void setData(Collection<CL> data,  ViewPager viewPager,  RadioGroup group) {
         this.viewPager = viewPager;
         this.group = group;
         if (group != null) group.removeAllViews();

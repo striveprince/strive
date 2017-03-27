@@ -17,16 +17,11 @@ import android.view.View;
 
 public class IjkVideoViewModel {
     public String text;
-    public boolean isPlay;
+    public boolean play;
     public int show;
     public int progress;
     public int vis;
-    public int  seekbarVis = View.VISIBLE;
-
-//    mNextListener
-    public void onNextClick(View view){
-
-    }
+    public int seekBarVis = View.VISIBLE;
 
     public void onPlayClick(View view){
 

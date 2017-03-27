@@ -2,6 +2,8 @@ package com.app.ui.activity.live.content;
 
 import android.content.Context;
 
+import com.app.inject.qualifier.context.ActivityContext;
+import com.app.ui.base.respond.Respond;
 import com.app.ui.base.viewModel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -19,10 +21,10 @@ import javax.inject.Inject;
  */
 
 
-public class LiveContentViewModel extends BaseViewModel {
+public class LiveContentViewModel extends BaseViewModel<Respond> {
 
     @Inject
-    public LiveContentViewModel(Context context) {
+    public LiveContentViewModel(@ActivityContext Context context) {
         super(context);
     }
 

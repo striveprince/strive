@@ -88,33 +88,21 @@ public class IjkMediaController extends FrameLayout {
     private boolean mShowing;
     private boolean mDragging;
     private static final int sDefaultTimeout = 3000;
-    private final boolean mUseFastForward;
-    private boolean mFromXml;
-    private boolean mListenersSet;
-    //    private View.OnClickListener mNextListener, mPrevListener;
     private StringBuilder mFormatBuilder;
     private Formatter mFormatter;
     private RadioButton mPauseButton;
-//    private RadioButton mFfwdButton;
-//    private RadioButton mRewButton;
-//    private RadioButton mNextButton;
-//    private RadioButton mPrevButton;
-//    private CharSequence mPlayDescription;
-//    private CharSequence mPauseDescription;
-//    private final AccessibilityManager mAccessibilityManager;
 
     private IjkVideoViewModel model = new IjkVideoViewModel();
     public IjkMediaController(Context context, AttributeSet attrs) {
         super(context, attrs);
         mRoot = this;
         mContext = context;
-        mUseFastForward = true;
-        mFromXml = true;
 //        mAccessibilityManager = getAccessibilityManager(context);
     }
 
     @Override
     public void onFinishInflate() {
+        super.onFinishInflate();
         if (mRoot != null)
             initControllerView(mRoot);
     }
@@ -122,7 +110,6 @@ public class IjkMediaController extends FrameLayout {
     public IjkMediaController(Context context, boolean useFastForward) {
         super(context);
         mContext = context;
-        mUseFastForward = useFastForward;
         initFloatingWindowLayout();
         initFloatingWindow();
 //        mAccessibilityManager = getAccessibilityManager(context);
@@ -187,7 +174,7 @@ public class IjkMediaController extends FrameLayout {
     private void initFloatingWindowLayout() {
         mDecorLayoutParams = new WindowManager.LayoutParams();
         WindowManager.LayoutParams p = mDecorLayoutParams;
-        p.gravity = Gravity.TOP | Gravity.LEFT;
+        p.gravity = Gravity.TOP | Gravity.START;
         p.height = LayoutParams.WRAP_CONTENT;
         p.x = 0;
         p.format = PixelFormat.TRANSLUCENT;
@@ -292,11 +279,6 @@ public class IjkMediaController extends FrameLayout {
     }
 
     private void initControllerView(View v) {
-//        Resources res = mContext.getResources();
-//        mPlayDescription = res
-//                .getText(R.string.lockscreen_transport_play_description);
-//        mPauseDescription = res
-//                .getText(R.string.lockscreen_transport_pause_description);
         mPauseButton = (RadioButton) v.findViewById(R.id.pause);
         if (mPauseButton != null) {
             mPauseButton.requestFocus();

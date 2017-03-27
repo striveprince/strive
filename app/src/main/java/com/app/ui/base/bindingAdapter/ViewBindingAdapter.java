@@ -1,7 +1,12 @@
 package com.app.ui.base.bindingAdapter;
 
+import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingAdapter;
+import android.databinding.InverseBindingListener;
+import android.databinding.adapters.ListenerUtil;
 import android.view.View;
+
+import com.app.R;
 
 /**
  * project：cutv_ningbo
@@ -15,10 +20,10 @@ import android.view.View;
  * @version 2.0
  */
 public class ViewBindingAdapter {
-    @InverseBindingAdapter(attribute = "android:visibility", event = "android:textAttrChanged")
-    public static int getVisibility(View view) {
-        return view.getVisibility();
+    @BindingAdapter("android:visibility")
+    public static void setVisibility(View view, int visibility) {
+        if(visibility!=view.getVisibility()){
+            view.setVisibility(visibility);
+        }
     }
-
-
 }

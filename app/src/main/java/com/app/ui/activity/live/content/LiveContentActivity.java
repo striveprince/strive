@@ -1,7 +1,13 @@
 package com.app.ui.activity.live.content;
 
+import android.view.animation.TranslateAnimation;
+
+import com.app.R;
+import com.app.databinding.ActivityLiveContentBinding;
 import com.app.inject.component.ActivityComponent;
 import com.app.ui.base.activity.BaseActivity;
+import com.app.ui.base.annotation.ContentView;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 /**
  * project：cutv_ningbo
@@ -14,11 +20,13 @@ import com.app.ui.base.activity.BaseActivity;
  *
  * @version 2.0
  */
-
-public class LiveContentActivity extends BaseActivity {
+@ContentView(R.layout.activity_live_content)
+public class LiveContentActivity extends BaseActivity<LiveContentViewModel,ActivityLiveContentBinding> {
     @Override
     public void inject(ActivityComponent component) {
-//        component.inject(this);
+        component.inject(this);
+
+//        TranslateAnimation
     }
 
 
