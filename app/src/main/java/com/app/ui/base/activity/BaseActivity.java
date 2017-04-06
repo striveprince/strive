@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.app.App;
-import com.app.BR;
 import com.app.inject.component.ActivityComponent;
 import com.app.inject.component.DaggerActivityComponent;
 import com.app.inject.module.ActivityModule;
@@ -52,6 +52,8 @@ public abstract class BaseActivity<VM extends BaseViewModel<Respond>,Binding ext
                 }
             }
         } catch (Throwable ex) {}
+
+
     }
 
 

@@ -6,7 +6,6 @@ import com.app.data.api.ShakeApi;
 import com.app.data.api.TopicApi;
 import com.app.data.api.UserApi;
 import com.app.inject.converter.JsonConverterFactory;
-import com.app.inject.interceptor.NbtvInterceptor;
 import com.app.inject.interceptor.UserInterceptor;
 import com.app.inject.scope.ApplicationScope;
 
@@ -86,7 +85,8 @@ public class NetWorkModule {
                 .addInterceptor(userInterceptor).build();
         return new Retrofit.Builder()
                 .baseUrl(SHAKEURL)
-                .addConverterFactory(GsonConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(JsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .callFactory(client)
                 .build().create(ShakeApi.class);

@@ -3,7 +3,6 @@ package com.app.data.api;
 import com.app.data.entity.InfoEntity;
 import com.app.data.entity.live.LiveListDataDto;
 
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import rx.Observable;
 

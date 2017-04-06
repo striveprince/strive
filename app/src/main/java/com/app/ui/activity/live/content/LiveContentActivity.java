@@ -1,13 +1,10 @@
 package com.app.ui.activity.live.content;
 
-import android.view.animation.TranslateAnimation;
-
 import com.app.R;
 import com.app.databinding.ActivityLiveContentBinding;
 import com.app.inject.component.ActivityComponent;
 import com.app.ui.base.activity.BaseActivity;
 import com.app.ui.base.annotation.ContentView;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 /**
  * project：cutv_ningbo

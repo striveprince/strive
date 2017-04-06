@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_below="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:onClick="add"
+        android:text="增加"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+    <Button
+        android:layout_toRightOf="@+id/btn_add"
+        android:id="@+id/btn_remove"
+        android:onClick="remove"
+        android:text="减少"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+    <Button
+        android:layout_toRightOf="@+id/btn_remove"
+        android:id="@+id/btn_change"
+        android:onClick="change"
+        android:text="改变"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+    <Button
+        android:layout_toRightOf="@+id/btn_change"
+        android:id="@+id/btn_move"
+        android:onClick="move"
+        android:text="移动"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+</RelativeLayout>

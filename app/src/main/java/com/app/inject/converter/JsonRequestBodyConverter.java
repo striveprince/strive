@@ -13,7 +13,6 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okio.Buffer;
 import retrofit2.Converter;
-import timber.log.Timber;
 
 /**
  * project：cutv_ningbo
@@ -43,7 +42,7 @@ public class JsonRequestBodyConverter<T> implements Converter<T, RequestBody> {
     @Override
     public RequestBody convert(T value) throws IOException {
         if (value instanceof EncryptParams) {
-            return ((EncryptParams) value).transParams();
+                return ((EncryptParams) value).transParams();
         }else{
             Buffer buffer = new Buffer();
             Writer writer = new OutputStreamWriter(buffer.outputStream(), UTF_8);
