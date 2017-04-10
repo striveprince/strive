@@ -1,14 +1,11 @@
 package com.app.ui.base.viewModel;
 
 import android.content.Context;
-import android.databinding.BindingAdapter;
 import android.databinding.ObservableInt;
 import android.support.v4.view.ViewPager;
 import android.widget.RadioGroup;
 
 import com.app.data.portlet.PagerModel;
-
-import java.util.Collection;
 
 /**
  * project：cutv_ningbo
@@ -33,12 +30,6 @@ public abstract class RadioPagerViewModel<PM extends PagerModel> extends RadioVi
     public RadioPagerViewModel(Context context) {
         super(context);
     }
-
-    @BindingAdapter("onPagerChange")
-    public static void addOnPagerChange(ViewPager pager, ViewPager.OnPageChangeListener listener){
-        pager.addOnPageChangeListener(listener);
-    }
-
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {

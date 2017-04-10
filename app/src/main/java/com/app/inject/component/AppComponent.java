@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import com.app.data.api.LiveApi;
 import com.app.data.api.ShakeApi;
 import com.app.data.api.TopicApi;
+import com.app.data.api.UserApi;
 import com.app.data.save.SharePreferenceUtil;
 import com.app.inject.module.AppModule;
 import com.app.inject.module.DataModule;
@@ -33,7 +34,7 @@ import dagger.Component;
 public interface AppComponent {
     @AppContext Context context();
     Resources resources();
-//    UserApi getUserApi();
+    UserApi getUserApi();
     TopicApi getTopicApi();
 //    NbtvApi getNbtvApi();
     ShakeApi getShakeApi();

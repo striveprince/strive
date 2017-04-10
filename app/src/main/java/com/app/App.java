@@ -1,8 +1,10 @@
 package com.app;
 
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.app.inject.component.AppComponent;
@@ -25,7 +27,7 @@ import timber.log.Timber;
  *
  * @version 2.0
  */
-public class App extends Application implements Application.ActivityLifecycleCallbacks{
+public class App extends Application{
     private static AppComponent mAppComponent;
     private static Stack<Activity> store;
     @Override
@@ -35,8 +37,10 @@ public class App extends Application implements Application.ActivityLifecycleCal
                 .appModule(new AppModule(this))
                 .build();
         if(BuildConfig.DEBUG) { Timber.plant(new Timber.DebugTree()); }
-//        CrashHandler.getInstance().init(this);
         store = new Stack<>();
+        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1){
+            registerLifecycleCallbacks();
+        }
     }
     public static AppComponent getAppComponent() {
         return mAppComponent;
@@ -46,38 +50,44 @@ public class App extends Application implements Application.ActivityLifecycleCal
         return store.lastElement();
     }
 
-    @Override
-    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        store.add(activity);
-    }
 
-    @Override
-    public void onActivityStarted(Activity activity) {
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+    private void registerLifecycleCallbacks(){
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                store.add(activity);
+            }
 
-    }
+            @Override
+            public void onActivityStarted(Activity activity) {
 
-    @Override
-    public void onActivityResumed(Activity activity) {
+            }
 
-    }
+            @Override
+            public void onActivityResumed(Activity activity) {
 
-    @Override
-    public void onActivityPaused(Activity activity) {
+            }
 
-    }
+            @Override
+            public void onActivityPaused(Activity activity) {
 
-    @Override
-    public void onActivityStopped(Activity activity) {
+            }
 
-    }
+            @Override
+            public void onActivityStopped(Activity activity) {
 
-    @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+            }
 
-    }
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
 
-    @Override
-    public void onActivityDestroyed(Activity activity) {
-        store.remove(activity);
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                store.remove(activity);
+            }
+        });
     }
 }

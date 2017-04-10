@@ -11,5 +11,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <com.app.ui.video.IjkVideoView
+            android:layout_width="match_parent"
+            android:layout_height="210dp"/>
+
+
+        <com.app.ui.base.recycler.ExpandRecyclerView
+            android:layout_width="match_parent"
+            app:num="2"
+            app:item="@layout/holder_live_list"
+            android:layout_height="match_parent"/>
+
     </LinearLayout>
 </layout>

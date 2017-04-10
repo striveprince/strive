@@ -18,6 +18,7 @@ import java.util.List;
 
 
 public class LiveListDataDto extends BaseEntity {
+    private transient  int id;
     private List<LiveListItemDto> recommend,rooms;
     private LiveListNoticeDto notice;
 

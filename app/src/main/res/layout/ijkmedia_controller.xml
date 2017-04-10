@@ -1,42 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="vm"
-            type="com.app.ui.video.IjkVideoViewModel" />
+            type="com.app.ui.video.control.IjkVideoViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-        <RadioButton
-            android:visibility="@{vm.vis}"
-            android:id="@+id/pause"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="3dp"
-            android:button="@null"
-            android:checked="@={vm.play}"
-            android:onClick="@{vm::onPlayClick}"
-            android:drawableLeft="@drawable/ijk_media_play"
-            android:drawableStart="@drawable/ijk_media_play" />
-        <SeekBar
-            android:max="1000"
-            android:visibility="@{vm.seekBarVis}"
-            android:progress="@={vm.progress}"
-            android:layout_gravity="center"
-            android:id="@+id/media_controller_progress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:button="@null" />
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/time_current"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:button="@null"
-            android:visibility="@{vm.show}" />
+            android:layout_height="50dp"
+            android:layout_gravity="bottom">
+
+            <RadioButton
+                android:id="@+id/play"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:button="@null"
+                android:checked="@={vm.play}"
+                android:drawableLeft="@drawable/ijk_media_play"
+                android:drawableStart="@drawable/ijk_media_play"
+                android:onClick="@{vm::onPlayClick}"
+                android:padding="3dp"
+                android:visibility="@{vm.vis}" />
+
+            <SeekBar
+
+                android:id="@+id/media_controller_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_toEndOf="@+id/play"
+                android:layout_toLeftOf="@+id/orientation"
+                android:layout_toRightOf="@+id/play"
+                android:layout_toStartOf="@+id/orientation"
+                android:button="@null"
+                android:max="@{vm.progressMax}"
+                android:secondaryProgress="@{vm.bufferPercentage}"
+                android:progress="@={vm.progress}"
+                android:visibility="@{vm.seekBarVis}" />
+
+            <RadioButton
+                android:id="@+id/orientation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:checked="@={vm.landscape}"
+                android:onClick="@{vm::onOrientationClick}"
+                />
+        </RelativeLayout>
     </FrameLayout>
+
 </layout>

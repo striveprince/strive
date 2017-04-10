@@ -34,11 +34,6 @@ public class AndroidMediaController extends IjkMediaController implements IMedia
         initView(context);
     }
 
-    public AndroidMediaController(Context context, boolean useFastForward) {
-        super(context, useFastForward);
-        initView(context);
-    }
-
     public AndroidMediaController(Context context) {
         super(context);
         initView(context);
@@ -76,6 +71,7 @@ public class AndroidMediaController extends IjkMediaController implements IMedia
     //----------
     private ArrayList<View> mShowOnceArray = new ArrayList<>();
 
+    @Override
     public void showOnce(@NonNull View view) {
         mShowOnceArray.add(view);
         view.setVisibility(View.VISIBLE);

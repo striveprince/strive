@@ -51,7 +51,7 @@ public class HomePageViewModelUnitTest {
 //        viewModel.attachView(respond,null);
     }
 
-    @Test
+    @List
     public void onRefresh_success() {
 //        HomeDataEntity infoEntity = new HomeDataEntity();
 //        doReturn(Observable.just(infoEntity)).when(api).getHomePager().compose(new RestfulTransformer<>());

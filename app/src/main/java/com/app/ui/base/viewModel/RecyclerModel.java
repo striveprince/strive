@@ -1,11 +1,9 @@
 package com.app.ui.base.viewModel;
 
 import android.content.Context;
-import android.databinding.BindingAdapter;
 
 import com.app.data.entity.BaseEntity;
 import com.app.data.entity.InfoEntity;
-import com.app.ui.base.recycler.ExpandRecyclerView;
 import com.app.ui.base.respond.Respond;
 
 import rx.Observable;
@@ -35,9 +33,5 @@ public abstract class RecyclerModel<T,Entity extends BaseEntity> extends BaseVie
 
     }
 
-    @BindingAdapter({"start"})
-    public static <T,Entity extends BaseEntity>void setStart(ExpandRecyclerView<T, Entity> recyclerView, RecyclerModel<T,Entity> vm){
-        recyclerView.setRespond(vm);
-        recyclerView.setObservable(vm.httpInit()).start();
-    }
+
 }

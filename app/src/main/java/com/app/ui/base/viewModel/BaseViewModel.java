@@ -2,15 +2,11 @@ package com.app.ui.base.viewModel;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
-import android.databinding.BindingAdapter;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
-import android.widget.ImageView;
 
 import com.app.data.entity.InfoEntity;
-import com.app.ui.base.recycler.ExpandRecyclerView;
-import com.bumptech.glide.Glide;
 import com.app.data.http.RestfulObserver;
 import com.app.data.http.RestfulSubscriber;
 import com.app.data.http.RestfulTransformer;
@@ -36,6 +32,8 @@ import timber.log.Timber;
 
 public abstract class BaseViewModel<RD extends Respond> extends BaseObservable implements ViewModel<RD> {
 
+    private BaseViewModel vm;
+
     private RD rd;
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
     private Context context;
@@ -55,19 +53,6 @@ public abstract class BaseViewModel<RD extends Respond> extends BaseObservable i
         if (savedInstanceState != null) {
             restoreInstanceState(savedInstanceState);
         }
-    }
-
-
-    @BindingAdapter({"android:src"})
-    public static void setImageUrl(ImageView imageView, String imageUrl) {
-        Context context = imageView.getContext();
-//        Target<GlideDrawable> target = Glide.with(context).load(url).into(imageView);
-//        target.onLoadStarted(ContextCompat.getDrawable(context, R.mipmap.loading));
-//        target.onLoadFailed(new Exception("url:" + url), ContextCompat.getDrawable(context, R.mipmap.icon_failure));
-        Glide.with(context)
-                .load(imageUrl)
-                .into(imageView);
-//                .onLoadStarted(ContextCompat.getDrawable(context, R.mipmap.loading))
     }
 
 

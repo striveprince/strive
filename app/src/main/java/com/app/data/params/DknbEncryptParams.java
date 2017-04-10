@@ -2,6 +2,7 @@ package com.app.data.params;
 
 import android.support.annotation.NonNull;
 
+import com.app.inject.reflect.ReflectUtil;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -15,7 +16,14 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * Created by apple on 17/1/20.
+ * project：cutv_ningbo
+ * description：
+ * create developer： apple
+ * create time：10:46
+ * modify developer：  apple
+ * modify time：10:46
+ * modify remark：
+ * @version 2.0
  */
 
 public abstract class DknbEncryptParams implements EncryptParams {
@@ -23,35 +31,34 @@ public abstract class DknbEncryptParams implements EncryptParams {
     public RequestBody transParams() {
         HashMap<String, Object> map = new HashMap<>();
         MultipartBody.Builder builder = null;
-        for (Field f : getClass().getDeclaredFields()) {
+        for (Field f : ReflectUtil.getAllFields(getClass())) {
+            Method method = ReflectUtil.beanGetMethod(f, getClass());
+            if (method == null) continue;
+            Object obj;
             try {
-                f.setAccessible(true);
-                boolean type = f.getType() == boolean.class;
-                char[] cs = f.getName().toCharArray();
-                if (cs[0] >= 97 && cs[0] <= 122) cs[0] -= 32;
-                Method method = getClass().getDeclaredMethod(type ? "is" : "get" + String.valueOf(cs));
-                Object o = method.invoke(this);
-                if(o == null)continue;
-                if (o instanceof File) {
-                    builder = getBuilder(builder, f.getName(), (File) o);
-                } else if (o instanceof File[]){
-                    File[] files = (File[])o;
-                    for(int i =0;i<files.length;i++)builder = getBuilder(builder,f.getName()+"["+i+"]",files[i]);
-                } else if (o instanceof Integer || o instanceof Boolean || o instanceof Float ||
-                        o instanceof Long || o instanceof Double || o instanceof Character) {
-                    map.put(f.getName(), o);
-                } else map.put(f.getName(), String.valueOf(o));
+                obj = method.invoke(this);
             } catch (Exception e) {
-                e.printStackTrace();
+                continue;
             }
+            if (obj == null) continue;
+            if (obj instanceof File) {
+                builder = getBuilder(builder, f.getName(), (File) obj);
+            } else if (obj instanceof File[]) {
+                File[] files = (File[]) obj;
+                for (int i = 0; i < files.length; i++)
+                    builder = getBuilder(builder, f.getName() + "[" + i + "]", files[i]);
+            } else if (obj instanceof Integer || obj instanceof Boolean || obj instanceof Float ||
+                    obj instanceof Long || obj instanceof Double || obj instanceof Character) {
+                map.put(f.getName(), obj);
+            } else map.put(f.getName(), String.valueOf(obj));
         }
         String data = encrypt(new Gson().toJson(map));
-        if(builder!=null){
-            builder.addFormDataPart("data",data);
+        if (builder != null) {
+            builder.addFormDataPart("data", data);
             return builder.build();
-        }else{
+        } else {
             FormBody.Builder fb = new FormBody.Builder();
-            fb.addEncoded("data",data);
+            fb.addEncoded("data", data);
             return fb.build();
         }
     }

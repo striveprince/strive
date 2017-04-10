@@ -38,6 +38,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.app.R;
+import com.app.ui.video.control.MediaPlayerControl;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +57,7 @@ import tv.danmaku.ijk.media.player.misc.IMediaDataSource;
 import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 
 public class IjkVideoView extends FrameLayout
-        implements IjkMediaController.MediaPlayerControl
+        implements MediaPlayerControl
 {
     private String TAG = "IjkVideoView";
     // settable by the client

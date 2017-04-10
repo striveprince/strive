@@ -12,6 +12,8 @@ import com.app.App;
 import com.app.inject.component.ActivityComponent;
 import com.app.inject.component.DaggerActivityComponent;
 import com.app.inject.module.ActivityModule;
+import com.app.ui.base.annotation.AnnotationUtil;
+import com.app.ui.base.annotation.ContentView;
 import com.app.ui.base.respond.Respond;
 import com.app.ui.base.viewModel.BaseViewModel;
 
@@ -35,13 +37,15 @@ public abstract class BaseActivity<VM extends BaseViewModel<Respond>,Binding ext
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        inject(this,savedInstanceState);
+        inject(savedInstanceState);
     }
 
-    public void inject(Activity activity, @Nullable Bundle savedInstanceState) {
-        Class<?> handlerType = activity.getClass();
+    public abstract void inject(ActivityComponent component);
+
+    public void inject(@Nullable Bundle savedInstanceState) {
+        Class<?> handlerType = viewModel.getClass();
         try {
-            ContentView contentView = findContentView(handlerType);
+            ContentView contentView = AnnotationUtil.findContentView(handlerType);
             if (contentView != null) {
                 int viewId = contentView.value();
                 if (viewId > 0) {
@@ -57,7 +61,6 @@ public abstract class BaseActivity<VM extends BaseViewModel<Respond>,Binding ext
     }
 
 
-    public abstract void inject(ActivityComponent component);
 
     private ActivityComponent activityComponent() {
         if(mActivityComponent == null) {
@@ -69,12 +72,7 @@ public abstract class BaseActivity<VM extends BaseViewModel<Respond>,Binding ext
         return mActivityComponent;
     }
 
-    private ContentView findContentView(Class<?> thisCls) {
-        if (thisCls == null ) return null;
-        ContentView contentView = thisCls.getAnnotation(ContentView.class);
-        if (contentView == null) return findContentView(thisCls.getSuperclass());
-        return contentView;
-    }
+
 
     @Override
     protected void onDestroy() {

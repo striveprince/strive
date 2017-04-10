@@ -1,18 +1,12 @@
 package com.app.ui.base.viewModel;
 
 import android.content.Context;
-import android.databinding.BindingAdapter;
 import android.databinding.ObservableInt;
 import android.support.annotation.IdRes;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.app.R;
-import com.app.ui.base.respond.Respond;
 import com.app.data.portlet.PagerModel;
+import com.app.ui.base.respond.Respond;
 
 import java.util.Collection;
 
@@ -35,22 +29,6 @@ public abstract class RadioViewModel<T extends Respond> extends UserViewModel<T>
         super(context);
     }
 
-    @BindingAdapter("addRadio")
-    public static void addRadioButton(RadioGroup group, Collection<? extends PagerModel> collection) {
-        group.removeAllViews();
-        int i = -1;
-        for (PagerModel model : collection) {
-            View view = model.getView(++i, group.getContext());
-            group.addView(view);
-        }
-        if(i>=0)((RadioButton)group.getChildAt(0)).setChecked(true);
-    }
-
-    @BindingAdapter("checked")
-    public static void addRadioButton(RadioGroup group, RadioGroup.OnCheckedChangeListener listener) {
-        group.setOnCheckedChangeListener(listener);
-//        group.addOnCheckedChangeListener(listener);
-    }
 
     public abstract Collection<? extends PagerModel> getPagerModels();
 

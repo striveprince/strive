@@ -18,7 +18,8 @@
 package com.app.ui.video;
 
 import android.view.View;
-import android.widget.MediaController;
+
+import com.app.ui.video.control.MediaPlayerControl;
 
 public interface IMediaController {
     void hide();
@@ -29,7 +30,7 @@ public interface IMediaController {
 
     void setEnabled(boolean enabled);
 
-    void setMediaPlayer(IjkMediaController.MediaPlayerControl player);
+    void setMediaPlayer(MediaPlayerControl player);
 
     void show(int timeout);
 
