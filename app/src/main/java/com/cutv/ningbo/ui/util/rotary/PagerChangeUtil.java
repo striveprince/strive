@@ -1,8 +1,8 @@
 package com.cutv.ningbo.ui.util.rotary;
 
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
@@ -10,10 +10,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.android.annotations.NonNull;
 import com.cutv.ningbo.data.portlet.PagerModel;
 import com.cutv.ningbo.ui.base.adapter.pager.PagerListener;
-import com.cutv.ningbo.ui.base.adapter.pager.ViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -72,25 +70,23 @@ public class PagerChangeUtil<CL extends PagerModel> implements ViewPager.OnPageC
     public void setData(Collection<CL> data, @NonNull ViewPager viewPager, @NonNull RadioGroup group) {
         this.viewPager = viewPager;
         this.group = group;
-        if (group != null) group.removeAllViews();
+        group.removeAllViews();
         if (count == 0) count = data.size();
         if (data != null) {
             changeListeners.clear();
             for (CL cl : data) {
                 changeListeners.add(cl);
-                RadioButton rb = (RadioButton)cl.getView(0,viewPager.getContext());
+                RadioButton rb = (RadioButton) cl.getView(0, viewPager.getContext());
                 if (listener != null) listener.initPager(cl, rb);
-                if (group != null && rb != null) group.addView(rb);
+                if (rb != null) group.addView(rb);
             }
             adapter.setList(changeListeners);
-            if (adapter instanceof PagerAdapter)viewPager.setAdapter((PagerAdapter) adapter);
+            if (adapter instanceof PagerAdapter) viewPager.setAdapter((PagerAdapter) adapter);
 //            if(loop && adapter instanceof ViewPagerAdapter)((ViewPagerAdapter) adapter).setCount(Integer.MAX_VALUE);
         }
         viewPager.addOnPageChangeListener(this);
-        if (group != null) {
-            group.setOnCheckedChangeListener(this);
-            ((RadioButton) group.getChildAt(0)).setChecked(true);
-        }
+        group.setOnCheckedChangeListener(this);
+        ((RadioButton) group.getChildAt(0)).setChecked(true);
     }
 
 //    public void setLoop(boolean loop) {
@@ -104,7 +100,7 @@ public class PagerChangeUtil<CL extends PagerModel> implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int position) {
-        group.check(group.getChildAt(position%changeListeners.size()).getId());
+        group.check(group.getChildAt(position % changeListeners.size()).getId());
     }
 
     @Override
