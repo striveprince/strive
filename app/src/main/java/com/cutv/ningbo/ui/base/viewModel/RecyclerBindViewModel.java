@@ -111,44 +111,15 @@ public abstract class RecyclerBindViewModel<T, Entity extends BaseEntity, Adapte
         compositeSubscription.clear();
     }
 
-    /*
-    private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
-        private int lastVisibleItem = 0;
-        private int dy = 0;
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 >= adapter.getItemCount() && !isLoading) {
-                offset = adapter.getRealItemCount();
-                if(dy>0)http(MORESTATUS);
-            }
-            if(scrollListener!=null) scrollListener.scroll(newState, lastVisibleItem + 1 >= adapter.getItemCount());
-
-            Logger.text("onScrollStateChanged newState:"+newState);
-        }
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            lastVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-            this.dy = dy;
-        }
-    };
-    */
-
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
-//        int offset = 0;
         int lastVisibleItem = 0;
         private int dy = 0;
 
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 >= adapter.getItemCount()
+            if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 >= adapter.getItemCount()
                     && !loading.get()) {
-//                offset = adapter.getRealItemCount();
                 if (getPageFlag()&&dy>0) onHttp(adapter.getRealItemCount());
                 onScrollBottom();
             }
