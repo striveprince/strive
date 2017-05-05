@@ -1,6 +1,7 @@
 package com.cutv.ningbo.inject.module;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
 import com.cutv.ningbo.inject.qualifier.manager.ChildFragmentManager;
 import com.cutv.ningbo.inject.qualifier.manager.SupportFragmentManager;
 import com.cutv.ningbo.inject.scope.FragmentScope;
-import com.cutv.ningbo.ui.base.fragment.BaseFragment;
 
 import dagger.Module;
 import dagger.Provides;
@@ -28,9 +28,8 @@ import dagger.Provides;
 @FragmentScope
 @Module
 public class FragmentModule {
-    private final BaseFragment fragment;
-
-    public FragmentModule(BaseFragment fragment) {
+    private final Fragment fragment;
+    public FragmentModule(Fragment fragment) {
         this.fragment = fragment;
     }
 

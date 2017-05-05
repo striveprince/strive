@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="layout"
+            type="com.cutv.ningbo.uim.base.layout.model.RecyclerModel"/>
+    </data>
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:enable="@{layout.refreshing}"
+            app:onRefreshListener="@{layout.onRefreshListener}"
+            app:refreshing="@={layout.loading}">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:item_anim="@{layout.itemAnimator}"
+                app:scroll_listener="@{layout.scrollListener}"
+                app:layout_manager="@{layout.layoutManager}"
+                app:adapter="@{layout.adapter}"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <FrameLayout
+            android:visibility="@{layout.emptyVisibility?View.VISIBLE:View.GONE}"
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:onClick="@{layout::onHttp}"
+                android:text="@={layout.empty}" />
+        </FrameLayout>
+    </FrameLayout>
+</layout>

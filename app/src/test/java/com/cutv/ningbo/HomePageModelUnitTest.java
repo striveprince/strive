@@ -39,7 +39,7 @@ import static org.mockito.Mockito.verify;
  */
 
 @RunWith(PowerMockRunner.class)
-public class HomePageViewModelUnitTest {
+public class HomePageModelUnitTest {
     @Rule RxSchedulersOverrideRule rxSchedulersOverrideRule = new RxSchedulersOverrideRule();
     @Mock UserApi api;
     @Mock @FragmentContext Context context;

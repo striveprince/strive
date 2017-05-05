@@ -1,11 +1,14 @@
 package com.cutv.ningbo;
 
 import android.app.Application;
+import android.util.SparseArray;
 
 import com.cutv.ningbo.inject.component.AppComponent;
 import com.cutv.ningbo.inject.component.DaggerAppComponent;
 import com.cutv.ningbo.inject.module.AppModule;
-import com.cutv.ningbo.ui.util.CrashHandler;
+import com.cutv.ningbo.uim.base.model.inter.Model;
+
+import java.util.Set;
 
 import timber.log.Timber;
 
@@ -23,6 +26,7 @@ import timber.log.Timber;
  */
 public class DknbApplication extends Application {
     private static AppComponent mAppComponent;
+    private static final SparseArray<Set<Model>> map = new SparseArray<>();
 
     @Override
     public void onCreate() {
@@ -37,5 +41,7 @@ public class DknbApplication extends Application {
         return mAppComponent;
     }
 
-
+    public static SparseArray<Set<Model>> getMap() {
+        return map;
+    }
 }

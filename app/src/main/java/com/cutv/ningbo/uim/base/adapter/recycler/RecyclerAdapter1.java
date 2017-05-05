@@ -1,15 +1,14 @@
-package com.cutv.ningbo.ui.base.adapter;
+package com.cutv.ningbo.uim.base.adapter.recycler;
 
-import android.databinding.ViewDataBinding;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cutv.ningbo.data.entity.BaseEntity;
-import com.cutv.ningbo.ui.base.holder.BaseHolder;
-import com.cutv.ningbo.ui.base.viewModel.ViewModel;
+import com.cutv.ningbo.uim.base.BaseUtil;
+import com.cutv.ningbo.uim.base.adapter.IRecyclerAdapter;
+import com.cutv.ningbo.uim.base.model.inter.Event;
 
 import java.util.List;
 
@@ -17,46 +16,30 @@ import java.util.List;
  * project：cutv_ningbo
  * description：
  * create developer： admin
- * create time：15:45
+ * create time：16:25
  * modify developer：  admin
- * modify time：15:45
+ * modify time：16:25
  * modify remark：
  *
  * @version 2.0
  */
 
-public abstract class RecyclerWrapper<
-        Entity extends BaseEntity,
-        Holder extends BaseHolder<Entity,?,?>
-//        BaseHolder extends com.cutv.ningbo.ui.base.holder.BaseHolder
-//        VM extends Model,
-//        Binding extends ViewDataBinding
-        >
-        extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-        implements CreateHolderListener<Holder>
-{
 
-    private RecyclerAdapter<Entity, Holder> adapter;
-
+public class RecyclerAdapter1<E extends Event> extends RecyclerView.Adapter implements IRecyclerAdapter<E> {
+    private RecyclerAdapter<E> adapter;
     private static final int TYPE_HEADER = 100000;
     private static final int TYPE_FOOTER = 200000;
-
     private SparseArrayCompat<View> headerViews = new SparseArrayCompat<>();
     private SparseArrayCompat<View> footerViews = new SparseArrayCompat<>();
 
-//    public RecyclerWrapper(Class<T> c) {
-//        adapter = new RecyclerAdapter<>(c);
-//    }
-    public RecyclerWrapper() {
-        adapter = new RecyclerAdapter<>(this);
+    public RecyclerAdapter1() {
+        adapter = new RecyclerAdapter<>();
     }
 
-    public void setList(List<Entity> list){
-        adapter.setList(list);
-    }
 
     /**
      * judge that this viewType is headView
+     *
      * @param position viewType
      * @return true  this viewType is headView
      */
@@ -64,8 +47,10 @@ public abstract class RecyclerWrapper<
         return position < getHeadersCount();
     }
 
+
     /**
      * judge that this viewType is footView
+     *
      * @param position viewType
      * @return true  this viewType is footView
      */
@@ -73,7 +58,7 @@ public abstract class RecyclerWrapper<
         return position >= getHeadersCount() + getRealItemCount() && position < getHeadersCount() + getRealItemCount() + getFootersCount();
     }
 
-    public void setCount(int count){
+    public void setCount(int count) {
         adapter.setCount(count);
     }
 
@@ -128,13 +113,12 @@ public abstract class RecyclerWrapper<
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (headerViews.get(viewType) != null) {
-            return BaseHolder.createRecyclerHolder( headerViews.get(viewType));
+            return RecyclerHolder.createRecyclerHolder(headerViews.get(viewType));
         } else if (footerViews.get(viewType) != null) {
-            return BaseHolder.createRecyclerHolder( footerViews.get(viewType));
+            return RecyclerHolder.createRecyclerHolder(footerViews.get(viewType));
         }
         return adapter.onCreateViewHolder(parent, viewType);
     }
-
 
 
     @SuppressWarnings("unchecked")
@@ -142,8 +126,9 @@ public abstract class RecyclerWrapper<
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (isHeaderViewPos(position)) return;
         if (isFooterViewPos(position)) return;
-        adapter.onBindViewHolder((Holder) holder, position - getHeadersCount());
+        adapter.onBindViewHolder((RecyclerHolder) holder, position - getHeadersCount());
     }
+
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -151,103 +136,95 @@ public abstract class RecyclerWrapper<
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
             final GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
-            final GridLayoutManager.SpanSizeLookup lookup = gridLayoutManager.getSpanSizeLookup();
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    int viewType = getItemViewType(position);
-                    if (isHeaderViewPos(viewType) && isFooterViewPos(viewType)) {
-                        return gridLayoutManager.getSpanCount();
-                    }
-                    if (lookup != null)
-                        return lookup.getSpanSize(position);
-                    return 1;
+                    return getItemViewType(position) == TYPE_HEADER ? gridLayoutManager.getSpanCount() : 1;
                 }
             });
             gridLayoutManager.setSpanCount(gridLayoutManager.getSpanCount());
         }
+    }
+
+
+    @Override
+    public void clear() {
 
     }
 
-    public void addRangItemList(List<Entity> list) {
-        addRangItemList(adapter.list.size(), list);
-    }
-
-    public void removeItemList(List<Entity> list) {
-        adapter.list.removeAll(list);
+    private void addRangItemList(int itemStart, List<E> list) {
+        adapter.getList().addAll(itemStart, list);
         notifyDataSetChanged();
     }
 
-    public void clear(){
-        adapter.list.clear();
+    private void refresh(List<E> list) {
+        adapter.getList().clear();
+        adapter.getList().addAll(list);
         notifyDataSetChanged();
     }
 
-    public void refresh(List<Entity> list) {
-        adapter.list.clear();
-        adapter.list.addAll(list);
+    private void removeAllList(List<E> e) {
+        adapter.getList().removeAll(e);
         notifyDataSetChanged();
     }
 
-//    public void removeItem() {
-//        notifyItemRangeInserted();
-//        notifyItemRangeRemoved();
-//        notifyItemRangeChanged();
-//        notifyItemMoved();
-//    }
 
-    public void removeItemList(int positionStart, List<Entity> list) {
-        if (adapter.list.size() > positionStart + list.size()) {
-            adapter.list.removeAll(list);
-            notifyItemRangeRemoved(positionStart, list.size());
-        }
+    @Override
+    public boolean setList(int position, List<E> e, int type) {
+        if (type == 0x00) {
+            addRangItemList(position, e);
+        } else if (type == 0x01) {
+            addRangItemList(getRealItemCount(), e);
+        } else if (type == 0x10) {
+            refresh(e);
+        } else if (type == 0x20) {
+            removeAllList(e);
+        } else return false;
+        return true;
     }
 
-//    public void changeItemList(int positionStart,List<TimeEntity> list){
-////        this.list.set();
-//        notifyItemRangeRemoved(positionStart,list.size());
-//    }
 
-    public void addRangItemList(int itemStart, List<Entity> list) {
-        adapter.list.addAll(itemStart, list);
+    @Override
+    public boolean setEntity(int position, E e, int type) {
+        if (type == 0x00) {
+            addRangItem(position, e);
+        } else if (type == 0x01) {
+            addRangItem(getList().size(), e);
+        } else if (type == 0x20) {
+            remove(e);
+        } else return false;
+        return true;
+    }
+
+    private void remove(E e) {
+        adapter.getList().remove(e);
         notifyDataSetChanged();
-//        notifyItemRangeChanged(itemStart + list.size(), getItemCount() - list.size());
-//        notifyItemRangeInserted(itemStart, list.size());
-
     }
 
-    public void addItem(Entity entity, int position) {
-        adapter.list.add(position, entity);
-        notifyItemInserted(position);
+    private void addRangItem(int position, E e) {
+        adapter.getList().add(position,e);
+        notifyDataSetChanged();
     }
-
-    public void removeItem(int position) {
-        adapter.list.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    public void changeItem(int position, Entity entity) {
-//        adapter.list.set(position, TimeEntity);
-
-    }
-
-    public List<Entity> getList() {
+    @Override
+    public List<E> getList() {
         return adapter.getList();
     }
 
-    public void removeAllFooter() {
-        footerViews.clear();
-//        notifyDataSetChanged();
+    public void setLayoutId(int layoutId) {
+        adapter.setLayoutId(layoutId);
     }
 
-    ;
-
-    public void removeAllHeader() {
-        headerViews.clear();
-//        notifyDataSetChanged();
+    public void setClass(Class c, int layoutIndex) {
+        setLayoutId(BaseUtil.getLayoutId(layoutIndex, c));
     }
 
-    ;
+    @Override
+    public int size() {
+        return getRealItemCount();
+    }
 
+    @Override
+    public void modelView(int index, Event layoutModel, int type) {
 
+    }
 }

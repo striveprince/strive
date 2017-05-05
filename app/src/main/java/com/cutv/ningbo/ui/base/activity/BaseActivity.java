@@ -12,6 +12,9 @@ import com.cutv.ningbo.DknbApplication;
 import com.cutv.ningbo.inject.component.ActivityComponent;
 import com.cutv.ningbo.inject.component.DaggerActivityComponent;
 import com.cutv.ningbo.inject.module.ActivityModule;
+import com.cutv.ningbo.ui.activity.detail.DetailActivity;
+import com.cutv.ningbo.ui.activity.login.LoginActivity;
+import com.cutv.ningbo.ui.activity.main.MainActivity;
 import com.cutv.ningbo.ui.base.respond.Respond;
 import com.cutv.ningbo.ui.base.viewModel.BaseViewModel;
 
@@ -33,6 +36,11 @@ public class BaseActivity<VM extends BaseViewModel,Binding extends ViewDataBindi
     public Binding binding;
     @Inject public VM viewModel;
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     protected final ActivityComponent activityComponent() {
         if(mActivityComponent == null) {
             mActivityComponent = DaggerActivityComponent.builder()
@@ -46,7 +54,7 @@ public class BaseActivity<VM extends BaseViewModel,Binding extends ViewDataBindi
     protected final void setBindingView(@LayoutRes int layoutId, @Nullable Bundle savedInstanceState){
         binding = DataBindingUtil.setContentView(this,layoutId);
         binding.setVariable(BR.vm, viewModel);
-        viewModel.attachView( this,savedInstanceState);
+        viewModel.attachView(this,savedInstanceState);
     }
 
     @Override

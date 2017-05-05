@@ -18,6 +18,6 @@ import dagger.Module;
 public abstract class ViewModelModule {
 
 //    @Binds
-//    abstract DetailMvvm.ViewModel bindDetailViewModel(DetailViewModel detailViewModel);
+//    abstract DetailMvvm.Model bindDetailViewModel(DetailViewModel detailViewModel);
 
 }

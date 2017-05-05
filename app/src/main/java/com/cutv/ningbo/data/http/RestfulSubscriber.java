@@ -78,11 +78,14 @@ public class RestfulSubscriber<T> extends Subscriber<T>{
     @Override
     public void onCompleted() {
         if (dialog != null) dialog.dismiss();
-        if (onCompletedListener != null) onCompletedListener.onCompleted(t, e);
+        if (onCompletedListener != null){
+            onCompletedListener.onCompleted(t, e);
+            onCompletedListener = null;
+        }
     }
 
     private void showToast(String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+        if(context!=null)Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
