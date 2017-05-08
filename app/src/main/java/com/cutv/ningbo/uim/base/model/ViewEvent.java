@@ -3,6 +3,8 @@ package com.cutv.ningbo.uim.base.model;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.cutv.ningbo.uim.base.BaseUtil;
+import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.inter.Event;
 
 /**
@@ -19,16 +21,22 @@ import com.cutv.ningbo.uim.base.model.inter.Event;
 
 
 public class ViewEvent implements Event {
-    public void putEvent(int event) {
-        eventSet.put(event,this);
-    }
+    private transient ModelView modelView;
 
+    public void event(View view, MotionEvent event) {
+        if (getModelView()!=null&&getModelView().event()!=0){
+            eventSet.put(getModelView().event(), this);
+            eventSet.get(getModelView().event()).onEvent(view, event);
+        }
+    }
     public void removeEvent(int event) {
-        eventSet.put(event,this);
+        eventSet.remove(event);
     }
 
-    public void event(int eventId, View view, MotionEvent event) {
-        eventSet.get(eventId).onEvent(view,event);
+    @Override
+    public ModelView getModelView() {
+        if(modelView == null) modelView = BaseUtil.findModelView(getClass());
+        return modelView;
     }
 
     @Override

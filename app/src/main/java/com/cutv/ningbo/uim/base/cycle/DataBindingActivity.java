@@ -40,14 +40,13 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
     public VM vm;
     private Binding binding;
     private Set<Model> set;
-    private ModelView modelView;
     private ActivityComponent mActivityComponent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int index = inject(activityComponent());
-        modelView = BaseUtil.findModelView(vm.getClass());
+        ModelView modelView = vm.getModelView();
         if (modelView != null) {
             int[] values = modelView.value();
             if(index>=values.length)index = 0;
@@ -109,10 +108,6 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
         return set;
     }
 
-    @Override
-    public ModelView getModelView() {
-        return modelView;
-    }
 
     @Override
     public DataBindingActivity getDataActivity() {

@@ -5,12 +5,15 @@ import android.databinding.PropertyChangeRegistry;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.cutv.ningbo.uim.base.BaseUtil;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.cycle.CycleContainer;
 import com.cutv.ningbo.uim.base.cycle.DataBindingActivity;
 import com.cutv.ningbo.uim.base.model.inter.EventModel;
 
 import java.lang.ref.WeakReference;
+
+import timber.log.Timber;
 
 /**
  * project：cutv_ningbo
@@ -21,24 +24,44 @@ import java.lang.ref.WeakReference;
  * modify time：15:58
  * modify remark：
  * it's use to bind activity fragment or layout
+ *
  * @version 2.0
  */
 
 
-public class ViewModel<T extends CycleContainer>  implements EventModel<T> {
+public class ViewModel<T extends CycleContainer> implements EventModel<T> {
     private transient PropertyChangeRegistry mCallbacks;
     private transient WeakReference<T> weakReference;
+    private transient ModelView modelView;
 
-    @Override
-    public void attachView(T t,int model_index) {
-        weakReference = new WeakReference<>(t);
-        if (t.getModelView().event() != 0) {
-            putEvent(t.getModelView().event());
+    public void event(View view, MotionEvent event) {
+        if (getModelView() != null && getModelView().event() != 0) {
+            eventSet.put(getModelView().event(), this);
+            eventSet.get(getModelView().event()).onEvent(view, event);
         }
     }
 
-    public T getT(){
-        return weakReference.get();
+    @Override
+    public ModelView getModelView() {
+        if (modelView == null) modelView = BaseUtil.findModelView(getClass());
+        return modelView;
+    }
+
+    @Override
+    public void onEvent(View view, MotionEvent event) {
+
+    }
+
+    @Override
+    public void attachView(T t, int model_index) {
+        weakReference = new WeakReference<>(t);
+    }
+
+    public T getT() {
+        if (weakReference != null)
+            return weakReference.get();
+        else Timber.e("weakReference == null");
+        return null;
     }
 
     @Override
@@ -51,47 +74,23 @@ public class ViewModel<T extends CycleContainer>  implements EventModel<T> {
 
     @Override
     public void detachView() {
-        if (weakReference != null) {
-            removeEvent(weakReference.get().getModelView().event());
+        if (getT() != null) {
+            eventSet.remove(getModelView().event());
             weakReference.clear();
         }
     }
 
-    public DataBindingActivity getDataActivity(){
-        if(weakReference!=null&&weakReference.get()!=null)
-            return weakReference.get().getDataActivity();
+    public DataBindingActivity getDataActivity() {
+        if (getT() != null)
+            return getT().getDataActivity();
         return null;
     }
 
 
-
-    public DataBindingActivity getBinding(){
-        if(weakReference!=null&&weakReference.get()!=null)
-            return weakReference.get().getDataActivity();
+    public DataBindingActivity getBinding() {
+        if (getT() != null)
+            return getT().getDataActivity();
         return null;
-    }
-
-    public ModelView getModelView(){
-        if(weakReference!=null&&weakReference.get()!=null)
-            return weakReference.get().getModelView();
-        return null;
-    }
-
-    public void putEvent(int event) {
-        eventSet.put(event,this);
-    }
-
-    public void removeEvent(int event) {
-        eventSet.put(event,this);
-    }
-
-    public void event(int eventId, View view, MotionEvent event) {
-        eventSet.get(eventId).onEvent(view,event);
-    }
-
-    @Override
-    public void onEvent(View view, MotionEvent event) {
-
     }
 
     @Override

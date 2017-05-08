@@ -3,7 +3,8 @@ package com.cutv.ningbo.uim.base.model.inter;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+
+import com.cutv.ningbo.uim.base.annotation.ModelView;
 
 /**
  * project：cutv_ningbo
@@ -23,6 +24,5 @@ public interface Event {
 
     void onEvent(View view, MotionEvent event);
 
-
-
+    ModelView getModelView();
 }

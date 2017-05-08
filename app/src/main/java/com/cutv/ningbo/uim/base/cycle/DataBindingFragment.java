@@ -42,14 +42,14 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
     public VM vm;
     private Binding binding;
     private Set<Model> set;
-    private ModelView modelView;
+//    private ModelView modelView;
     private FragmentComponent component;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         int index = inject(fragmentComponent());
-        modelView = BaseUtil.findModelView(vm.getClass());
+        ModelView modelView = vm.getModelView();
         if (modelView != null) {
             int[] values = modelView.value();
             if(index>=values.length)index = 0;
@@ -113,10 +113,6 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
         return set;
     }
 
-    @Override
-    public ModelView getModelView() {
-        return modelView;
-    }
 
     @Override
     public DataBindingActivity getDataActivity() {

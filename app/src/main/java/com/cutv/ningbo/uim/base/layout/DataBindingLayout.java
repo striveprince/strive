@@ -44,10 +44,8 @@ import java.util.Set;
 
 public class DataBindingLayout<T, Binding extends ViewDataBinding>
         extends FrameLayout
-        implements CycleContainer<Binding>, Model
-{
+        implements CycleContainer<Binding>, Model{
     private int index;
-    private ModelView modelView;
     private ViewLayoutModel<T> model;
     private Binding binding;
 
@@ -63,7 +61,6 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
     }
-
 
     /**
      * @param context      context
@@ -91,7 +88,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
 
     protected void bindModelView(Context context, TypedArray array,ViewLayoutModel<T> model) {
         index = array.getInteger(R.styleable.layout_index, 0);
-        modelView = BaseUtil.findModelView(model.getClass());
+        ModelView modelView = model.getModelView();
         if (modelView.cycle()) addViewSet(this);
         int[] values = modelView.value();
         if (index >= values.length) index = 0;
@@ -117,10 +114,6 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
         return set;
     }
 
-    @Override
-    public ModelView getModelView() {
-        return modelView;
-    }
 
     @Override
     public DataBindingActivity getDataActivity() {

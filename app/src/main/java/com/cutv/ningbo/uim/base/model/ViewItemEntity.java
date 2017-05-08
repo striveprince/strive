@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cutv.ningbo.uim.base.BaseUtil;
+import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.inter.ItemEntity;
 
 /**
@@ -24,6 +25,28 @@ import com.cutv.ningbo.uim.base.model.inter.ItemEntity;
 
 public abstract class ViewItemEntity implements ItemEntity {
     private transient PropertyChangeRegistry mCallbacks;
+    private transient ModelView modelView;
+
+    public void event(View view, MotionEvent event) {
+        if (getModelView()!=null&&getModelView().event()!=0){
+            eventSet.put(getModelView().event(), this);
+            eventSet.get(getModelView().event()).onEvent(view, event);
+        }
+    }
+    public void removeEvent(int event) {
+        eventSet.remove(event);
+    }
+
+    @Override
+    public ModelView getModelView() {
+        if(modelView == null) modelView = BaseUtil.findModelView(getClass());
+        return modelView;
+    }
+
+    @Override
+    public void onEvent(View view, MotionEvent event) {
+
+    }
 
     @Override
     public void addOnPropertyChangedCallback(OnPropertyChangedCallback callback) {
@@ -33,6 +56,10 @@ public abstract class ViewItemEntity implements ItemEntity {
             }
         }
         mCallbacks.add(callback);
+    }
+
+    public void event(int eventId, View view, MotionEvent event) {
+        eventSet.get(eventId).onEvent(view,event);
     }
 
     @Override
@@ -73,14 +100,10 @@ public abstract class ViewItemEntity implements ItemEntity {
         mCallbacks.notifyCallbacks(this, fieldId, null);
     }
 
-
-    @Override
-    public void onEvent(View view, MotionEvent event) {
-
-    }
-
     @Override
     public ViewGroup.LayoutParams params(View view, boolean parent) {
         return BaseUtil.params(view,parent);
     }
+
+
 }
