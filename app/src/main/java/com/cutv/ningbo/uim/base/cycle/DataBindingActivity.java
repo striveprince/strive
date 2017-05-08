@@ -57,7 +57,7 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
                     set = addViewSet(binding.getRoot());
                     DknbApplication.getMap().put(viewId,set);
                 }
-                binding.setVariable(BR.vm,vm);
+//                binding.setVariable(modelView.name()[index],vm);
                 vm.attachView(this,index);
             } else {
                 throw new RuntimeException("please use @ModelView at EventModel Item");

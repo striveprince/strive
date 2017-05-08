@@ -39,7 +39,10 @@ public abstract class ViewItemEntity implements ItemEntity {
 
     @Override
     public ModelView getModelView() {
-        if(modelView == null) modelView = BaseUtil.findModelView(getClass());
+        if (modelView == null) {
+            modelView = BaseUtil.findModelView(getClass());
+            if(modelView== null)throw new RuntimeException("should to add @ModelView to the class:"+getClass());
+        }
         return modelView;
     }
 

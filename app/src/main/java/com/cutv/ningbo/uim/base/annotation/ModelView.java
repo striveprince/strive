@@ -1,5 +1,10 @@
 package com.cutv.ningbo.uim.base.annotation;
 
+import android.support.annotation.LayoutRes;
+
+
+import com.cutv.ningbo.BR;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -20,7 +25,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModelView {
-    int[] value();
+    @LayoutRes int[] value();
+    int[] name() default {BR.vm};
     int event() default 0;
     boolean cycle() default false;
 }

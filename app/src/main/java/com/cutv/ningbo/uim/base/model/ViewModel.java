@@ -2,9 +2,11 @@ package com.cutv.ningbo.uim.base.model;
 
 import android.databinding.Bindable;
 import android.databinding.PropertyChangeRegistry;
+import android.databinding.ViewDataBinding;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.cutv.ningbo.BR;
 import com.cutv.ningbo.uim.base.BaseUtil;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.cycle.CycleContainer;
@@ -43,7 +45,10 @@ public class ViewModel<T extends CycleContainer> implements EventModel<T> {
 
     @Override
     public ModelView getModelView() {
-        if (modelView == null) modelView = BaseUtil.findModelView(getClass());
+        if (modelView == null) {
+            modelView = BaseUtil.findModelView(getClass());
+            if(modelView== null)throw new RuntimeException("should to add @ModelView to the class:"+getClass());
+        }
         return modelView;
     }
 
@@ -55,6 +60,7 @@ public class ViewModel<T extends CycleContainer> implements EventModel<T> {
     @Override
     public void attachView(T t, int model_index) {
         weakReference = new WeakReference<>(t);
+        t.getBinding().setVariable(getModelView().name()[model_index], this);
     }
 
     public T getT() {
@@ -87,9 +93,9 @@ public class ViewModel<T extends CycleContainer> implements EventModel<T> {
     }
 
 
-    public DataBindingActivity getBinding() {
+    public ViewDataBinding getBinding() {
         if (getT() != null)
-            return getT().getDataActivity();
+            return getT().getBinding();
         return null;
     }
 

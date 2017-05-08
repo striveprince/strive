@@ -95,12 +95,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
         int layoutId = modelView.value()[index];
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, this, true);
         array.recycle();
-    }
-
-
-    public void bind() {
         getModel().attachView(this,index);
-        binding.setVariable(BR.vm, getModel());
     }
 
     public ViewLayoutModel<T> getModel() {
@@ -176,7 +171,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
             setAdapter(c,args);
         }
         getModel().onHttp();
-        bind();
+        getModel().attachView(this,index);
     }
 
     /**
@@ -207,7 +202,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
                 setAdapter(c,args);
             }
         }
-        bind();
+        getModel().attachView(this,index);
     }
 
     /**
