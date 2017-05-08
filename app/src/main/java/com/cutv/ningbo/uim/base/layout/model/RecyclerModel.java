@@ -29,7 +29,7 @@ import com.cutv.ningbo.uim.base.model.inter.Event;
  * @version 2.0
  */
 
-@ModelView(R.layout.layout_recycler_view)
+@ModelView(value = R.layout.layout_recycler_view,name = {BR.layout})
 public class RecyclerModel<E extends Event> extends ViewArrayModel<E, IRecyclerAdapter<E>> {
     public final ObservableBoolean loading = new ObservableBoolean(false);
 

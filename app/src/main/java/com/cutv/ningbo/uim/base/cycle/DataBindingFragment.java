@@ -58,7 +58,7 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
                 binding = DataBindingUtil.inflate(inflater,viewId,container,false);
                 if (modelView.cycle()) {
                     set = addViewSet(binding.getRoot());
-                    DknbApplication.getMap().put(viewId,set);
+//                    DknbApplication.getMap().put(viewId,set);
                 }
                 vm.attachView(this,index);
             } else {

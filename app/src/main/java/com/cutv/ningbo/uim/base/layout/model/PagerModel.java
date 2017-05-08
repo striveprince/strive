@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.support.v4.view.ViewPager;
 import android.widget.RadioGroup;
 
+import com.cutv.ningbo.BR;
 import com.cutv.ningbo.R;
 import com.cutv.ningbo.uim.base.adapter.ILayoutAdapter;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
@@ -29,7 +30,7 @@ import java.util.List;
  * @version 2.0
  */
 
-@ModelView(value = {R.layout.layout_radio_pager})
+@ModelView(value = {R.layout.layout_radio_pager},name = {BR.layout})
 public class PagerModel<E extends ItemEvent>
         extends ViewArrayModel<E, ILayoutAdapter<E>>
         implements PagerRotateListener<E>, ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener {

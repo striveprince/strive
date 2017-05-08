@@ -44,10 +44,11 @@ import java.util.Set;
 
 public class DataBindingLayout<T, Binding extends ViewDataBinding>
         extends FrameLayout
-        implements CycleContainer<Binding>, Model{
+        implements CycleContainer<Binding>, Model {
     private int index;
     private ViewLayoutModel<T> model;
     private Binding binding;
+    private Set<Model> set;
 
     public DataBindingLayout(@NonNull Context context) {
         this(context, null);
@@ -83,19 +84,19 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
             default:
                 throw new RuntimeException();
         }
-        bindModelView(context, array,model);
+        bindModelView(context, array, model);
     }
 
-    protected void bindModelView(Context context, TypedArray array,ViewLayoutModel<T> model) {
+    protected void bindModelView(Context context, TypedArray array, ViewLayoutModel<T> model) {
         index = array.getInteger(R.styleable.layout_index, 0);
         ModelView modelView = model.getModelView();
-        if (modelView.cycle()) addViewSet(this);
+        if (modelView.cycle()) set = addViewSet(this);
         int[] values = modelView.value();
         if (index >= values.length) index = 0;
         int layoutId = modelView.value()[index];
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, this, true);
         array.recycle();
-        getModel().attachView(this,index);
+        getModel().attachView(this, index);
     }
 
     public ViewLayoutModel<T> getModel() {
@@ -119,23 +120,29 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
     }
 
     @Override
-    public void attachView(CycleContainer cycleContainer,int model_index) {
-
+    public void attachView(CycleContainer cycleContainer, int model_index) {
+        if (set != null) for (Model model : set) model.attachView(cycleContainer, model_index);
     }
 
     @Override
     public void onResume() {
         getModel().onResume();
+        if (set != null) for (Model model : set) model.onResume();
     }
 
     @Override
     public void onPause() {
         getModel().onPause();
+        if (set != null) for (Model model : set) model.onPause();
     }
 
     @Override
     public void detachView() {
         getModel().detachView();
+        if (set != null) {
+            for (Model model : set) model.detachView();
+            set.clear();
+        }
     }
 
     @Override
@@ -151,27 +158,27 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
      *             FragmentAdapter adapter = new FragmentAdapter(fm);
      *             and the args is {fm}
      */
-    public void setHttpObservable(Http<T> http,Object...args) {
-        setHttpObservable(http, 0,args);
+    public void setHttpObservable(Http<T> http, Object... args) {
+        setHttpObservable(http, 0, args);
     }
 
     /**
-     * @param http the http interface ,it ues to transform the Observable
+     * @param http         the http interface ,it ues to transform the Observable
      * @param holder_index the index of model ,and {@link ModelView} layoutId = ModelView.value()[holder_index] default = 0;
-     * @param args the array of adapter constructor params for example:
-     *             {@link FragmentPagerAdapter}
-     *             FragmentAdapter adapter = new FragmentAdapter(fm);
-     *             and the args is {fm}
+     * @param args         the array of adapter constructor params for example:
+     *                     {@link FragmentPagerAdapter}
+     *                     FragmentAdapter adapter = new FragmentAdapter(fm);
+     *                     and the args is {fm}
      */
-    public void setHttpObservable(Http<T> http, int holder_index,Object...args) {
+    public void setHttpObservable(Http<T> http, int holder_index, Object... args) {
         getModel().setRcHttp(http);
         getModel().setHolder_index(holder_index);
         if (http instanceof HttpArray) {
-            Class<?> c  = BaseUtil.getInterfacesGenericType(http.getClass(), HttpArray.class);
-            setAdapter(c,args);
+            Class<?> c = BaseUtil.getInterfacesGenericType(http.getClass(), HttpArray.class);
+            setAdapter(c, args);
         }
         getModel().onHttp();
-        getModel().attachView(this,index);
+        getModel().attachView(this, index);
     }
 
     /**
@@ -181,28 +188,28 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
      *             FragmentAdapter adapter = new FragmentAdapter(fm);
      *             and the args is {fm}
      */
-    public void setData(T data,Object... args){
-        setData(data,0,args);
+    public void setData(T data, Object... args) {
+        setData(data, 0, args);
     }
 
     /**
-     * @param data the data
+     * @param data         the data
      * @param holder_index the index of model ,and {@link ModelView} layoutId = ModelView.value()[holder_index] default = 0;
-     * @param args the array of adapter constructor params for example:
-     *             {@link FragmentPagerAdapter}
-     *             FragmentAdapter adapter = new FragmentAdapter(fm);
-     *             and the args is {fm}
+     * @param args         the array of adapter constructor params for example:
+     *                     {@link FragmentPagerAdapter}
+     *                     FragmentAdapter adapter = new FragmentAdapter(fm);
+     *                     and the args is {fm}
      */
-    public void setData(T data,int holder_index,Object...args){
+    public void setData(T data, int holder_index, Object... args) {
         getModel().setHolder_index(holder_index);
         if (data != null && data instanceof List) {
-            List list = (List)data;
-            if(!list.isEmpty()){
-                Class<?> c  = list.get(0).getClass();
-                setAdapter(c,args);
+            List list = (List) data;
+            if (!list.isEmpty()) {
+                Class<?> c = list.get(0).getClass();
+                setAdapter(c, args);
             }
         }
-        getModel().attachView(this,index);
+        getModel().attachView(this, index);
     }
 
     /**
@@ -211,6 +218,6 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
      *             FragmentAdapter adapter = new FragmentAdapter(fm);
      *             and the args is {fm} or{adapter}
      */
-    void setAdapter(Class<?> c,Object...args){
+    void setAdapter(Class<?> c, Object... args) {
     }
 }

@@ -55,7 +55,7 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
                 binding = DataBindingUtil.setContentView(this, viewId);
                 if (modelView.cycle()) {
                     set = addViewSet(binding.getRoot());
-                    DknbApplication.getMap().put(viewId,set);
+//                    DknbApplication.getMap().put(viewId,set);
                 }
 //                binding.setVariable(modelView.name()[index],vm);
                 vm.attachView(this,index);

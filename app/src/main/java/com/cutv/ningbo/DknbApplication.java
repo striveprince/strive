@@ -26,7 +26,7 @@ import timber.log.Timber;
  */
 public class DknbApplication extends Application {
     private static AppComponent mAppComponent;
-    private static final SparseArray<Set<Model>> map = new SparseArray<>();
+//    private static final SparseArray<Set<Model>> map = new SparseArray<>();
 
     @Override
     public void onCreate() {
@@ -41,7 +41,7 @@ public class DknbApplication extends Application {
         return mAppComponent;
     }
 
-    public static SparseArray<Set<Model>> getMap() {
-        return map;
-    }
+//    public static SparseArray<Set<Model>> getMap() {
+//        return map;
+//    }
 }
