@@ -28,7 +28,6 @@ public class ViewLayoutModel<R> extends ViewModel<CycleContainer> implements Act
     private Http<R> rcHttp;
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
     private int holder_index;
-
     private boolean enable = true;
     protected int offset = 0;
 
