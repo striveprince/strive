@@ -52,6 +52,7 @@ public class DataArrayLayout<E extends Event, Binding extends ViewDataBinding> e
      * @param attrs        attrs
      * @param defStyleAttr defStyleAttr
      *                     layout type
+     *                     <flag name="recycler" value="0x00" />
      *                     <flag name="pager" value="0x10" />
      *                     <flag name="frame" value="0x20" />
      *                     <flag name="gallery" value="0x30" />
