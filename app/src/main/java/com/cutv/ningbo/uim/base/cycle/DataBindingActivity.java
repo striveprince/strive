@@ -67,8 +67,8 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
     }
 
     /**
-     * @param activityComponent
-     * @return default return 0 it's mean
+     * @param activityComponent activityComponent
+     * @return default return 0 it's mean get the first view layoutId from {@link ModelView}
      */
     public abstract int inject(ActivityComponent activityComponent);
 
