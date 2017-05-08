@@ -89,10 +89,11 @@ public class DataArrayLayout<E extends Event, Binding extends ViewDataBinding> e
     }
 
     @Override
-    public void setAdapter(Object... args) {
-        super.setAdapter();
-        AdapterEntity entity = BaseUtil.findAdapterEntity(model.getClass());
-        if (entity != null) model.newInstanceAdapter(entity.adapter(),args);
+    void setAdapter(Class c, Object... args) {
+        super.setAdapter(c, args);
+        model.setAdapter(c,args);
+//        AdapterEntity entity = BaseUtil.findAdapterEntity(model.getClass());
+//        if (entity != null) model.newInstanceAdapter(entity.adapter(),args);
     }
 
     @Override

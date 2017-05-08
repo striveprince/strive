@@ -170,7 +170,7 @@ public class BaseUtil {
         if (modelView == null)
             throw new RuntimeException(clazz != null ?
                     "this class :" + clazz.getName() + " need to add @ModelView"
-                    : "the clazz == null,please use the method setClazz(Class clazz) before setAdapter");
+                    : "the clazz == null,please use the method setAdapter(Class clazz) before setAdapter");
         int index = layoutIndex;
         if (layoutIndex >= modelView.value().length) index = 0;
         return modelView.value()[index];
@@ -188,9 +188,8 @@ public class BaseUtil {
             } else {
                 try {
                     Class[] clazs = new Class[args.length];
-                    for (int i = 0; i < args.length; i++) {
+                    for (int i = 0; i < args.length; i++)
                         clazs[i] = args[i].getClass();
-                    }
                     Constructor<T> con = t.getConstructor(clazs);
                     con.newInstance(args);
                 } catch (InstantiationException | IllegalAccessException | IllegalArgumentException

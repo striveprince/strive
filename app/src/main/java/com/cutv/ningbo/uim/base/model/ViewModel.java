@@ -26,11 +26,11 @@ import java.lang.ref.WeakReference;
 
 
 public class ViewModel<T extends CycleContainer>  implements EventModel<T> {
-    private transient WeakReference<T> weakReference;
     private transient PropertyChangeRegistry mCallbacks;
+    private transient WeakReference<T> weakReference;
 
     @Override
-    public void attachView(T t) {
+    public void attachView(T t,int model_index) {
         weakReference = new WeakReference<>(t);
         if (t.getModelView().event() != 0) {
             putEvent(t.getModelView().event());

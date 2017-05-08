@@ -45,8 +45,8 @@ public class PagerModel<E extends ItemEvent>
     }
 
     @Override
-    public void attachView(CycleContainer cycleContainer) {
-        super.attachView(cycleContainer);
+    public void attachView(CycleContainer cycleContainer,int model_index) {
+        super.attachView(cycleContainer,model_index);
         TimeUtil.getInstance().remove(timeEntity);
         onHttp();
     }

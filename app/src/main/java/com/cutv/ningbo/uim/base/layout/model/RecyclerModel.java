@@ -42,23 +42,31 @@ public class RecyclerModel<E extends Event> extends ViewArrayModel<E, IRecyclerA
     private boolean pageFlag = true;
 
     @Override
-    public void attachView(CycleContainer cycleContainer) {
-        super.attachView(cycleContainer);
+    public void attachView(CycleContainer cycleContainer,int model_index) {
+        super.attachView(cycleContainer,model_index);
         layoutManager = new LinearLayoutManager(cycleContainer.getDataActivity());
     }
 
 
-    public void setAdapter(Class c, int layoutIndex) {
+
+
+
+//    public void setAdapter(Class c, int layoutIndex) {
+//        if (adapter == null) {
+//            adapter = new RecyclerAdapter1<>();
+//            notifyPropertyChanged(BR.adapter);
+//        }
+//        adapter.setLayoutId(BaseUtil.getLayoutId(layoutIndex, c));
+//    }
+
+    @Override
+   public void setAdapter(Class<?extends Event> clazz, Object...args) {
+        super.setAdapter(clazz,args);
         if (adapter == null) {
             adapter = new RecyclerAdapter1<>();
             notifyPropertyChanged(BR.adapter);
         }
-        adapter.setLayoutId(BaseUtil.getLayoutId(layoutIndex, c));
-    }
-
-    @Override
-    public void setClazz(Class clazz) {
-        setAdapter(clazz, getHolder_index());
+        adapter.setLayoutId(BaseUtil.getLayoutId(getHolder_index(), clazz));
     }
 
 

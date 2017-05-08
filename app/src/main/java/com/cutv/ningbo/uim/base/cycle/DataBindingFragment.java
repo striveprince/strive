@@ -61,7 +61,7 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
                     DknbApplication.getMap().put(viewId,set);
                 }
                 binding.setVariable(BR.vm,vm);
-                vm.attachView(this);
+                vm.attachView(this,index);
             } else {
                 throw new RuntimeException("please use @ModelView at EventModel Item");
             }

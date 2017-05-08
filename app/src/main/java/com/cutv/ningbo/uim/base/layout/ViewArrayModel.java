@@ -9,6 +9,7 @@ import com.cutv.ningbo.uim.base.adapter.IModelAdapter;
 import com.cutv.ningbo.uim.base.model.inter.Event;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,13 +25,19 @@ import java.util.List;
  */
 
 
-public class ViewArrayModel<E extends Event,Adapter extends IModelAdapter<E>> extends ViewLayoutModel<List<E>>{
+public class ViewArrayModel<E extends Event, Adapter extends IModelAdapter<E>> extends ViewLayoutModel<List<E>> {
     private List<E> list = new ArrayList<>();
-
-
     public ObservableBoolean refreshing = new ObservableBoolean(true);
     public ObservableBoolean emptyVisibility = new ObservableBoolean(false);
     protected Adapter adapter;
+
+    public void setAdapter(Class<? extends Event> clazz,Object... args) {
+        if (clazz == null ) {
+            throw new RuntimeException("");
+        } else
+            adapter = (Adapter) BaseUtil.newInstance(clazz, Arrays.copyOfRange(args, 1, args.length));
+    }
+
     @Override
     public List<E> getData() {
         return list;
@@ -42,20 +49,15 @@ public class ViewArrayModel<E extends Event,Adapter extends IModelAdapter<E>> ex
 
     @Override
     public void call(List<E> es) {
-        if(refreshing.get())es.clear();
+        if (refreshing.get()) es.clear();
         this.list.addAll(es);
-        if(adapter!=null){
-            adapter.setList(offset,es,offset==0?0x10:0x00);
+        if (adapter != null) {
+            adapter.setList(offset, es, offset == 0 ? 0x10 : 0x00);
             notifyPropertyChanged(BR.adapter);
             notifyPropertyChanged(BR.list);
         }
         emptyVisibility.set(getData().isEmpty());
     }
-
-    public void newInstanceAdapter(Class<? extends IModelAdapter> t, Object... args) {
-        if(t != null)adapter = (Adapter)BaseUtil.newInstance(t,args);
-    }
-
 
     @Bindable
     public List<E> getList() {

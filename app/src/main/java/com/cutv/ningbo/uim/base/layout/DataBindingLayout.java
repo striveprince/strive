@@ -16,6 +16,8 @@ import android.widget.FrameLayout;
 import com.cutv.ningbo.BR;
 import com.cutv.ningbo.R;
 import com.cutv.ningbo.uim.base.BaseUtil;
+import com.cutv.ningbo.uim.base.adapter.IModelAdapter;
+import com.cutv.ningbo.uim.base.annotation.AdapterEntity;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.cycle.CycleContainer;
 import com.cutv.ningbo.uim.base.cycle.DataBindingActivity;
@@ -43,8 +45,8 @@ import java.util.Set;
 public class DataBindingLayout<T, Binding extends ViewDataBinding>
         extends FrameLayout
         implements CycleContainer<Binding>, Model
-
 {
+    private int index;
     private ModelView modelView;
     private ViewLayoutModel<T> model;
     private Binding binding;
@@ -88,7 +90,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
     }
 
     protected void bindModelView(Context context, TypedArray array,ViewLayoutModel<T> model) {
-        int index = array.getInteger(R.styleable.layout_index, 0);
+        index = array.getInteger(R.styleable.layout_index, 0);
         modelView = BaseUtil.findModelView(model.getClass());
         if (modelView.cycle()) addViewSet(this);
         int[] values = modelView.value();
@@ -100,7 +102,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
 
 
     public void bind() {
-        getModel().attachView(this);
+        getModel().attachView(this,index);
         binding.setVariable(BR.vm, getModel());
     }
 
@@ -129,7 +131,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
     }
 
     @Override
-    public void attachView(CycleContainer cycleContainer) {
+    public void attachView(CycleContainer cycleContainer,int model_index) {
 
     }
 
@@ -177,8 +179,8 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
         getModel().setRcHttp(http);
         getModel().setHolder_index(holder_index);
         if (http instanceof HttpArray) {
-            setAdapter(args);
-            getModel().setClazz(BaseUtil.getInterfacesGenericType(http.getClass(), HttpArray.class));
+            Class<?> c  = BaseUtil.getInterfacesGenericType(http.getClass(), HttpArray.class);
+            setAdapter(c,args);
         }
         getModel().onHttp();
         bind();
@@ -204,14 +206,14 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
      *             and the args is {fm}
      */
     public void setData(T data,int holder_index,Object...args){
+        getModel().setHolder_index(holder_index);
         if (data != null && data instanceof List) {
             List list = (List)data;
-            setAdapter(args);
             if(!list.isEmpty()){
-                getModel().setClazz(list.get(0).getClass());
+                Class<?> c  = list.get(0).getClass();
+                setAdapter(c,args);
             }
         }
-        getModel().setHolder_index(holder_index);
         bind();
     }
 
@@ -219,9 +221,8 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
      * @param args the array of adapter constructor params for example:
      *             {@link FragmentPagerAdapter}
      *             FragmentAdapter adapter = new FragmentAdapter(fm);
-     *             and the args is {fm}
+     *             and the args is {fm} or{adapter}
      */
-    public void setAdapter(Object...args){
-
-    };
+    void setAdapter(Class<?> c,Object...args){
+    }
 }

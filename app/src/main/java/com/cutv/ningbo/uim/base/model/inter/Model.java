@@ -16,7 +16,7 @@ import com.cutv.ningbo.uim.base.cycle.CycleContainer;
 
 
 public interface Model<T extends CycleContainer>{
-    void attachView(T t);
+    void attachView(T t,int model_index);
     void onResume();
     void onPause();
     void detachView();

@@ -35,7 +35,6 @@ public class RestfulTransformer<T> implements Observable.Transformer<InfoEntity<
                                         if (entity.isSucc()) subscriber.onNext(entity.getData());
                                         if(isToast||!entity.isSucc())subscriber.onError(new ApiException(entity.getInfo()));
                                 } catch (Exception e) {
-                                    e.printStackTrace();
                                     subscriber.onError(e);
                                 } finally {
                                     subscriber.onCompleted();

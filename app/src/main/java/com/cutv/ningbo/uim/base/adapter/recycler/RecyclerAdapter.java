@@ -48,7 +48,7 @@ public class RecyclerAdapter<E extends Event>
             if (modelView == null)
                 throw new RuntimeException(clazz!=null?
                         "this class :" + clazz.getName() + " need to add @ModelView"
-                        :"the clazz == null,please use the method setClazz(Class clazz) before setAdapter");
+                        :"the clazz == null,please use the method setAdapter(Class clazz) before setAdapter");
             int index = layoutIndex;
             if(layoutIndex>=modelView.value().length)index = 0;
             layoutId = modelView.value()[index];

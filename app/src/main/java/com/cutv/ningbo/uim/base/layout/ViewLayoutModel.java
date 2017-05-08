@@ -28,17 +28,9 @@ public class ViewLayoutModel<R> extends ViewModel<CycleContainer> implements Act
     private Http<R> rcHttp;
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
     private int holder_index;
-    private Class clazz;
+
     private boolean enable = true;
     protected int offset = 0;
-
-    public void setClazz(Class clazz) {
-        this.clazz = clazz;
-    }
-
-    public Class getClazz() {
-        return clazz;
-    }
 
     public int getHolder_index() {
         return holder_index;
@@ -60,7 +52,6 @@ public class ViewLayoutModel<R> extends ViewModel<CycleContainer> implements Act
     public void onHttp(View view){
         onHttp(0,false);
     }
-
 
     @Override
     public void call(R r) {
