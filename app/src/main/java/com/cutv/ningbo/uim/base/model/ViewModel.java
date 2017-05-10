@@ -63,6 +63,7 @@ public class ViewModel<T extends CycleContainer> implements EventModel<T> {
         t.getBinding().setVariable(getModelView().name()[model_index], this);
     }
 
+    @Override
     public T getT() {
         if (weakReference != null)
             return weakReference.get();

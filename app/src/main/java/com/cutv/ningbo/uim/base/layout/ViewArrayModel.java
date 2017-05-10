@@ -2,10 +2,12 @@ package com.cutv.ningbo.uim.base.layout;
 
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
+import android.support.annotation.NonNull;
 
 import com.cutv.ningbo.BR;
 import com.cutv.ningbo.uim.base.BaseUtil;
 import com.cutv.ningbo.uim.base.adapter.IModelAdapter;
+import com.cutv.ningbo.uim.base.annotation.AdapterEntity;
 import com.cutv.ningbo.uim.base.model.inter.Event;
 
 import java.util.ArrayList;
@@ -31,11 +33,9 @@ public class ViewArrayModel<E extends Event, Adapter extends IModelAdapter<E>> e
     public ObservableBoolean emptyVisibility = new ObservableBoolean(false);
     protected Adapter adapter;
 
-    public void setAdapter(Class<? extends Event> clazz,Object... args) {
-        if (clazz == null ) {
-            throw new RuntimeException("");
-        } else
-            adapter = (Adapter) BaseUtil.newInstance(clazz, Arrays.copyOfRange(args, 1, args.length));
+    public void setAdapter(@NonNull Class<? extends Event> clazz, Object... args) {
+        AdapterEntity entity = BaseUtil.findAdapterEntity(clazz);
+        if (entity != null) adapter = (Adapter) BaseUtil.newInstance(entity.adapter(), args);
     }
 
     @Override

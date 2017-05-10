@@ -2,6 +2,7 @@ package com.cutv.ningbo.uim.base.layout.model;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -60,8 +61,7 @@ public class RecyclerModel<E extends Event> extends ViewArrayModel<E, IRecyclerA
 //    }
 
     @Override
-   public void setAdapter(Class<?extends Event> clazz, Object...args) {
-        super.setAdapter(clazz,args);
+   public void setAdapter(@NonNull Class<?extends Event> clazz, Object...args) {
         if (adapter == null) {
             adapter = new RecyclerAdapter1<>();
             notifyPropertyChanged(BR.adapter);

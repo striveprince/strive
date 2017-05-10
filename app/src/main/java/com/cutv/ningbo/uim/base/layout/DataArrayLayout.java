@@ -11,8 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 
 import com.cutv.ningbo.R;
-import com.cutv.ningbo.uim.base.BaseUtil;
-import com.cutv.ningbo.uim.base.annotation.AdapterEntity;
 import com.cutv.ningbo.uim.base.layout.model.PagerModel;
 import com.cutv.ningbo.uim.base.layout.model.RecyclerModel;
 import com.cutv.ningbo.uim.base.model.inter.Event;
@@ -93,8 +91,6 @@ public class DataArrayLayout<E extends Event, Binding extends ViewDataBinding> e
     void setAdapter(Class c, Object... args) {
         super.setAdapter(c, args);
         model.setAdapter(c,args);
-//        AdapterEntity entity = BaseUtil.findAdapterEntity(model.getClass());
-//        if (entity != null) model.newInstanceAdapter(entity.adapter(),args);
     }
 
     @Override

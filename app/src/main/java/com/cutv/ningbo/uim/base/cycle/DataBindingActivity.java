@@ -13,6 +13,7 @@ import com.cutv.ningbo.inject.component.ActivityComponent;
 import com.cutv.ningbo.inject.component.DaggerActivityComponent;
 import com.cutv.ningbo.inject.module.ActivityModule;
 import com.cutv.ningbo.uim.base.BaseUtil;
+import com.cutv.ningbo.uim.base.annotation.LifeCycle;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.ViewModel;
 import com.cutv.ningbo.uim.base.model.inter.Model;
@@ -39,8 +40,9 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
     @Inject
     public VM vm;
     private Binding binding;
-    private Set<Model> set;
+        private Set<Model> set;
     private ActivityComponent mActivityComponent;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,18 +51,15 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
         ModelView modelView = vm.getModelView();
         if (modelView != null) {
             int[] values = modelView.value();
-            if(index>=values.length)index = 0;
+            if (index >= values.length) index = 0;
             int viewId = values[index];
             if (viewId > 0) {
                 binding = DataBindingUtil.setContentView(this, viewId);
-                if (modelView.cycle()) {
-                    set = addViewSet(binding.getRoot());
-//                    DknbApplication.getMap().put(viewId,set);
-                }
-//                binding.setVariable(modelView.name()[index],vm);
-                vm.attachView(this,index);
+                LifeCycle lifeCycle = BaseUtil.findLifeCycle(getClass());
+                if (lifeCycle != null && lifeCycle.cycle()) set = addViewSet(binding.getRoot());
+                vm.attachView(this, index);
             } else {
-                throw new RuntimeException("please use @ModelView at EventModel Item");
+                throw new RuntimeException("please use @ModelView at Model Item");
             }
         }
     }
@@ -73,7 +72,7 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
 
 
     protected final ActivityComponent activityComponent() {
-        if(mActivityComponent == null) {
+        if (mActivityComponent == null) {
             mActivityComponent = DaggerActivityComponent.builder()
                     .appComponent(DknbApplication.getAppComponent())
                     .activityModule(new ActivityModule(this))
@@ -104,7 +103,7 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
     @Override
     public Set<Model> addViewSet(View view) {
         Set<Model> set = new HashSet<>();
-        BaseUtil.addViewSet(set,view);
+        BaseUtil.addViewSet(set, view);
         return set;
     }
 

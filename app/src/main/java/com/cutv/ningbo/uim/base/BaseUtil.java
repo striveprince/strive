@@ -17,6 +17,7 @@ import android.widget.Toolbar;
 import com.cutv.ningbo.uim.base.adapter.IRecyclerAdapter;
 import com.cutv.ningbo.uim.base.adapter.recycler.RecyclerAdapter1;
 import com.cutv.ningbo.uim.base.annotation.AdapterEntity;
+import com.cutv.ningbo.uim.base.annotation.LifeCycle;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.inter.Model;
 
@@ -44,7 +45,14 @@ public class BaseUtil {
     public static void addViewSet(Set<Model> set, View view) {
         if (view instanceof ViewGroup) {
             ViewGroup viewGroup = (ViewGroup) view;
-            if (viewGroup instanceof Model) set.add((Model) viewGroup);
+            if (viewGroup instanceof Model) {
+                Model model = (Model) viewGroup;
+//                model.getT().getBinding().
+                ModelView modelView = model.getModelView();
+                if(modelView!=null&&modelView.cycle()){
+                    set.add(model);
+                }
+            }
             for (int index = 0; index < viewGroup.getChildCount(); index++) {
                 View child = viewGroup.getChildAt(index);
                 addViewSet(set, child);
@@ -82,6 +90,12 @@ public class BaseUtil {
         if (thisCls == null) return null;
         AdapterEntity contentView = thisCls.getAnnotation(AdapterEntity.class);
         if (contentView == null) return findAdapterEntity(thisCls.getSuperclass());
+        return contentView;
+    }
+    public static LifeCycle findLifeCycle(Class<?> thisCls) {
+        if (thisCls == null) return null;
+        LifeCycle contentView = thisCls.getAnnotation(LifeCycle.class);
+        if (contentView == null) return findLifeCycle(thisCls.getSuperclass());
         return contentView;
     }
 

@@ -10,14 +10,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.cutv.ningbo.BR;
 import com.cutv.ningbo.R;
 import com.cutv.ningbo.uim.base.BaseUtil;
-import com.cutv.ningbo.uim.base.adapter.IModelAdapter;
-import com.cutv.ningbo.uim.base.annotation.AdapterEntity;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.cycle.CycleContainer;
 import com.cutv.ningbo.uim.base.cycle.DataBindingActivity;
@@ -48,7 +46,6 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
     private int index;
     private ViewLayoutModel<T> model;
     private Binding binding;
-    private Set<Model> set;
 
     public DataBindingLayout(@NonNull Context context) {
         this(context, null);
@@ -90,7 +87,6 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
     protected void bindModelView(Context context, TypedArray array, ViewLayoutModel<T> model) {
         index = array.getInteger(R.styleable.layout_index, 0);
         ModelView modelView = model.getModelView();
-        if (modelView.cycle()) set = addViewSet(this);
         int[] values = modelView.value();
         if (index >= values.length) index = 0;
         int layoutId = modelView.value()[index];
@@ -121,28 +117,26 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
 
     @Override
     public void attachView(CycleContainer cycleContainer, int model_index) {
-        if (set != null) for (Model model : set) model.attachView(cycleContainer, model_index);
     }
 
     @Override
     public void onResume() {
         getModel().onResume();
-        if (set != null) for (Model model : set) model.onResume();
     }
 
     @Override
     public void onPause() {
         getModel().onPause();
-        if (set != null) for (Model model : set) model.onPause();
     }
 
     @Override
     public void detachView() {
         getModel().detachView();
-        if (set != null) {
-            for (Model model : set) model.detachView();
-            set.clear();
-        }
+    }
+
+    @Override
+    public CycleContainer getT() {
+        return this;
     }
 
     @Override
@@ -219,5 +213,16 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
      *             and the args is {fm} or{adapter}
      */
     void setAdapter(Class<?> c, Object... args) {
+    }
+
+    @Override
+    public void onEvent(View view, MotionEvent event) {
+
+    }
+
+    @Override
+    public ModelView getModelView() {
+        if (getModel() != null) return getModel().getModelView();
+        return null;
     }
 }

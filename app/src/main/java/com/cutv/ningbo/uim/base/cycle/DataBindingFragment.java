@@ -15,6 +15,7 @@ import com.cutv.ningbo.inject.component.DaggerFragmentComponent;
 import com.cutv.ningbo.inject.component.FragmentComponent;
 import com.cutv.ningbo.inject.module.FragmentModule;
 import com.cutv.ningbo.uim.base.BaseUtil;
+import com.cutv.ningbo.uim.base.annotation.LifeCycle;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.ViewModel;
 import com.cutv.ningbo.uim.base.model.inter.Model;
@@ -56,10 +57,8 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
             int viewId = values[index];
             if (viewId > 0) {
                 binding = DataBindingUtil.inflate(inflater,viewId,container,false);
-                if (modelView.cycle()) {
-                    set = addViewSet(binding.getRoot());
-//                    DknbApplication.getMap().put(viewId,set);
-                }
+                LifeCycle lifeCycle = BaseUtil.findLifeCycle(getClass());
+                if (lifeCycle != null && lifeCycle.cycle()) set = addViewSet(binding.getRoot());
                 vm.attachView(this,index);
             } else {
                 throw new RuntimeException("please use @ModelView at EventModel Item");
