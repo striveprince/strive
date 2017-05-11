@@ -15,5 +15,5 @@ import com.cutv.ningbo.uim.base.cycle.CycleContainer;
  */
 
 
-public interface EventModel<C extends CycleContainer> extends Model<C>,Entity {
+public interface EntityModel<C extends CycleContainer> extends Model<C>,Entity {
 }

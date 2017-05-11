@@ -122,7 +122,7 @@ public class SetInfo {
 
     public static final String ThirdLoginURL = UserUrl + "user/third-party-login";
     public static final String SmsUrl = UserUrl + "user/get-sms";
-    public static final String ThirdRegisterUrl = UserUrl + "user/third-party-register";
+    public static final String ThirdRegisterUrl = UserUrl + "user/third-party-registerEvent";
     public static final String ScoreUrl = UserUrl + "user/get-integral";
     public static final String NavigationUrl = UserUrl + "common/quick-navigation";
 //    public static final String CheckSignUrl = UserUrl + "user/sign";
@@ -140,7 +140,7 @@ public class SetInfo {
     public static final String AddressUpdateUrl = UserUrl + "user/update-user-message";
 
     public static final String UserHeadUrl = UserUrl + "user/upload-avatar";
-    public static final String RegisterUrl = UserUrl + "user/register";
+    public static final String RegisterUrl = UserUrl + "user/registerEvent";
 
     public static final String ShakeBeginUrl = SHAKEURL + "shake/task-begin";
     public static final String ShakeChannelUrl = SHAKEURL + "shake/get-shake-status";

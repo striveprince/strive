@@ -9,19 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cutv.ningbo.BR;
 import com.cutv.ningbo.DknbApplication;
 import com.cutv.ningbo.inject.component.DaggerFragmentComponent;
 import com.cutv.ningbo.inject.component.FragmentComponent;
 import com.cutv.ningbo.inject.module.FragmentModule;
-import com.cutv.ningbo.uim.base.BaseUtil;
-import com.cutv.ningbo.uim.base.annotation.LifeCycle;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.ViewModel;
-import com.cutv.ningbo.uim.base.model.inter.Model;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -42,8 +35,6 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
     @Inject
     public VM vm;
     private Binding binding;
-    private Set<Model> set;
-//    private ModelView modelView;
     private FragmentComponent component;
 
     @Nullable
@@ -57,11 +48,9 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
             int viewId = values[index];
             if (viewId > 0) {
                 binding = DataBindingUtil.inflate(inflater,viewId,container,false);
-                LifeCycle lifeCycle = BaseUtil.findLifeCycle(getClass());
-                if (lifeCycle != null && lifeCycle.cycle()) set = addViewSet(binding.getRoot());
                 vm.attachView(this,index);
             } else {
-                throw new RuntimeException("please use @ModelView at EventModel Item");
+                throw new RuntimeException("please use @ModelView at EntityModel Item");
             }
             return binding.getRoot();
         }
@@ -94,22 +83,14 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
     public void onPause() {
         super.onPause();
         if (vm != null) vm.onPause();
-        if (set != null) for (Model model : set) model.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if (vm != null) vm.onResume();
-        if (set != null) for (Model model : set) model.onResume();
     }
 
-    @Override
-    public Set<Model> addViewSet(View view) {
-        Set<Model> set = new HashSet<>();
-        BaseUtil.addViewSet(set,view);
-        return set;
-    }
 
 
     @Override
@@ -124,10 +105,6 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
     public void onDestroy() {
         super.onDestroy();
         if (vm != null) vm.detachView();
-        if (set != null) {
-            for (Model model : set) model.detachView();
-            set.clear();
-        }
     }
 
 }

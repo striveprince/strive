@@ -10,8 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import com.cutv.ningbo.R;
@@ -24,9 +22,7 @@ import com.cutv.ningbo.uim.base.model.inter.Http;
 import com.cutv.ningbo.uim.base.model.inter.HttpArray;
 import com.cutv.ningbo.uim.base.model.inter.Model;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * project：cutv_ningbo
@@ -99,12 +95,6 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
         return model;
     }
 
-    @Override
-    public Set<Model> addViewSet(View view) {
-        Set<Model> set = new HashSet<>();
-        BaseUtil.addViewSet(set, view);
-        return set;
-    }
 
 
     @Override
@@ -216,13 +206,9 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
     }
 
     @Override
-    public void onEvent(View view, MotionEvent event) {
-
-    }
-
-    @Override
     public ModelView getModelView() {
         if (getModel() != null) return getModel().getModelView();
         return null;
     }
+
 }

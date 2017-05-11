@@ -25,7 +25,7 @@ import rx.Observable;
 
 
 public interface CycleContainer<Binding extends ViewDataBinding> {
-    Set<Model> addViewSet(View v);
+//    Set<Model> addViewSet(View v);
     DataBindingActivity getDataActivity();
     Binding getBinding();
 }

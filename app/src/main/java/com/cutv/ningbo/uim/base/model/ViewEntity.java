@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.cutv.ningbo.uim.base.BaseUtil;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.inter.Entity;
+import com.cutv.ningbo.uim.base.model.inter.Event;
 
 /**
  * project：cutv_ningbo
@@ -23,34 +24,8 @@ import com.cutv.ningbo.uim.base.model.inter.Entity;
  */
 
 
-public class ViewEntity implements Entity {
+public class ViewEntity extends ViewEvent implements Entity {
     private transient PropertyChangeRegistry mCallbacks;
-    private transient ModelView modelView;
-
-    public void event(View view, MotionEvent event) {
-        if (getModelView() != null && getModelView().event() != 0) {
-            eventSet.put(getModelView().event(), this);
-            eventSet.get(getModelView().event()).onEvent(view, event);
-        }
-    }
-
-    public void removeEvent(int event) {
-        eventSet.remove(event);
-    }
-
-    @Override
-    public ModelView getModelView() {
-        if (modelView == null) {
-            modelView = BaseUtil.findModelView(getClass());
-            if(modelView== null)throw new RuntimeException("should to add @ModelView to the class:"+getClass());
-        }
-        return modelView;
-    }
-
-    @Override
-    public void onEvent(View view, MotionEvent event) {
-
-    }
 
     @Override
     public void addOnPropertyChangedCallback(OnPropertyChangedCallback callback) {

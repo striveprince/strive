@@ -1,7 +1,6 @@
 package com.cutv.ningbo.uim.base;
 
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,10 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toolbar;
 
-import com.cutv.ningbo.uim.base.adapter.IRecyclerAdapter;
-import com.cutv.ningbo.uim.base.adapter.recycler.RecyclerAdapter1;
 import com.cutv.ningbo.uim.base.annotation.AdapterEntity;
-import com.cutv.ningbo.uim.base.annotation.LifeCycle;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.inter.Model;
 
@@ -25,6 +21,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -42,28 +39,31 @@ import java.util.Set;
 
 public class BaseUtil {
 
+    /**
+     * @param set  the container of model
+     * @param view view
+     */
     public static void addViewSet(Set<Model> set, View view) {
-        if (view instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) view;
-            if (viewGroup instanceof Model) {
-                Model model = (Model) viewGroup;
-//                model.getT().getBinding().
-                ModelView modelView = model.getModelView();
-                if(modelView!=null&&modelView.cycle()){
-                    set.add(model);
+        if (view instanceof Model) {
+            Model model = (Model) view;
+            ModelView modelView = model.getModelView();
+            if (modelView != null)
+                switch (modelView.cycle()) {
+                    case 0:return;
+                    case 1:set.add(model);
+                        return;
+                    case 2:set.add(model);
+                    case 3:if (view instanceof ViewGroup) {
+                            ViewGroup viewGroup = (ViewGroup) view;
+                            for (int index = 0; index < viewGroup.getChildCount(); index++) {
+                                View child = viewGroup.getChildAt(index);
+                                addViewSet(set, child);
+                            }
+                            break;
+                        }
                 }
-            }
-            for (int index = 0; index < viewGroup.getChildCount(); index++) {
-                View child = viewGroup.getChildAt(index);
-                addViewSet(set, child);
-            }
         }
     }
-//    public static Set<Model> addViewSet(View view){
-//        Set<Model> set = new HashSet<>();
-//        addViewSet(set,view);
-//        return set;
-//    }
 
     public static Class getSuperGenericType(Class clazz) {
         return getSuperGenericType(clazz, 0);
@@ -92,12 +92,12 @@ public class BaseUtil {
         if (contentView == null) return findAdapterEntity(thisCls.getSuperclass());
         return contentView;
     }
-    public static LifeCycle findLifeCycle(Class<?> thisCls) {
-        if (thisCls == null) return null;
-        LifeCycle contentView = thisCls.getAnnotation(LifeCycle.class);
-        if (contentView == null) return findLifeCycle(thisCls.getSuperclass());
-        return contentView;
-    }
+//    public static LifeCycle findLifeCycle(Class<?> thisCls) {
+//        if (thisCls == null) return null;
+//        LifeCycle contentView = thisCls.getAnnotation(LifeCycle.class);
+//        if (contentView == null) return findLifeCycle(thisCls.getSuperclass());
+//        return contentView;
+//    }
 
     public static ViewGroup.LayoutParams params(View view, boolean parent) {
         ViewGroup.LayoutParams params;
@@ -190,7 +190,7 @@ public class BaseUtil {
         return modelView.value()[index];
     }
 
-    public static  <T> T newInstance(Class<T> t, Object... args) {
+    public static <T> T newInstance(Class<T> t, Object... args) {
         T adapter = null;
         if (t != null) {
             if (args.length == 0) {

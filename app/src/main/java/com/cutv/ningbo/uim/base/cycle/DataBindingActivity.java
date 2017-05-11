@@ -5,20 +5,15 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
-import com.cutv.ningbo.BR;
 import com.cutv.ningbo.DknbApplication;
 import com.cutv.ningbo.inject.component.ActivityComponent;
 import com.cutv.ningbo.inject.component.DaggerActivityComponent;
 import com.cutv.ningbo.inject.module.ActivityModule;
-import com.cutv.ningbo.uim.base.BaseUtil;
-import com.cutv.ningbo.uim.base.annotation.LifeCycle;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.ViewModel;
 import com.cutv.ningbo.uim.base.model.inter.Model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -40,7 +35,7 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
     @Inject
     public VM vm;
     private Binding binding;
-        private Set<Model> set;
+    private Set<Model> set;
     private ActivityComponent mActivityComponent;
 
 
@@ -55,8 +50,8 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
             int viewId = values[index];
             if (viewId > 0) {
                 binding = DataBindingUtil.setContentView(this, viewId);
-                LifeCycle lifeCycle = BaseUtil.findLifeCycle(getClass());
-                if (lifeCycle != null && lifeCycle.cycle()) set = addViewSet(binding.getRoot());
+//                LifeCycle lifeCycle = BaseUtil.findLifeCycle(getClass());
+//                if (lifeCycle != null && lifeCycle.cycle()) set = addViewSet(binding.getRoot());
                 vm.attachView(this, index);
             } else {
                 throw new RuntimeException("please use @ModelView at Model Item");
@@ -100,12 +95,12 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
         if (set != null) for (Model model : set) model.onResume();
     }
 
-    @Override
-    public Set<Model> addViewSet(View view) {
-        Set<Model> set = new HashSet<>();
-        BaseUtil.addViewSet(set, view);
-        return set;
-    }
+//    @Override
+//    public Set<Model> addViewSet(View view) {
+//        Set<Model> set = new HashSet<>();
+//        BaseUtil.addViewSet(set, view);
+//        return set;
+//    }
 
 
     @Override

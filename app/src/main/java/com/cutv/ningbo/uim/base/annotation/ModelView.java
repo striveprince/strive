@@ -28,5 +28,5 @@ public @interface ModelView {
     @LayoutRes int[] value();
     int[] name() default {BR.vm};
     int event() default 0;
-    boolean cycle() default false;
+    int cycle() default 0;
 }
