@@ -35,7 +35,7 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
     @Inject
     public VM vm;
     private Binding binding;
-    private Set<Model> set;
+//    private Set<Model> set;
     private ActivityComponent mActivityComponent;
 
 
@@ -85,14 +85,12 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
     protected void onPause() {
         super.onPause();
         if (vm != null) vm.onPause();
-        if (set != null) for (Model model : set) model.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (vm != null) vm.onResume();
-        if (set != null) for (Model model : set) model.onResume();
     }
 
 //    @Override
@@ -112,10 +110,6 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
     protected void onDestroy() {
         super.onDestroy();
         if (vm != null) vm.detachView();
-        if (set != null) {
-            for (Model model : set) model.detachView();
-            set.clear();
-        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.cutv.ningbo.uim.base.model;
 
 import android.databinding.ViewDataBinding;
+import android.support.annotation.CallSuper;
 import android.view.View;
 
 import com.cutv.ningbo.uim.base.BaseUtil;
@@ -33,6 +34,7 @@ public class ViewModel<T extends CycleContainer> extends ViewEntity implements E
     private transient WeakReference<T> weakReference;
     private transient Set<Model> set;
 
+    @CallSuper
     @Override
     public void attachView(T t, int model_index) {
         weakReference = new WeakReference<>(t);
@@ -43,22 +45,25 @@ public class ViewModel<T extends CycleContainer> extends ViewEntity implements E
 
     @Override
     public T getT() {
-        if (weakReference != null)
-            return weakReference.get();
-        else Timber.e("weakReference == null");
-        return null;
+        T t = null;
+        if (weakReference != null)t = weakReference.get();
+        if(t == null)Timber.e(weakReference == null?"weakReference ==null":"cycleContainer object == null");
+        return t;
     }
 
+    @CallSuper
     @Override
     public void onResume() {
         if (set != null) for (Model model : set) model.onResume();
     }
 
+    @CallSuper
     @Override
     public void onPause() {
         if (set != null) for (Model model : set) model.onPause();
     }
 
+    @CallSuper
     @Override
     public void detachView() {
         if (getT() != null) {
@@ -84,9 +89,9 @@ public class ViewModel<T extends CycleContainer> extends ViewEntity implements E
         return null;
     }
 
-    public Set<Model> addViewSet(View view) {
+    private Set<Model> addViewSet(View view) {
         Set<Model> set = new HashSet<>();
-         BaseUtil.addViewSet(set, view);
-        return set;
+        BaseUtil.addViewSet(set, view);
+        return set.size() > 0 ? set : null;
     }
 }

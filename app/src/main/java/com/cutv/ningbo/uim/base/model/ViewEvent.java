@@ -66,10 +66,4 @@ public class ViewEvent implements Event {
 
     }
 
-//    @Override
-//    public LifeCycle getLifCycle() {
-//        if (lifeCycle == null)
-//            lifeCycle = BaseUtil.findLifeCycle(getClass());
-//        return lifeCycle;
-//    }
 }

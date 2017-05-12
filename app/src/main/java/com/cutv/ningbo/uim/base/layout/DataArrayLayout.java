@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import com.cutv.ningbo.R;
 import com.cutv.ningbo.uim.base.layout.model.PagerModel;
 import com.cutv.ningbo.uim.base.layout.model.RecyclerModel;
+import com.cutv.ningbo.uim.base.model.ViewHttpModel;
 import com.cutv.ningbo.uim.base.model.inter.Event;
 
 import java.util.List;
@@ -94,7 +95,7 @@ public class DataArrayLayout<E extends Event, Binding extends ViewDataBinding> e
     }
 
     @Override
-    public ViewLayoutModel<List<E>> getModel() {
+    public ViewHttpModel<List<E>> getModel() {
         return model;
     }
 

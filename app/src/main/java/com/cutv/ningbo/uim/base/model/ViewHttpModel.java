@@ -1,11 +1,11 @@
-package com.cutv.ningbo.uim.base.layout;
+package com.cutv.ningbo.uim.base.model;
 
 import android.view.View;
 
 import com.cutv.ningbo.uim.base.cycle.CycleContainer;
-import com.cutv.ningbo.uim.base.model.ViewModel;
 import com.cutv.ningbo.uim.base.model.inter.Http;
 
+import rx.Subscription;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
@@ -23,7 +23,7 @@ import timber.log.Timber;
  */
 
 
-public class ViewLayoutModel<R> extends ViewModel<CycleContainer> implements Action1<R> {
+public class ViewHttpModel<R> extends ViewModel<CycleContainer> implements Action1<R> {
     private R r;
     private Http<R> rcHttp;
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
@@ -43,13 +43,13 @@ public class ViewLayoutModel<R> extends ViewModel<CycleContainer> implements Act
         this.rcHttp = rcHttp;
     }
 
-    public void onHttp(int offset,boolean cache){
+    public void onHttp(int offset,boolean refresh){
         this.offset = offset;
-        if(rcHttp != null)compositeSubscription.add(rcHttp.http(offset,cache).subscribe(this, Timber::i));
+        if(rcHttp != null)compositeSubscription.add(rcHttp.http(offset,refresh).subscribe(this, Timber::i));
     }
 
-    public void onHttp(View view){
-        onHttp(0,false);
+    public void onRefreshHttp(View view){
+        onHttp(0,true);
     }
 
     @Override
@@ -67,8 +67,8 @@ public class ViewLayoutModel<R> extends ViewModel<CycleContainer> implements Act
         compositeSubscription.clear();
     }
 
-    public void onHttp() {
-        onHttp(0,false);
+    public void onHttp(boolean refresh) {
+        onHttp(offset,refresh);
     }
 
     public void setEnable(boolean enable) {

@@ -17,5 +17,5 @@ import rx.Observable;
 
 
 public interface Http<R> {
-    Observable<R> http(int offset, boolean cache);
+    Observable<R> http(int offset, boolean refresh);
 }

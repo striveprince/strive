@@ -18,6 +18,7 @@ import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.cycle.CycleContainer;
 import com.cutv.ningbo.uim.base.cycle.DataBindingActivity;
 import com.cutv.ningbo.uim.base.layout.model.MediaControlModel;
+import com.cutv.ningbo.uim.base.model.ViewHttpModel;
 import com.cutv.ningbo.uim.base.model.inter.Http;
 import com.cutv.ningbo.uim.base.model.inter.HttpArray;
 import com.cutv.ningbo.uim.base.model.inter.Model;
@@ -40,7 +41,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
         extends FrameLayout
         implements CycleContainer<Binding>, Model {
     private int index;
-    private ViewLayoutModel<T> model;
+    private ViewHttpModel<T> model;
     private Binding binding;
 
     public DataBindingLayout(@NonNull Context context) {
@@ -80,7 +81,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
         bindModelView(context, array, model);
     }
 
-    protected void bindModelView(Context context, TypedArray array, ViewLayoutModel<T> model) {
+    protected void bindModelView(Context context, TypedArray array, ViewHttpModel<T> model) {
         index = array.getInteger(R.styleable.layout_index, 0);
         ModelView modelView = model.getModelView();
         int[] values = modelView.value();
@@ -91,7 +92,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
         getModel().attachView(this, index);
     }
 
-    public ViewLayoutModel<T> getModel() {
+    public ViewHttpModel<T> getModel() {
         return model;
     }
 
@@ -161,7 +162,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
             Class<?> c = BaseUtil.getInterfacesGenericType(http.getClass(), HttpArray.class);
             setAdapter(c, args);
         }
-        getModel().onHttp();
+        getModel().onHttp(false);
         getModel().attachView(this, index);
     }
 
@@ -184,7 +185,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
      *                     FragmentAdapter adapter = new FragmentAdapter(fm);
      *                     and the args is {fm}
      */
-    public void setData(T data, int holder_index, Object... args) {
+    public void setData(T data, int holder_index,Object... args) {
         getModel().setHolder_index(holder_index);
         if (data != null && data instanceof List) {
             List list = (List) data;

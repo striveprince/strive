@@ -17,5 +17,4 @@ import com.cutv.ningbo.uim.base.annotation.ModelView;
 
 public interface Parse {
     ModelView getModelView();
-//    LifeCycle getLifCycle();
 }

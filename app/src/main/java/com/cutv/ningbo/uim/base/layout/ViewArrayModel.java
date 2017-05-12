@@ -8,10 +8,10 @@ import com.cutv.ningbo.BR;
 import com.cutv.ningbo.uim.base.BaseUtil;
 import com.cutv.ningbo.uim.base.adapter.IModelAdapter;
 import com.cutv.ningbo.uim.base.annotation.AdapterEntity;
+import com.cutv.ningbo.uim.base.model.ViewHttpModel;
 import com.cutv.ningbo.uim.base.model.inter.Event;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 
-public class ViewArrayModel<E extends Event, Adapter extends IModelAdapter<E>> extends ViewLayoutModel<List<E>> {
+public class ViewArrayModel<E extends Event, Adapter extends IModelAdapter<E>> extends ViewHttpModel<List<E>> {
     private List<E> list = new ArrayList<>();
     public ObservableBoolean refreshing = new ObservableBoolean(true);
     public ObservableBoolean emptyVisibility = new ObservableBoolean(false);
@@ -36,6 +36,7 @@ public class ViewArrayModel<E extends Event, Adapter extends IModelAdapter<E>> e
     public void setAdapter(@NonNull Class<? extends Event> clazz, Object... args) {
         AdapterEntity entity = BaseUtil.findAdapterEntity(clazz);
         if (entity != null) adapter = (Adapter) BaseUtil.newInstance(entity.adapter(), args);
+        notifyPropertyChanged(BR.adapter);
     }
 
     @Override
@@ -51,15 +52,11 @@ public class ViewArrayModel<E extends Event, Adapter extends IModelAdapter<E>> e
     public void call(List<E> es) {
         if (refreshing.get()) es.clear();
         this.list.addAll(es);
-        if (adapter != null) {
-            adapter.setList(offset, es, offset == 0 ? 0x10 : 0x00);
-            notifyPropertyChanged(BR.adapter);
-            notifyPropertyChanged(BR.list);
-        }
+        if (adapter != null)
+            adapter.setList(offset, es, offset > 0 ? 0x00 : 0x10);
         emptyVisibility.set(getData().isEmpty());
     }
 
-    @Bindable
     public List<E> getList() {
         return list;
     }
