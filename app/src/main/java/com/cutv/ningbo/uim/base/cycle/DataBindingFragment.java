@@ -10,13 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cutv.ningbo.DknbApplication;
+import com.cutv.ningbo.inject.component.ActivityComponent;
 import com.cutv.ningbo.inject.component.DaggerFragmentComponent;
 import com.cutv.ningbo.inject.component.FragmentComponent;
 import com.cutv.ningbo.inject.module.FragmentModule;
+import com.cutv.ningbo.uim.base.ReflectUtil;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.ViewModel;
 
+import java.lang.reflect.Method;
+
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 /**
  * project：cutv_ningbo
@@ -31,7 +37,7 @@ import javax.inject.Inject;
  */
 
 
-public abstract class DataBindingFragment<VM extends ViewModel, Binding extends ViewDataBinding> extends Fragment implements CycleContainer {
+public abstract class DataBindingFragment<VM extends ViewModel, Binding extends ViewDataBinding> extends Fragment implements CycleContainer<Binding,FragmentComponent> {
     @Inject
     public VM vm;
     private Binding binding;
@@ -40,7 +46,8 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        int index = inject(fragmentComponent());
+        inject();
+        int index = getViewIndex();
         ModelView modelView = vm.getModelView();
         if (modelView != null) {
             int[] values = modelView.value();
@@ -57,21 +64,13 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    /**
-     * @param activityComponent
-     * @return default return 0 it's mean
-     */
-    public abstract int inject(FragmentComponent activityComponent);
-
-
-    protected final FragmentComponent fragmentComponent() {
-        if(component == null) {
-            component = DaggerFragmentComponent.builder()
-                    .appComponent(DknbApplication.getAppComponent())
-                    .fragmentModule(new FragmentModule(this))
-                    .build();
+    public void inject(){
+        try {
+            Method method = FragmentComponent.class.getDeclaredMethod("inject", getClass());
+            ReflectUtil.invoke(method, getComponent(), this);
+        } catch (NoSuchMethodException e) {
+            Timber.e("name:"+getClass().getSimpleName()+"need to add @Method inject to ActivityComponent");
         }
-        return component;
     }
 
 
@@ -91,13 +90,29 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
         if (vm != null) vm.onResume();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (vm != null) vm.onStop();
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (vm != null) vm.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        if (vm != null) vm.onStarted();
+    }
 
 
     @Override
     public DataBindingActivity getDataActivity() {
         if(getActivity() instanceof DataBindingActivity){
             return (DataBindingActivity)getActivity();
-        };
+        }
         return null;
     }
 
@@ -107,4 +122,25 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
         if (vm != null) vm.detachView();
     }
 
+
+    @Override
+    public FragmentComponent getComponent() {
+        if(component == null) {
+            component = DaggerFragmentComponent.builder()
+                    .appComponent(DknbApplication.getAppComponent())
+                    .fragmentModule(new FragmentModule(this))
+                    .build();
+        }
+        return component;
+    }
+
+    @Override
+    public int getViewIndex() {
+        return 0;
+    }
+
+    @Override
+    public ViewModel getVm() {
+        return vm;
+    }
 }

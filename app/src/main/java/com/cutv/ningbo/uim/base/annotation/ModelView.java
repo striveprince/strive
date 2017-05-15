@@ -29,4 +29,5 @@ public @interface ModelView {
     int[] name() default {BR.vm};
     int event() default 0;
     int cycle() default 0;
+    String uri() default "";
 }

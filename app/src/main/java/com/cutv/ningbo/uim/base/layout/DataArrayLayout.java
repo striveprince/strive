@@ -95,7 +95,7 @@ public class DataArrayLayout<E extends Event, Binding extends ViewDataBinding> e
     }
 
     @Override
-    public ViewHttpModel<List<E>> getModel() {
+    public ViewHttpModel<List<E>> getVm() {
         return model;
     }
 

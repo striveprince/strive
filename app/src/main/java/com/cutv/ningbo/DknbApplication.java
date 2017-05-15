@@ -1,14 +1,22 @@
 package com.cutv.ningbo;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Application;
-import android.util.SparseArray;
+import android.databinding.DataBindingUtil;
+import android.os.Build;
+import android.os.Bundle;
 
+import com.cutv.ningbo.inject.component.ActivityComponent;
 import com.cutv.ningbo.inject.component.AppComponent;
 import com.cutv.ningbo.inject.component.DaggerAppComponent;
 import com.cutv.ningbo.inject.module.AppModule;
-import com.cutv.ningbo.uim.base.model.inter.Model;
+import com.cutv.ningbo.uim.base.ReflectUtil;
+import com.cutv.ningbo.uim.base.annotation.ModelView;
+import com.cutv.ningbo.uim.base.cycle.CycleContainer;
+import com.cutv.ningbo.uim.base.model.ViewModel;
 
-import java.util.Set;
+import java.lang.reflect.Method;
 
 import timber.log.Timber;
 
@@ -24,9 +32,9 @@ import timber.log.Timber;
  *
  * @version 2.0
  */
-public class DknbApplication extends Application {
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+public class DknbApplication extends Application implements Application.ActivityLifecycleCallbacks {
     private static AppComponent mAppComponent;
-//    private static final SparseArray<Set<Model>> map = new SparseArray<>();
 
     @Override
     public void onCreate() {
@@ -34,14 +42,58 @@ public class DknbApplication extends Application {
         mAppComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
-        if(BuildConfig.DEBUG) { Timber.plant(new Timber.DebugTree()); }
-//        CrashHandler.getInstance().init(this);
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+            registerActivityLifecycleCallbacks(this);
     }
+
     public static AppComponent getAppComponent() {
         return mAppComponent;
     }
 
-//    public static SparseArray<Set<Model>> getMap() {
-//        return map;
-//    }
+
+    @Override
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        if (activity instanceof CycleContainer) {
+            CycleContainer cycleContainer = (CycleContainer) activity;
+            Object o = cycleContainer.getComponent();
+            if (o instanceof ActivityComponent) {
+                ActivityComponent mActivityComponent = (ActivityComponent) o;
+                try {
+                    Method method = ActivityComponent.class.getDeclaredMethod("inject", activity.getClass());
+                    ReflectUtil.invoke(method, mActivityComponent, activity);
+                } catch (NoSuchMethodException e) {
+                    Timber.e("name:"+activity.getClass().getSimpleName()+"need to add @Method inject to ActivityComponent");
+                }
+            }
+        }
+    }
+
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+    }
+
+    @Override
+    public void onActivityResumed(Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+    }
+
+    @Override
+    public void onActivityStopped(Activity activity) {
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+    }
+
+    @Override
+    public void onActivityDestroyed(Activity activity) {
+    }
 }

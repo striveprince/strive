@@ -1,6 +1,7 @@
 package com.cutv.ningbo.uim.base.model;
 
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.view.View;
 
@@ -46,8 +47,9 @@ public class ViewModel<T extends CycleContainer> extends ViewEntity implements E
     @Override
     public T getT() {
         T t = null;
-        if (weakReference != null)t = weakReference.get();
-        if(t == null)Timber.e(weakReference == null?"weakReference ==null":"cycleContainer object == null");
+        if (weakReference != null) t = weakReference.get();
+        if (t == null)
+            Timber.e(weakReference == null ? "weakReference ==null" : "cycleContainer object == null");
         return t;
     }
 
@@ -61,6 +63,23 @@ public class ViewModel<T extends CycleContainer> extends ViewEntity implements E
     @Override
     public void onPause() {
         if (set != null) for (Model model : set) model.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (set != null) for (Model model : set) model.onSaveInstanceState(outState);
+    }
+
+    @CallSuper
+    @Override
+    public void onStop() {
+        if (set != null) for (Model model : set) model.onStop();
+    }
+
+    @CallSuper
+    @Override
+    public void onStarted() {
+        if (set != null) for (Model model : set) model.onStarted();
     }
 
     @CallSuper

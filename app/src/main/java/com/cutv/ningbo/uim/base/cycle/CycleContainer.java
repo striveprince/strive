@@ -4,7 +4,10 @@ import android.databinding.ViewDataBinding;
 import android.view.View;
 
 import com.cutv.ningbo.data.entity.InfoEntity;
+import com.cutv.ningbo.inject.component.ActivityComponent;
+import com.cutv.ningbo.inject.component.FragmentComponent;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
+import com.cutv.ningbo.uim.base.model.ViewModel;
 import com.cutv.ningbo.uim.base.model.inter.Model;
 
 import java.util.Set;
@@ -24,8 +27,11 @@ import rx.Observable;
  */
 
 
-public interface CycleContainer<Binding extends ViewDataBinding> {
+public interface CycleContainer<Binding extends ViewDataBinding,T> {
 //    Set<Model> addViewSet(View v);
     DataBindingActivity getDataActivity();
     Binding getBinding();
+    T getComponent();
+    int getViewIndex();
+    ViewModel getVm();
 }

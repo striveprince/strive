@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,7 +40,7 @@ import java.util.List;
 
 public class DataBindingLayout<T, Binding extends ViewDataBinding>
         extends FrameLayout
-        implements CycleContainer<Binding>, Model {
+        implements CycleContainer<Binding,Object>, Model {
     private int index;
     private ViewHttpModel<T> model;
     private Binding binding;
@@ -89,13 +90,12 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
         int layoutId = modelView.value()[index];
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, this, true);
         array.recycle();
-        getModel().attachView(this, index);
+        getVm().attachView(this, index);
     }
 
-    public ViewHttpModel<T> getModel() {
+    public ViewHttpModel<T> getVm() {
         return model;
     }
-
 
 
     @Override
@@ -112,17 +112,17 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
 
     @Override
     public void onResume() {
-        getModel().onResume();
+        getVm().onResume();
     }
 
     @Override
     public void onPause() {
-        getModel().onPause();
+        getVm().onPause();
     }
 
     @Override
     public void detachView() {
-        getModel().detachView();
+        getVm().detachView();
     }
 
     @Override
@@ -156,14 +156,14 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
      *                     and the args is {fm}
      */
     public void setHttpObservable(Http<T> http, int holder_index, Object... args) {
-        getModel().setRcHttp(http);
-        getModel().setHolder_index(holder_index);
+        getVm().setRcHttp(http);
+        getVm().setHolder_index(holder_index);
         if (http instanceof HttpArray) {
             Class<?> c = BaseUtil.getInterfacesGenericType(http.getClass(), HttpArray.class);
             setAdapter(c, args);
         }
-        getModel().onHttp(false);
-        getModel().attachView(this, index);
+        getVm().onHttp(false);
+        getVm().attachView(this, index);
     }
 
     /**
@@ -186,7 +186,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
      *                     and the args is {fm}
      */
     public void setData(T data, int holder_index,Object... args) {
-        getModel().setHolder_index(holder_index);
+        getVm().setHolder_index(holder_index);
         if (data != null && data instanceof List) {
             List list = (List) data;
             if (!list.isEmpty()) {
@@ -194,7 +194,7 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
                 setAdapter(c, args);
             }
         }
-        getModel().attachView(this, index);
+        getVm().attachView(this, index);
     }
 
     /**
@@ -203,13 +203,34 @@ public class DataBindingLayout<T, Binding extends ViewDataBinding>
      *             FragmentAdapter adapter = new FragmentAdapter(fm);
      *             and the args is {fm} or{adapter}
      */
-    void setAdapter(Class<?> c, Object... args) {
-    }
+    void setAdapter(Class<?> c, Object... args) {}
 
     @Override
     public ModelView getModelView() {
-        if (getModel() != null) return getModel().getModelView();
+        if (getVm() != null) return getVm().getModelView();
         return null;
     }
 
+    @Override
+    public void onStarted() {
+        if (getVm() != null)getVm().onStarted();
+    }
+
+    @Override
+    public void onStop() {if (getVm() != null)getVm().onStop();}
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (getVm() != null)getVm().onSaveInstanceState(outState);
+    }
+
+    @Override
+    public Object getComponent() {
+        return null;
+    }
+
+    @Override
+    public int getViewIndex() {
+        return 0;
+    }
 }

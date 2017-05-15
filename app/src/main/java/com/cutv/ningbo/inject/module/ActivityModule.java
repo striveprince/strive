@@ -1,24 +1,21 @@
 package com.cutv.ningbo.inject.module;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 
-import com.cutv.ningbo.inject.qualifier.context.FragmentContext;
-import com.cutv.ningbo.inject.scope.FragmentScope;
-import com.cutv.ningbo.ui.base.fragment.BaseFragment;
 import com.cutv.ningbo.inject.qualifier.context.ActivityContext;
 import com.cutv.ningbo.inject.scope.ActivityScope;
 import com.cutv.ningbo.ui.activity.main.fragment.home.HomePageFragment;
 import com.cutv.ningbo.ui.activity.main.fragment.news.NewsFragment;
-
+import com.cutv.ningbo.ui.base.fragment.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 import dagger.Module;
 import dagger.Provides;
@@ -36,9 +33,9 @@ import dagger.Provides;
  */
 @Module
 public class ActivityModule {
-    private final AppCompatActivity activity;
+    private final Activity activity;
 
-    public ActivityModule(AppCompatActivity activity) {
+    public ActivityModule(Activity activity) {
         this.activity = activity;
     }
 
@@ -65,7 +62,9 @@ public class ActivityModule {
     @Provides
     @ActivityScope
     FragmentManager provideFragmentManager() {
-        return activity.getSupportFragmentManager();
+        if(activity instanceof FragmentActivity)
+        return ((FragmentActivity)activity).getSupportFragmentManager();
+        return null;
     }
 
     @Provides

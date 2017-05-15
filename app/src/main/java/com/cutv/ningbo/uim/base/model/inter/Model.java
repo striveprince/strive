@@ -1,5 +1,7 @@
 package com.cutv.ningbo.uim.base.model.inter;
 
+import android.os.Bundle;
+
 import com.cutv.ningbo.uim.base.cycle.CycleContainer;
 
 /**
@@ -18,7 +20,10 @@ import com.cutv.ningbo.uim.base.cycle.CycleContainer;
 public interface Model<T extends CycleContainer> extends Parse{
     void attachView(T t,int model_index);
     T getT();
+    void onStarted();
     void onResume();
     void onPause();
     void detachView();
+    void onStop();
+    void onSaveInstanceState(Bundle outState);
 }

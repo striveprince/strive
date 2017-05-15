@@ -45,7 +45,7 @@ public class RecyclerModel<E extends Event> extends ViewArrayModel<E, IRecyclerA
     @Override
     public void attachView(CycleContainer cycleContainer,int model_index) {
         super.attachView(cycleContainer,model_index);
-        if(layoutManager==null)layoutManager = new LinearLayoutManager(cycleContainer.getDataActivity());
+        if(layoutManager==null)layoutManager = new LinearLayoutManager(getDataActivity());
     }
 
     @Override

@@ -9,14 +9,19 @@ import android.support.v7.app.AppCompatActivity;
 import com.cutv.ningbo.DknbApplication;
 import com.cutv.ningbo.inject.component.ActivityComponent;
 import com.cutv.ningbo.inject.component.DaggerActivityComponent;
+import com.cutv.ningbo.inject.component.FragmentComponent;
 import com.cutv.ningbo.inject.module.ActivityModule;
+import com.cutv.ningbo.uim.base.ReflectUtil;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.ViewModel;
 import com.cutv.ningbo.uim.base.model.inter.Model;
 
+import java.lang.reflect.Method;
 import java.util.Set;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 /**
  * project：cutv_ningbo
@@ -31,27 +36,24 @@ import javax.inject.Inject;
  */
 
 
-public abstract class DataBindingActivity<VM extends ViewModel, Binding extends ViewDataBinding> extends AppCompatActivity implements CycleContainer<Binding> {
+public abstract class DataBindingActivity<VM extends ViewModel, Binding extends ViewDataBinding> extends AppCompatActivity implements CycleContainer<Binding, ActivityComponent> {
     @Inject
     public VM vm;
     private Binding binding;
-//    private Set<Model> set;
     private ActivityComponent mActivityComponent;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int index = inject(activityComponent());
+        inject();
         ModelView modelView = vm.getModelView();
         if (modelView != null) {
             int[] values = modelView.value();
+            int index = getViewIndex();
             if (index >= values.length) index = 0;
             int viewId = values[index];
             if (viewId > 0) {
                 binding = DataBindingUtil.setContentView(this, viewId);
-//                LifeCycle lifeCycle = BaseUtil.findLifeCycle(getClass());
-//                if (lifeCycle != null && lifeCycle.cycle()) set = addViewSet(binding.getRoot());
                 vm.attachView(this, index);
             } else {
                 throw new RuntimeException("please use @ModelView at Model Item");
@@ -59,14 +61,57 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
         }
     }
 
-    /**
-     * @param activityComponent activityComponent
-     * @return default return 0 it's mean get the first view layoutId from {@link ModelView}
-     */
-    public abstract int inject(ActivityComponent activityComponent);
+    public void inject(){
+        try {
+            Method method = ActivityComponent.class.getDeclaredMethod("inject", getClass());
+            ReflectUtil.invoke(method, getComponent(), this);
+        } catch (NoSuchMethodException e) {
+            Timber.e("name:"+getClass().getSimpleName()+"need to add @Method inject to ActivityComponent");
+        }
+    }
 
+    @Override
+    public Binding getBinding() {
+        return binding;
+    }
 
-    protected final ActivityComponent activityComponent() {
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (vm != null) vm.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (vm != null) vm.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (vm != null) vm.onStop();
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (vm != null) vm.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        if (vm != null) vm.onStarted();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (vm != null) vm.detachView();
+    }
+
+    @Override
+    public ActivityComponent getComponent() {
         if (mActivityComponent == null) {
             mActivityComponent = DaggerActivityComponent.builder()
                     .appComponent(DknbApplication.getAppComponent())
@@ -76,40 +121,18 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
         return mActivityComponent;
     }
 
-
-    public Binding getBinding() {
-        return binding;
+    @Override
+    public int getViewIndex() {
+        return 0;
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (vm != null) vm.onPause();
+    public ViewModel getVm() {
+        return vm;
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (vm != null) vm.onResume();
-    }
-
-//    @Override
-//    public Set<Model> addViewSet(View view) {
-//        Set<Model> set = new HashSet<>();
-//        BaseUtil.addViewSet(set, view);
-//        return set;
-//    }
-
 
     @Override
     public DataBindingActivity getDataActivity() {
         return this;
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (vm != null) vm.detachView();
-    }
-
 }
