@@ -23,7 +23,5 @@ public interface Event extends Parse{
     SparseArray<Event> eventSet = new SparseArray<>();
     void registerEvent();
     void unRegisterEvent();
-
     void onEvent(View view, MotionEvent motionEvent,Event event);
-
 }

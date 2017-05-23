@@ -10,6 +10,8 @@ import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * project：cutv_ningbo
  * description：
@@ -25,9 +27,14 @@ import java.util.List;
 
 public class ReflectUtil {
 
+
+
     public static List<Field> getAllFields(Class<?> aClass) {
         return getAllFields(aClass, null);
     }
+
+
+
 
     private static List<Field> getAllFields(Class<?> aClass, List<Field> fields) {
         if (fields == null) fields = new ArrayList<>();

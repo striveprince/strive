@@ -11,7 +11,7 @@ import rx.Observable;
  * description：
  * create developer： admin
  * create time：10:33
- * modify developer：  admin
+ * modify developer：  admin?
  * modify time：10:33
  * modify remark：
  *
@@ -19,5 +19,5 @@ import rx.Observable;
  */
 
 
-public interface CycleHttpContainer<R,Binding extends ViewDataBinding>  extends CycleContainer<Binding>,Http<R> {
+public interface CycleHttpContainer<R,Binding extends ViewDataBinding,T>  extends CycleContainer<Binding,T>,Http<R> {
 }

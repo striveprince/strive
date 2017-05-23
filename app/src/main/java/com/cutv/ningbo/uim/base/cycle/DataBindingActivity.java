@@ -66,7 +66,7 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
             Method method = ActivityComponent.class.getDeclaredMethod("inject", getClass());
             ReflectUtil.invoke(method, getComponent(), this);
         } catch (NoSuchMethodException e) {
-            Timber.e("name:"+getClass().getSimpleName()+"need to add @Method inject to ActivityComponent");
+            Timber.e("name:%1s need to add @Method inject to ActivityComponent",getClass().getSimpleName());
         }
     }
 

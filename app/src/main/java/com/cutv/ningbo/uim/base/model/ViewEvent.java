@@ -25,8 +25,9 @@ public class ViewEvent implements Event {
 
     @Override
     public void registerEvent() {
-        if(getModelView().event()!=0)
+        if(getModelView().event()!=0){
             eventSet.put(getModelView().event(), this);
+        }
     }
 
     /**

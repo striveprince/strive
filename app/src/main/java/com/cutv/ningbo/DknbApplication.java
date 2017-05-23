@@ -55,45 +55,24 @@ public class DknbApplication extends Application implements Application.Activity
 
 
     @Override
-    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        if (activity instanceof CycleContainer) {
-            CycleContainer cycleContainer = (CycleContainer) activity;
-            Object o = cycleContainer.getComponent();
-            if (o instanceof ActivityComponent) {
-                ActivityComponent mActivityComponent = (ActivityComponent) o;
-                try {
-                    Method method = ActivityComponent.class.getDeclaredMethod("inject", activity.getClass());
-                    ReflectUtil.invoke(method, mActivityComponent, activity);
-                } catch (NoSuchMethodException e) {
-                    Timber.e("name:"+activity.getClass().getSimpleName()+"need to add @Method inject to ActivityComponent");
-                }
-            }
-        }
-    }
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {}
 
 
     @Override
-    public void onActivityStarted(Activity activity) {
-    }
+    public void onActivityStarted(Activity activity) {}
 
     @Override
-    public void onActivityResumed(Activity activity) {
-
-    }
+    public void onActivityResumed(Activity activity) {}
 
     @Override
-    public void onActivityPaused(Activity activity) {
-    }
+    public void onActivityPaused(Activity activity) {}
 
     @Override
-    public void onActivityStopped(Activity activity) {
-    }
+    public void onActivityStopped(Activity activity) {}
 
     @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-    }
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {}
 
     @Override
-    public void onActivityDestroyed(Activity activity) {
-    }
+    public void onActivityDestroyed(Activity activity) {}
 }
