@@ -66,5 +66,4 @@ public class ViewEvent implements Event {
     public void onEvent(View view, MotionEvent motionEvent,Event event) {
 
     }
-
 }
