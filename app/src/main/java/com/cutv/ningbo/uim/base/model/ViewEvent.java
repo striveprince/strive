@@ -7,6 +7,8 @@ import com.cutv.ningbo.uim.base.BaseUtil;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.model.inter.Event;
 
+import static com.cutv.ningbo.uim.base.model.inter.Event.eventSet;
+
 /**
  * project：cutv_ningbo
  * description：
@@ -20,8 +22,7 @@ import com.cutv.ningbo.uim.base.model.inter.Event;
  */
 
 
-public class ViewEvent implements Event {
-    private transient ModelView modelView;
+public class ViewEvent extends ViewParse implements Event{
 
     @Override
     public void registerEvent() {
@@ -50,16 +51,6 @@ public class ViewEvent implements Event {
     @Override
     public void unRegisterEvent() {
         eventSet.remove(getModelView().event());
-    }
-
-    @Override
-    public ModelView getModelView() {
-        if (modelView == null) {
-            modelView = BaseUtil.findModelView(getClass());
-            if (modelView == null)
-                throw new RuntimeException("should to add @ModelView to the class:" + getClass());
-        }
-        return modelView;
     }
 
     @Override
