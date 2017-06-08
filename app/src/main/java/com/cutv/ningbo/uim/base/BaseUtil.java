@@ -39,32 +39,6 @@ import java.util.Set;
 
 public class BaseUtil {
 
-    /**
-     * @param set  the container of model
-     * @param view view
-     */
-    public static void addViewSet(Set<Model> set, View view) {
-        if (view instanceof Model) {
-            Model model = (Model) view;
-            ModelView modelView = model.getModelView();
-            if (modelView != null)
-                switch (modelView.cycle()) {
-                    case 0:return;
-                    case 1:set.add(model);
-                        return;
-                    case 2:set.add(model);
-                    case 3:if (view instanceof ViewGroup) {
-                            ViewGroup viewGroup = (ViewGroup) view;
-                            for (int index = 0; index < viewGroup.getChildCount(); index++) {
-                                View child = viewGroup.getChildAt(index);
-                                addViewSet(set, child);
-                            }
-                            break;
-                        }
-                }
-        }
-    }
-
     public static Class getSuperGenericType(Class clazz) {
         return getSuperGenericType(clazz, 0);
     }
@@ -92,12 +66,6 @@ public class BaseUtil {
         if (contentView == null) return findAdapterEntity(thisCls.getSuperclass());
         return contentView;
     }
-//    public static LifeCycle findLifeCycle(Class<?> thisCls) {
-//        if (thisCls == null) return null;
-//        LifeCycle contentView = thisCls.getAnnotation(LifeCycle.class);
-//        if (contentView == null) return findLifeCycle(thisCls.getSuperclass());
-//        return contentView;
-//    }
 
     public static ViewGroup.LayoutParams params(View view, boolean parent) {
         ViewGroup.LayoutParams params;

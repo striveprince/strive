@@ -3,6 +3,7 @@ package com.cutv.ningbo.uim.base.layout.model;
 import android.databinding.ObservableInt;
 import android.support.annotation.IdRes;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.RadioGroup;
 
 import com.cutv.ningbo.BR;
@@ -103,4 +104,5 @@ public class PagerModel<E extends ItemEvent>
     public void setRotate(boolean rotate) {
         this.rotate = rotate;
     }
+
 }

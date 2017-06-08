@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.cutv.ningbo.BR;
 import com.cutv.ningbo.R;
@@ -35,7 +36,7 @@ public class RecyclerModel<E extends Event> extends ViewArrayModel<E, IRecyclerA
     public final ObservableBoolean loading = new ObservableBoolean(false);
 
     public ObservableField<String> empty = new ObservableField<>("");
-    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = () -> onHttp(0, false);
+    private SwipeRefreshLayout.OnRefreshListener onRefreshListener = () -> onHttp(0, true);
     private LinearLayoutManager layoutManager;
     private DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
 
@@ -115,6 +116,11 @@ public class RecyclerModel<E extends Event> extends ViewArrayModel<E, IRecyclerA
 
     public DefaultItemAnimator getItemAnimator() {
         return itemAnimator;
+    }
+
+
+    public void onHttp(View view) {
+        onHttp(true);
     }
 }
 

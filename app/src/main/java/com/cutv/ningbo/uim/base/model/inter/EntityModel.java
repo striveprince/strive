@@ -1,5 +1,7 @@
 package com.cutv.ningbo.uim.base.model.inter;
 
+import android.view.View;
+
 import com.cutv.ningbo.uim.base.cycle.CycleContainer;
 
 /**

@@ -4,7 +4,9 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.view.View;
+import android.view.ViewGroup;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.cutv.ningbo.uim.base.BaseUtil;
 import com.cutv.ningbo.uim.base.annotation.ModelView;
 import com.cutv.ningbo.uim.base.cycle.CycleContainer;
@@ -39,7 +41,7 @@ public class ViewModel<T extends CycleContainer> extends ViewEntity implements E
     @Override
     public void attachView(T t, int model_index) {
         weakReference = new WeakReference<>(t);
-        t.getBinding().setVariable(getModelView().name()[model_index], this);
+        t.getBinding().setVariable(model_index < getModelView().name().length ? getModelView().name()[model_index] : BR.vm, this);
         registerEvent();
         set = addViewSet(t.getBinding().getRoot());
     }
@@ -110,7 +112,37 @@ public class ViewModel<T extends CycleContainer> extends ViewEntity implements E
 
     private Set<Model> addViewSet(View view) {
         Set<Model> set = new HashSet<>();
-        BaseUtil.addViewSet(set, view);
+        if(getModelView().cycle()>0)addViewSet(set, view);
         return set.size() > 0 ? set : null;
+    }
+
+    private void addViewSet(Set<Model> set, View view) {
+        if (view instanceof Model) {
+            Model model = (Model) view;
+            ModelView modelView = model.getModelView();
+            if (modelView != null)
+                switch (modelView.cycle()) {
+                    case 0:return;
+                    case 1:set.add(model);
+                        return;
+                    case 2:set.add(model);
+                    case 3:if (view instanceof ViewGroup) {
+                        ViewGroup viewGroup = (ViewGroup) view;
+                        for (int index = 0; index < viewGroup.getChildCount(); index++) {
+                            View child = viewGroup.getChildAt(index);
+                            addViewSet(set, child);
+                        }
+                        break;
+                    }
+                }
+        } else {
+            if (view instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) view;
+                for (int index = 0; index < viewGroup.getChildCount(); index++) {
+                    View child = viewGroup.getChildAt(index);
+                    addViewSet(set, child);
+                }
+            }
+        }
     }
 }

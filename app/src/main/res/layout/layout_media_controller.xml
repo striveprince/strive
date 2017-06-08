@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.cutv.ningbo.uim.base.layout.model.MediaControlModel" />
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:orientation="vertical">
+
+
+        <!--<com.dou361.ijkplayer.widget.IjkVideoView-->
+            <!--android:id="@+id/video_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+
+     <!--   <ImageView
+            android:id="@+id/iv_trumb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:visibility="@{TextUtils.isEmpty(vm.imageUrl)||vm.imageVis?View.GONE:View.VISIBLE}"
+            app:image="@{vm.imageUrl}" />
+
+        <LinearLayout
+            android:visibility="@{vm.show?View.VISIBLE:View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#CC000000"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:onClick="@{vm.onBackClick}"
+                    android:id="@+id/app_video_finish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    />
+                    &lt;!&ndash;android:src="@drawable/simple_player_chevron_left_white_36dp"&ndash;&gt;
+
+                <TextView
+                    android:text="@={vm.title}"
+                    android:id="@+id/app_video_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="marquee"
+                    android:padding="8dp"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
+            </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                &lt;!&ndash;加载中&ndash;&gt;
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:indeterminateBehavior="repeat"
+                        android:indeterminateOnly="true"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@={vm.notice ,default = @string/load}"
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/simple_player_btn"
+                        android:gravity="center"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="@string/please_continue"
+                        android:textColor="@android:color/white"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/app_video_replay_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/simple_player_circle_outline_white_36dp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                &lt;!&ndash; 中间触摸提示&ndash;&gt;
+                &lt;!&ndash; 声音&ndash;&gt;
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/simple_player_center_bg"
+                    android:drawableTop="@drawable/simple_player_volume_up_white_36dp"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:text="@={vm.setPercent}"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#A0000000"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dp"
+                    android:padding="4dp"
+                    android:visibility="@{vm.show?View.VISIBLE:View.GONE}">
+
+                    <RadioButton
+                        android:id="@+id/app_video_play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:button="@null"
+                        android:checked="@{vm.play}"
+                        android:drawableLeft="@drawable/ijk_media_play"
+                        android:drawableStart="@drawable/ijk_media_play"
+                        android:onClick="@{vm::onPlayClick}"
+                        android:padding="0dp" />
+
+                    <SeekBar
+                        android:id="@+id/app_video_seekBar"
+                        style="@style/SeekBarAppTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:max="1000"
+                        app:listener="@{vm}"
+                        android:layout_weight="1"
+                        android:progress="@{vm.progress}"
+                        android:secondaryProgress="@{vm.secondaryProgress}"
+                        android:visibility="@{vm.live?View.GONE:View.VISIBLE}" />
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:checked="@{vm.orientationChecked}"
+                        android:drawableLeft="@drawable/simple_player_icon_fullscreen_stretch"
+                        android:drawableStart="@drawable/simple_player_icon_fullscreen_stretch"
+                        android:onClick="@{vm::onOrientationClick}"
+                        android:padding="8dp" />
+                </LinearLayout>
+                <TextView
+                    android:padding="2dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="45dp"
+                    android:layout_marginRight="45dp"
+                    android:id="@+id/app_video_currentTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@={vm.textTime}"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:visibility="@{vm.live?View.GONE:View.VISIBLE}" />
+            </FrameLayout>
+        </LinearLayout>-->
+    </FrameLayout>
+</layout>

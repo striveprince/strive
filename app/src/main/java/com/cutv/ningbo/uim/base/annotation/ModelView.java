@@ -26,8 +26,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModelView {
     @LayoutRes int[] value();
-    int[] name() default {BR.vm};
-    int event() default 0;
+    int[] name() default {};
+    int[] event() default {};
     int cycle() default 0;
-    String uri() default "";
 }

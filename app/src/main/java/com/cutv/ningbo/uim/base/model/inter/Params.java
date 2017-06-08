@@ -15,7 +15,6 @@ import android.view.ViewGroup;
  * @version 2.0
  */
 
-
 public interface Params extends Event{
     /**
      * @param view view
