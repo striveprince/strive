@@ -10,7 +10,8 @@ import com.android.databinding.library.baseAdapters.BR;
 import com.read.group.base.annotation.ModelView;
 import com.read.group.base.cycle.CycleContainer;
 import com.read.group.base.cycle.DataBindingActivity;
-import com.read.group.base.model.inter.EntityModel;
+import com.read.group.base.model.inter.Event;
+import com.read.group.base.model.inter.EventModel;
 import com.read.group.base.model.inter.Model;
 
 import java.lang.ref.WeakReference;
@@ -32,9 +33,10 @@ import timber.log.Timber;
  * @version 2.0
  */
 
-public class ViewModel<T extends CycleContainer> extends ViewEntity implements EntityModel<T> {
+public class ViewModel<T extends CycleContainer> extends ViewEvent implements EventModel<T> {
     private transient WeakReference<T> weakReference;
     private transient Set<Model> set;
+//    private int eventId = 0;
 
     @CallSuper
     @Override
@@ -43,6 +45,14 @@ public class ViewModel<T extends CycleContainer> extends ViewEntity implements E
         t.getBinding().setVariable(model_index < getModelView().name().length ? getModelView().name()[model_index] : BR.vm, this);
         registerEvent();
         set = addViewSet(t.getBinding().getRoot());
+//        eventId = getModelView().event()[model_index];
+    }
+
+    @Override
+    public void event(int eventId, View view,Object...args) {
+        Event event = eventSet.get(eventId);
+        if (event != null) event.onEvent(view, this,args);
+//        else resumeSet.put(eventId,new Entity(this,view,args));
     }
 
     @Override
@@ -58,6 +68,8 @@ public class ViewModel<T extends CycleContainer> extends ViewEntity implements E
     @Override
     public void onResume() {
         if (set != null) for (Model model : set) model.onResume();
+//        Entity entity = resumeSet.get(eventId);
+//        if(entity!=null) event(eventId,entity.getView(),entity.getArgs());
     }
 
     @CallSuper

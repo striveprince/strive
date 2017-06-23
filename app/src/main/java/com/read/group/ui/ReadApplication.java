@@ -1,4 +1,4 @@
-package com.read.group;
+package com.read.group.ui;
 
 import android.app.Application;
 

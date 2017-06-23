@@ -13,5 +13,5 @@ package com.read.group.base.model.inter;
  */
 
 
-public interface ItemEvent<Holder,T> extends Item<Holder,T> {
+public interface ItemEvent<Holder,T> extends Item<Holder,T>,Params {
 }

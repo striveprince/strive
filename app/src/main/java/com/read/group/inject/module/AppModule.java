@@ -3,8 +3,7 @@ package com.read.group.inject.module;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.read.group.ReadApplication;
-import com.read.group.data.save.SharePreferenceUtil;
+import com.read.group.ui.ReadApplication;
 import com.read.group.inject.qualifier.context.AppContext;
 import com.read.group.inject.scope.ApplicationScope;
 

@@ -3,6 +3,8 @@ package com.read.group.base.model.inter;
 import android.util.SparseArray;
 import android.view.View;
 
+
+
 /**
  * project：cutv_ningbo
  * description：
@@ -31,7 +33,9 @@ import android.view.View;
 
 public interface Event extends Parse {
     SparseArray<Event> eventSet = new SparseArray<>();
+//    SparseArray<Entity> resumeSet = new SparseArray<>();
     void registerEvent();
     void unRegisterEvent();
-    void onEvent(View view, Event event);
+    void onEvent(View view, Event event,Object... args);
+
 }

@@ -1,17 +1,19 @@
 package com.read.group.base.model.inter;
 
+import com.read.group.base.cycle.CycleContainer;
+
 /**
  * project：cutv_ningbo
  * description：
  * create developer： admin
- * create time：13:05
+ * create time：12:49
  * modify developer：  admin
- * modify time：13:05
+ * modify time：12:49
  * modify remark：
  *
  * @version 2.0
  */
 
 
-public interface ItemEntity<Holder,T> extends Item<Holder,T>,Entity,Params {
+public interface EventModel<C extends CycleContainer> extends Model<C>, Event {
 }

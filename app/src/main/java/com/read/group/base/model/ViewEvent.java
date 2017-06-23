@@ -39,9 +39,9 @@ public class ViewEvent extends ViewParse implements Event {
         }
     }
 
-    public void event(int eventId, View view) {
+    public void event(int eventId, View view,Object... args) {
         Event event = eventSet.get(eventId);
-        if (event != null) event.onEvent(view, this);
+        if (event != null) event.onEvent(view, this,args);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ViewEvent extends ViewParse implements Event {
     }
 
     @Override
-    public void onEvent(View view, Event event) {
+    public void onEvent(View view, Event event,Object... args) {
 
     }
 }

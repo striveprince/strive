@@ -3,8 +3,8 @@ package com.read.group.base.model;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.read.group.base.model.inter.Item;
 import com.read.group.base.util.BaseUtil;
-import com.read.group.base.model.inter.ItemEntity;
 
 /**
  * project：cutv_ningbo
@@ -19,7 +19,7 @@ import com.read.group.base.model.inter.ItemEntity;
  */
 
 
-public abstract class ViewItemEntity extends ViewEntity implements ItemEntity {
+public abstract class ViewItemEntity extends ViewEvent implements Item {
 
     @Override
     public ViewGroup.LayoutParams params(View view, boolean parent) {

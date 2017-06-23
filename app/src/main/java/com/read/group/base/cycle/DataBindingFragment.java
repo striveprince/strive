@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.read.group.ReadApplication;
+import com.read.group.ui.ReadApplication;
 import com.read.group.inject.component.DaggerFragmentComponent;
 import com.read.group.inject.component.FragmentComponent;
 import com.read.group.inject.module.FragmentModule;
@@ -56,7 +56,7 @@ public abstract class DataBindingFragment<VM extends ViewModel, Binding extends 
                 binding = DataBindingUtil.inflate(inflater,viewId,container,false);
                 vm.attachView(this,index);
             } else {
-                throw new RuntimeException("please use @ModelView at EntityModel Item");
+                throw new RuntimeException("please use @ModelView at EventModel Item");
             }
             return binding.getRoot();
         }
