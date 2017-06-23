@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="com.cutv.ningbo.uim.base.layout.model.MediaControlModel" />
+            type="com.read.group.base.layout.model.MediaControlModel" />
     </data>
 
 

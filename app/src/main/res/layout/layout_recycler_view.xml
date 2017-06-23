@@ -5,7 +5,7 @@
         <import type="android.view.View"/>
         <variable
             name="layout"
-            type="com.cutv.ningbo.uim.base.layout.model.RecyclerModel"/>
+            type="com.read.group.base.layout.model.RecyclerModel"/>
     </data>
     <FrameLayout
         android:id="@+id/frame_layout"

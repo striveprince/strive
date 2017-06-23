@@ -1,0 +1,20 @@
+package com.read.group.base.model.inter;
+
+import com.read.group.base.annotation.ModelView;
+
+/**
+ * project：cutv_ningbo
+ * description：
+ * create developer： admin
+ * create time：10:22
+ * modify developer：  admin
+ * modify time：10:22
+ * modify remark：
+ *
+ * @version 2.0
+ */
+
+
+public interface Parse {
+    ModelView getModelView();
+}

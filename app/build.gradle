@@ -10,7 +10,7 @@ android {
         enabled = true
     }
     defaultConfig {
-        applicationId "com.cutv.ningbo"
+        applicationId "com.read.group"
         minSdkVersion 11
         targetSdkVersion 25
         versionCode 1
