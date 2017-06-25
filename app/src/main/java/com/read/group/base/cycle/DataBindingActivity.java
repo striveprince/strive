@@ -41,6 +41,7 @@ public abstract class DataBindingActivity<VM extends ViewModel, Binding extends 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        getWindow().
         super.onCreate(savedInstanceState);
         inject();
         ModelView modelView = vm.getModelView();
