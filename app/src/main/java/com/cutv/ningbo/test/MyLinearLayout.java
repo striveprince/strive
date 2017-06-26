@@ -36,8 +36,9 @@ public class MyLinearLayout extends LinearLayout{
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        boolean b = super.dispatchTouchEvent(ev);
         Timber.i("MyLinearLayout: dispatchTouchEvent MotionEvent:%1s",Util.getAction(ev));
-        return super.dispatchTouchEvent(ev);
+        return b;
     }
 
     @Override

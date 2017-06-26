@@ -45,8 +45,9 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        Timber.i("TestActivity: dispatchTouchEvent--MotionEvent:%1s", Util.getAction(event));
-        return super.dispatchTouchEvent(event);
+        boolean b = super.dispatchTouchEvent(event);
+        Timber.i("TestActivity: dispatchTouchEvent--MotionEvent:%1s --return:%1b", Util.getAction(event),b);
+        return b;
     }
 
     @Override

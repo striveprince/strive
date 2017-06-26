@@ -38,8 +38,9 @@ public class MyView extends View  {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
+        boolean b = super.dispatchTouchEvent(event);
         Timber.i("MyView: dispatchTouchEvent MotionEvent:%1s",Util.getAction(event));
-        return super.dispatchTouchEvent(event);
+        return b;
     }
 
     @Override
