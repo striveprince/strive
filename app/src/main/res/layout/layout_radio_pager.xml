@@ -8,7 +8,7 @@
             type="com.read.group.base.layout.model.PagerModel"/>
     </data>
 
-    <RelativeLayout
+    <merge
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,11 +23,9 @@
             app:checked="@{layout}"
             app:checkedPosition="@{layout.position}"
             android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
             android:layout_marginBottom="6dp"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="20dp"/>
-    </RelativeLayout>
+    </merge>
 </layout>
