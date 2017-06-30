@@ -56,6 +56,8 @@ public class DataArrayLayout<E extends Event, Binding extends ViewDataBinding> e
      *                     <flag name="frame" value="0x20" />
      *                     <flag name="gallery" value="0x30" />
      *                     <flag name="flow" value="0x40" />
+     *                     <flag name="list" value="0x50" />
+     *                     <flag name="grid" value="0x60" />
      */
     @Override
     public void init(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {

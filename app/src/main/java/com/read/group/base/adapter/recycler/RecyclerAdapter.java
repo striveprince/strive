@@ -66,8 +66,7 @@ public class RecyclerAdapter<E extends Event>
 
     @Override
     public int getItemCount() {
-        boolean flag = count < list.size() && count != 0;
-        return flag ? count : list.size();
+        return count==0||count>list.size()?list.size():count;
     }
 
     @Override
@@ -119,6 +118,7 @@ public class RecyclerAdapter<E extends Event>
        this.count = count;
     }
 
+    @Override
     public void setLayoutId(@LayoutRes int layoutId) {
         this.layoutId = layoutId;
     }
@@ -133,8 +133,8 @@ public class RecyclerAdapter<E extends Event>
         return getItemCount();
     }
 
-    @Override
-    public void modelView(int index, Event layoutModel, int type) {
-        throw new RuntimeException("can't add header or footer,please use RecyclerAdapter1 to add header or footer");
-    }
+//    @Override
+//    public void modelView(int index, Event layoutModel, int type) {
+//        throw new RuntimeException("can't add header or footer,please use RecyclerAdapter1 to add header or footer");
+//    }
 }

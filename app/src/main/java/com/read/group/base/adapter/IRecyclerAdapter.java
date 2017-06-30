@@ -17,7 +17,6 @@ import com.read.group.base.model.inter.Event;
  */
 
 public interface IRecyclerAdapter<E extends Event> extends IModelAdapter<E> {
-    void modelView(int index, Event layoutModel, int type);
 
     void setLayoutId(@LayoutRes int layoutId);
 }

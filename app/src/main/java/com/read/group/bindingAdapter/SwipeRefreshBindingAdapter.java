@@ -26,9 +26,6 @@ import com.read.group.R;
         @InverseBindingMethod(type = SwipeRefreshLayout.class, attribute = "refreshing", event = "refreshingAttrChanged", method = "isRefreshing")
 })
 public class SwipeRefreshBindingAdapter {
-
-
-
     @BindingAdapter({"refreshing"})
     public static void setRefreshing(SwipeRefreshLayout view, boolean refreshing) {
         if (refreshing != view.isRefreshing()) {

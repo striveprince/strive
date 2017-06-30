@@ -7,7 +7,7 @@
             name="layout"
             type="com.read.group.base.layout.model.RecyclerModel"/>
     </data>
-    <FrameLayout
+    <merge
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -44,5 +44,5 @@
                 android:onClick="@{layout.onHttp}"
                 android:text="@={layout.empty}" />
         </FrameLayout>
-    </FrameLayout>
+    </merge>
 </layout>

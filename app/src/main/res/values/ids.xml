@@ -7,4 +7,5 @@
     <!--<item name="main_video" type="id" />-->
     <!--<item name="radioButton6" type="id" />-->
     <!--<item name="radioButton7" type="id" />-->
+    <item name="holder_list" type="id"/>
 </resources>

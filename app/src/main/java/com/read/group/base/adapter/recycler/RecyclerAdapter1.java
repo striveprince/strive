@@ -214,17 +214,17 @@ public class RecyclerAdapter1<E extends Event> extends RecyclerView.Adapter impl
         adapter.setLayoutId(layoutId);
     }
 
-    public void setClass(Class c, int layoutIndex) {
-        setLayoutId(BaseUtil.getLayoutId(layoutIndex, c));
-    }
+//    public void setClass(Class c, int layoutIndex) {
+//        setLayoutId(BaseUtil.getLayoutId(layoutIndex, c));
+//    }
 
     @Override
     public int size() {
         return getRealItemCount();
     }
-
-    @Override
-    public void modelView(int index, Event layoutModel, int type) {
-
-    }
+//
+//    @Override
+//    public void modelView(int index, Event layoutModel, int type) {
+//
+//    }
 }

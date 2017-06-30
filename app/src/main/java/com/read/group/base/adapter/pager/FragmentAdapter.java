@@ -1,10 +1,11 @@
-package com.read.group.base.adapter;
+package com.read.group.base.adapter.pager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.View;
 
+import com.read.group.base.adapter.ILayoutAdapter;
 import com.read.group.base.model.inter.ItemEvent;
 
 import java.util.ArrayList;

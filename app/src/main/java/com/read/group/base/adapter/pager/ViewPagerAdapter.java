@@ -1,8 +1,9 @@
-package com.read.group.base.adapter;
+package com.read.group.base.adapter.pager;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 
+import com.read.group.base.adapter.ILayoutAdapter;
 import com.read.group.base.model.inter.ItemEvent;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class ViewPagerAdapter<E extends ItemEvent> extends PagerAdapter implemen
 
     @Override
     public int getCount() {
-        return count;
+        return count==0?list.size():count;
     }
 
     @Override

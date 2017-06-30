@@ -37,4 +37,6 @@ public interface IModelAdapter<E extends Event> {
 //    void checkLastPosition(E i);
     List<E> getList();
     int size();
+
+
 }
