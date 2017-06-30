@@ -6,7 +6,7 @@
         <item
             android:id="@+id/message"
             android:checked="true"
-            android:icon="@mipmap/ic_zhankai"
             android:title="@string/navigation"/>
+            <!--android:icon="@mipmap/ic_zhankai"-->
     </group>
 </menu>
