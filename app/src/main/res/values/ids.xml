@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="holder_list" type="id"/>
     <!--<item name="main_home" type="id" />-->
     <!--<item name="main_news" type="id" />-->
     <!--<item name="main_mall" type="id" />-->
@@ -7,5 +8,4 @@
     <!--<item name="main_video" type="id" />-->
     <!--<item name="radioButton6" type="id" />-->
     <!--<item name="radioButton7" type="id" />-->
-    <item name="holder_list" type="id"/>
 </resources>

@@ -8,6 +8,7 @@
                 android:color="#ffd0ebf9" />-->
         </shape>
     </item>
+
     <item>
         <shape
             android:padding="10.0dip"
@@ -26,4 +27,5 @@
                 android:topRightRadius="20.0dip" />-->
         </shape>
     </item>
+
 </layer-list>

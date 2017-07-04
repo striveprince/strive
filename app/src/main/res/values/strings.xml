@@ -43,6 +43,7 @@
     <string name="you_have_no_award">你暂时没有任何%1$s奖品</string>
     <string name="activity_describe">活动说明</string>
     <string name="mobile_phone">手机号码</string>
+    <string name="password">密码</string>
     <string name="choice">选取标签&#8230;</string>
     <string name="error_data">当前数据获取失败,点击重试!</string>
     <string name="lotdata">当前数据获取失败,点击重试!当前数据获取失败,
@@ -130,4 +131,27 @@
     <string name="skip">跳过%2d</string>
     <string name="skip_start">跳过</string>
     <string name="show_share_title">人人都能是明星，秀出你风采就在-点看宁波全民秀</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

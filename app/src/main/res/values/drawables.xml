@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item type="drawable" name="transparent">#00000000</item>
-    <item type="drawable" name="seleted">#90f0f0f0</item>
-    <item type="drawable" name="grey_press">#ffeeeeee</item>
-    <item type="drawable" name="white">#ffffffff</item>
-</resources>

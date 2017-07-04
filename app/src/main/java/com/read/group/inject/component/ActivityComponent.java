@@ -24,6 +24,6 @@ public interface ActivityComponent {
     void inject(HomeActivity activity);
 //    void inject(MainActivity activity);
 //    void inject(DetailActivity activity);
-//    void inject(LoginActivity activity);
+//    void inject(LoginActivity1 activity);
 //    void inject(StartActivity activity);
 }
