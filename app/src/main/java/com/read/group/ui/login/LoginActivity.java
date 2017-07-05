@@ -32,7 +32,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.read.group.R;
+import com.read.group.base.Router;
 import com.read.group.base.cycle.DataBindingActivity;
 import com.read.group.databinding.ActivityLoginBinding;
 
@@ -41,6 +43,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
+@Route(path = Router.login)
 public class LoginActivity extends DataBindingActivity<LoginModel,ActivityLoginBinding> implements LoaderCallbacks<Cursor> {
 
     /**
@@ -248,19 +251,22 @@ public class LoginActivity extends DataBindingActivity<LoginModel,ActivityLoginB
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
-                  // Retrieve data rows for the device user's 'profile' contact.
-                  Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                            ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
+        if (VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            return new CursorLoader(this,
+                      // Retrieve data rows for the device user's 'profile' contact.
+                      Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
+                                ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
 
-                  // Select only email addresses.
-                  ContactsContract.Contacts.Data.MIMETYPE +
-                            " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-                  .CONTENT_ITEM_TYPE},
+                      // Select only email addresses.
+                      ContactsContract.Contacts.Data.MIMETYPE +
+                                " = ?", new String[]{ContactsContract.CommonDataKinds.Email
+                      .CONTENT_ITEM_TYPE},
 
-                  // Show primary email addresses first. Note that there won't be
-                  // a primary email address if the user hasn't specified one.
-                  ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+                      // Show primary email addresses first. Note that there won't be
+                      // a primary email address if the user hasn't specified one.
+                      ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+        }
+        return new CursorLoader(this);
     }
 
     @Override

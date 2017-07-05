@@ -133,6 +133,8 @@
     <string name="show_share_title">人人都能是明星，秀出你风采就在-点看宁波全民秀</string>
     <string name="title_activity_login">Sign in</string>
 
+
+    <string name="register">注册</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

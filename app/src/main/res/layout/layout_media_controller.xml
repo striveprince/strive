@@ -7,7 +7,7 @@
         <import type="android.view.View" />
 
         <variable
-            name="vm"
+            name="layout"
             type="com.read.group.base.layout.model.MediaControlModel" />
     </data>
 

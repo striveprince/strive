@@ -1,3 +1,16 @@
+import org.aspectj.bridge.IMessage
+import org.aspectj.bridge.MessageHandler
+import org.aspectj.tools.ajc.Main
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.aspectj:aspectjtools:1.8.9'
+        classpath 'org.aspectj:aspectjweaver:1.8.9'
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
@@ -11,11 +24,17 @@ android {
     }
     defaultConfig {
         applicationId "com.read.group"
-        minSdkVersion 11
+        minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
     }
     buildTypes {
         release {
@@ -34,16 +53,17 @@ android {
     }
 }
 
+
 retrolambda {
 }
 
 ext.supportLibVersion = '25.3.1'
 dependencies {
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile "com.android.support:design:${supportLibVersion}"
-
 
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'io.reactivex:rxjava:1.1.8'
@@ -59,12 +79,59 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.alibaba:arouter-api:1.2.1.1'
+    compile 'com.alibaba:arouter-compiler:1.1.2.1'
+//    compile 'com.alibaba:arouter-api:1.0.3'
+//    compile 'com.alibaba:arouter-compiler:1.0.3'
+    compile 'org.aspectj:aspectjrt:1.8.9'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.9.5'
     testCompile 'org.powermock:powermock-module-junit4:1.6.5'
     testCompile 'org.powermock:powermock-module-junit4-rule:1.6.5'
     testCompile 'org.powermock:powermock-api-mockito:1.6.5'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.6'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.0.3'
 }
 
-//    compile 'com.orhanobut:logger:1.15'
+final def log = project.logger
+final def variants = project.android.applicationVariants
+
+variants.all { variant ->
+    if (!variant.buildType.isDebuggable()) {
+        log.debug("Skipping non-debuggable build type '${variant.buildType.name}'.")
+        return;
+    }
+
+    JavaCompile javaCompile = variant.javaCompile
+    javaCompile.doLast {
+        String[] args = ["-showWeaveInfo",
+                         "-1.8",
+                         "-inpath", javaCompile.destinationDir.toString(),
+                         "-aspectpath", javaCompile.classpath.asPath,
+                         "-d", javaCompile.destinationDir.toString(),
+                         "-classpath", javaCompile.classpath.asPath,
+                         "-bootclasspath", project.android.bootClasspath.join(File.pathSeparator)]
+        log.debug "ajc args: " + Arrays.toString(args)
+
+        MessageHandler handler = new MessageHandler(true);
+        new Main().run(args, handler);
+        for (IMessage message : handler.getMessages(null, true)) {
+            switch (message.getKind()) {
+                case IMessage.ABORT:
+                case IMessage.ERROR:
+                case IMessage.FAIL:
+                    log.error message.message, message.thrown
+                    break;
+                case IMessage.WARNING:
+                    log.warn message.message, message.thrown
+                    break;
+                case IMessage.INFO:
+                    log.info message.message, message.thrown
+                    break;
+                case IMessage.DEBUG:
+                    log.debug message.message, message.thrown
+                    break;
+            }
+        }
+    }
+}
