@@ -5,6 +5,7 @@ import android.content.res.Resources;
 
 import com.read.group.data.api.LiveApi;
 import com.read.group.data.api.NbtvApi;
+import com.read.group.data.api.ReadApi;
 import com.read.group.data.api.ShakeApi;
 import com.read.group.data.api.TopicApi;
 import com.read.group.data.api.UserApi;
@@ -41,6 +42,7 @@ public interface AppComponent {
     NbtvApi getNbtvApi();
     ShakeApi getShakeApi();
     LiveApi getLiveApi();
+    ReadApi getReadApi();
 
     @NingSharePreference
     SharePreferenceUtil NingUtil();

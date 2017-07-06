@@ -26,6 +26,7 @@
     <string name="forget_password">忘记密码</string>
     <string name="commit">提&#160;&#160;&#160;交</string>
     <string name="send">发送</string>
+    <string name="send_sms_code">发送验证码</string>
     <string name="confirm_order">确认支付</string>
     <string name="modify">修改</string>
     <string name="finish_info">完善个人资料</string>

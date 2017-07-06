@@ -3,6 +3,7 @@ package com.read.group.inject.module;
 import com.read.group.BuildConfig;
 import com.read.group.data.api.LiveApi;
 import com.read.group.data.api.NbtvApi;
+import com.read.group.data.api.ReadApi;
 import com.read.group.data.api.ShakeApi;
 import com.read.group.data.api.TopicApi;
 import com.read.group.data.api.UserApi;
@@ -56,6 +57,22 @@ public class NetWorkModule {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .callFactory(client)
                 .build().create(UserApi.class);
+    }
+
+    @Provides
+    @ApplicationScope
+    ReadApi provideReadApi(OkHttpClient okHttpClient, UserInterceptor userInterceptor) {
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = okHttpClient.newBuilder()
+//                .addInterceptor(interceptor)
+                .addInterceptor(userInterceptor).build();
+        return new Retrofit.Builder()
+                .baseUrl(USERURL)
+                .addConverterFactory(JsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .callFactory(client)
+                .build().create(ReadApi.class);
     }
     @Provides
     @ApplicationScope
