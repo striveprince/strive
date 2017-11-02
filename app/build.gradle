@@ -1,9 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.0"
 
 
     dataBinding {
@@ -11,8 +10,8 @@ android {
     }
     defaultConfig {
         applicationId "com.cutv.ningbo"
-        minSdkVersion 11
-        targetSdkVersion 25
+        minSdkVersion 15
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -24,7 +23,7 @@ android {
     }
 
     testOptions{
-        unitTests.returnDefaultValues = true;
+        unitTests.returnDefaultValues = true
     }
 
     compileOptions {
@@ -33,16 +32,13 @@ android {
     }
 }
 
-retrolambda {
-}
 
-ext.supportLibVersion = '25.3.1'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:${supportLibVersion}"
-    compile "com.android.support:recyclerview-v7:${supportLibVersion}"
-    compile "com.android.support:design:${supportLibVersion}"
+    compile "com.android.support:appcompat-v7:${support_version}"
+    compile "com.android.support:recyclerview-v7:${support_version}"
+    compile "com.android.support:design:${support_version}"
 
     compile 'io.reactivex:rxjava:1.1.8'
     compile 'io.reactivex:rxandroid:1.2.1'

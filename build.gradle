@@ -3,10 +3,13 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
+
+
     dependencies {
 
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:3.0.0'
         classpath "io.realm:realm-gradle-plugin:1.2.0"
         classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -15,10 +18,17 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-
+ext{
+    compile_sdk_version = 27
+    build_tools_version = '27.0.0'
+    support_version = '27.0.0'
+    min_sdk_version = 15
+    target_sdk_version = 27
+}
 allprojects {
     repositories {
         jcenter()
+        google()
     }
 }
 
